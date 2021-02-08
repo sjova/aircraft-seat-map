@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { StartComponent } from '@app/app/components/start/start.component';
 import { PageNotFoundComponent } from '@app/app/components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'start',
+    redirectTo: 'demo',
   },
   {
-    path: 'start',
-    component: StartComponent,
+    path: 'demo',
+    loadChildren: () =>
+      import('../aircraft-seat-map/aircraft-seat-map.module').then(
+        (m) => m.AircraftSeatMapModule
+      ),
   },
   {
     path: 'page-not-found',

@@ -4,6 +4,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "@app/aircraft-seat-map/*": ["src/aircraft-seat-map/*"],
       "@app/app/*": ["src/app/*"],
       "@app/assets/*": ["src/assets/*"],
       "@app/environments/*": ["src/environments/*"]
