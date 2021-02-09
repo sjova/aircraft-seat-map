@@ -48,3 +48,6 @@ Thumbs.db
 # Firebase
 .firebase
 firebase-debug.log
+
+# MrOrange
+src/environments/environment.mrorange.ts
