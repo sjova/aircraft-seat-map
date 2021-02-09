@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "aircraft-seat-map": {
+      "hosting": {
+        "aircraft-seat-map": [
+          "aircraft-seat-map"
+        ]
+      }
+    }
+  }
+}
