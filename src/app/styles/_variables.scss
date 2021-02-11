@@ -1,0 +1,92 @@
+// Fonts
+$primary-font: "roboto";
+$secondary-font: "basic-sans-alt";
+$primary-font-alt: "roboto-condensed";
+
+// Primary colors
+$color-primary-highlight: #8ad64a;
+$color-primary: #00c446;
+$color-primary-muted: #00b054;
+$color-secondary-highlight: #334fa8;
+$color-secondary: #213e94;
+$color-secondary-muted: #05296f;
+$color-tertiary-highlight: #ff7852;
+$color-tertiary: #ff5736;
+$color-tertiary-muted: #f74433;
+$color-white: #fff;
+
+// Secondary colors
+$color-bg-blue: #8fd4ff;
+$color-bg-blue-light: #e8f2ff;
+$color-bg-green: #d0ffd4;
+$color-bg-green-light: #ebffed;
+$color-bg-yellow: #ffde70;
+$color-bg-beige: #ffdec9;
+$color-bg-tan: #fff2e8;
+$color-bg-gray-dark: #b3b5b8;
+$color-bg-gray: #e2e3e4;
+$color-bg-gray-light: #f2ede8;
+$light-bg: #f5f5f5;
+
+// Text colors
+$color-text-dark: #212121;
+$color-text-light: #424242;
+$color-text-lightest: #8e9195;
+$color-shadow-black: rgba(0, 0, 0, 0.12);
+
+// Input field sizes
+$input-gutters--TopBottom: 11px;
+$input-gutters--LeftRight: 14px;
+$input-borderRadius: 4px;
+$input-labelGutter: 4px;
+$input-height: 40px;
+$input-height-lg: 54px;
+$input-fontSize: 14px;
+$input-rowMarginBottom: 28px;
+$input-width: 398px;
+$input-min-width: 222px;
+$input-iconSize: 22px;
+
+// Text sizes
+$font-size-xxl: 32px;
+$font-size-xl: 22px;
+$font-size-l: 18px;
+$font-size-m: 14px;
+$font-size-s: 12px;
+
+// Line heights
+$line-height-xxl: 36px;
+$line-height-xl: 26px;
+$line-height-l: 22px;
+$line-height-m: 19px;
+$line-height-s: 16px;
+
+// --- Media Query Screens --- //
+
+$screen-tn: 359.99px; // 0px-359.99px (legacy deprecated)
+$screen-xs: 599.99px; // 360px-599.99px (mobile default)
+$screen-sm: 959.99px; // 600px-959.99px
+$screen-md: 1279.99px; // 960px-1279.99px
+$screen-lg: 1919.99px; // 1280px-1919.99px (desktop default)
+$screen-xl: 4999.99px; // 1920px-4999.99px
+
+// --- Media Query Breakpoints --- //
+
+$breakpoints: (
+  tn: $screen-tn,
+  xs: $screen-xs,
+  sm: $screen-sm,
+  md: $screen-md,
+  lg: $screen-lg,
+  xl: $screen-xl,
+);
+
+// --- Spacers --- //
+
+$spacing-0: 0;
+$spacing-1: 4px;
+$spacing-2: 8px;
+$spacing-3: 16px;
+$spacing-4: 24px;
+$spacing-5: 32px;
+$spacing-6: 48px;

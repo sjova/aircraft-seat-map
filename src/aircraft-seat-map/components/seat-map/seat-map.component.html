@@ -1,1 +1,33 @@
-<p>seat-map works!</p>
+<!--<h3>Seat Map</h3>-->
+
+<!--<code>
+  <pre>{{ flightSeatMap | json }}</pre>
+  <pre>{{ seatMap.cabins | json }}</pre>
+</code>-->
+
+<div class="aircraft">
+  <div class="cabins-wrapper">
+    <div *ngFor="let cabin of seatMap.cabins" class="cabin">
+      <!--<pre>{{ cabin | json }}</pre>-->
+      <!--<h4>{{ cabin.type }}</h4>-->
+      <!--<h5>{{ cabin.deck }}</h5>-->
+      <div *ngFor="let row of cabin.rows" class="row">
+        <!--<pre>{{ row | json }}</pre>-->
+        <ng-container *ngFor="let seat of row.items">
+          <!--<pre>{{ seat | json }}</pre>-->
+          <div
+            class="aisle"
+            *ngIf="seat.type === 'Aisle'; else seatTemplate"
+          ></div>
+          <ng-template #seatTemplate>
+            <div class="seat">
+              <div class="seat-text-wrapper">
+                <div>{{ seat.rowNumber }}{{ seat.code }}</div>
+              </div>
+            </div>
+          </ng-template>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,2 +1,6 @@
-<app-seat-map></app-seat-map>
-<pre>{{ flightSeatMap$ | async | json }}</pre>
+<ng-container *ngIf="flightSeatMap$ | async as flightSeatMap; else loading">
+  <app-seat-map [flightSeatMap]="flightSeatMap"></app-seat-map>
+</ng-container>
+<ng-template #loading>
+  <p>Loading...</p>
+</ng-template>

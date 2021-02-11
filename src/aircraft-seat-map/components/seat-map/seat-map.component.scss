@@ -1,0 +1,51 @@
+@import "~src/app/styles/variables";
+
+:host {
+  display: block;
+
+  .aircraft {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+
+  .cabins-wrapper {
+    background-color: $light-bg;
+  }
+
+  .row {
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 4px 3px;
+  }
+
+  .seat {
+    flex: 1;
+    box-sizing: border-box;
+    height: 48px;
+    width: 48px;
+    border: 1px solid $color-secondary;
+    border-radius: 16px;
+    margin: 7px 4px;
+
+    .seat-text-wrapper {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+      height: 48px;
+      width: 48px;
+    }
+  }
+
+  .aisle {
+    flex: 1;
+    box-sizing: border-box;
+    width: 28px;
+    height: 48px;
+    margin: 7px 4px;
+  }
+}

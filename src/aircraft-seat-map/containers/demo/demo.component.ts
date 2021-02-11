@@ -16,6 +16,9 @@ export class DemoComponent implements OnInit {
   constructor(private flightSeatMapService: FlightSeatMapService) {}
 
   ngOnInit(): void {
-    this.flightSeatMap$ = this.flightSeatMapService.getFlightSeatMap();
+    // TODO: Revisit CORS issues and setup
+    // this.flightSeatMap$ = this.flightSeatMapService.getFlightSeatMap();
+
+    this.flightSeatMap$ = this.flightSeatMapService.getFlightSeatMapMock();
   }
 }

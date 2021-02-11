@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  FlightSeatMap,
+  FlightSeatMapResponse,
+} from '@app/aircraft-seat-map/shared/models/flight-seat-map-response';
 
 @Component({
   selector: 'app-seat-map',
@@ -7,9 +16,18 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SeatMapComponent implements OnInit {
+  @Input() flightSeatMap: FlightSeatMapResponse;
+
+  seatMap: FlightSeatMap;
+
   constructor() {}
 
   ngOnInit(): void {
-    console.log('SeatMapComponent.ngOnInit');
+    this.prepareRawFlightSeatMapData();
+  }
+
+  private prepareRawFlightSeatMapData() {
+    const [firstItem] = this.flightSeatMap.items;
+    this.seatMap = firstItem.seatMap;
   }
 }
