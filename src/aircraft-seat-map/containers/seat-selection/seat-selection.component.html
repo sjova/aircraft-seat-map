@@ -1,0 +1,43 @@
+<ng-container *ngIf="flightSeatMap$ | async as flightSeatMap; else loading">
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Select Flight</mat-label>
+      <mat-select [(ngModel)]="selectedFlight" name="food">
+        <mat-option *ngFor="let flight of flights" [value]="flight.value">
+          {{ flight.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Select Traveler</mat-label>
+      <mat-select [(ngModel)]="selectedTraveler" name="food">
+        <mat-option *ngFor="let traveler of travelers" [value]="traveler.value">
+          {{ traveler.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <app-seat-map
+    [flightSeatMap]="flightSeatMap"
+    [flight]="selectedFlight"
+    [traveler]="selectedTraveler"
+  ></app-seat-map>
+
+  <button mat-stroked-button routerLink="/demo/summary">Cancel</button>
+  <button mat-flat-button color="accent" routerLink="/demo/summary">
+    Confirm settings
+  </button>
+  <!--
+  <button mat-flat-button color="accent" (click)="confirmSettings()">
+    Confirm settings
+  </button>
+  -->
+</ng-container>
+<ng-template #loading>
+  <!--<p>Loading...</p>-->
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>

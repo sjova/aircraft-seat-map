@@ -8,6 +8,7 @@
       "@app/app/*": ["src/app/*"],
       "@app/assets/*": ["src/assets/*"],
       "@app/environments/*": ["src/environments/*"],
+      "@app/store": ["src/store.ts"],
       "crypto": ["node_modules/crypto-js"]
     },
     "outDir": "./dist/out-tsc",

@@ -17,6 +17,8 @@ import {
 })
 export class SeatMapComponent implements OnInit {
   @Input() flightSeatMap: FlightSeatMapResponse;
+  @Input() flight: string;
+  @Input() traveler: string;
 
   seatMap: FlightSeatMap;
 

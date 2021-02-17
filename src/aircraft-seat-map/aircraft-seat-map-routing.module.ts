@@ -1,12 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { DemoComponent } from '@app/aircraft-seat-map/containers/demo/demo.component';
+import { FlightSummaryComponent } from '@app/aircraft-seat-map/containers/flight-summary/flight-summary.component';
+import { SeatSelectionComponent } from '@app/aircraft-seat-map/containers/seat-selection/seat-selection.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DemoComponent,
+    pathMatch: 'full',
+    redirectTo: 'summary',
+  },
+  {
+    path: 'summary',
+    component: FlightSummaryComponent,
+  },
+  {
+    path: 'seat-selection',
+    component: SeatSelectionComponent,
   },
 ];
 

@@ -1,0 +1,23 @@
+<p class="mat-body-2">Seat selection</p>
+
+<button mat-flat-button color="primary" routerLink="/demo/seat-selection">
+  {{ (flightsDetails$ | async) ? "Edit" : "Select" }} seats
+</button>
+
+<br /><br />
+
+<div *ngIf="flightsDetails$ | async as flightsDetails; else noSeatsSelected">
+  <div *ngFor="let flightDetails of flightsDetails">
+    {{ flightDetails.passenger.firstName }}
+    {{ flightDetails.passenger.lastName }}
+    <div *ngFor="let flight of flightDetails.flights">
+      {{ flight.flightInfo.departure.code }} -
+      {{ flight.flightInfo.arrival.code }}: {{ flight.flightSeat.rowNumber
+      }}{{ flight.flightSeat.code }}
+    </div>
+    <br />
+  </div>
+</div>
+<ng-template #noSeatsSelected>
+  <p>Seats are not selected</p>
+</ng-template>
