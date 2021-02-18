@@ -1,51 +1,50 @@
 @import "~src/app/styles/variables";
 
+@import "~src/aircraft-seat-map/shared/styles/seat-map";
+
 :host {
   display: block;
 
   .aircraft {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-  }
-
-  .cabins-wrapper {
-    background-color: $light-bg;
+    @extend %flex-parent;
+    .cabins-wrapper {
+      @extend %flex-child;
+      .cabin {
+        padding: 0 $seat-half-outer-spacing;
+      }
+    }
   }
 
   .row {
-    display: flex;
-    flex-flow: row nowrap;
-    padding: 4px 3px;
+    @extend %flex-parent;
+    .seat,
+    .aisle {
+      @extend %flex-child;
+      margin: $regular-legroom $seat-half-outer-spacing 0;
+    }
   }
 
   .seat {
-    flex: 1;
-    box-sizing: border-box;
-    height: 48px;
-    width: 48px;
-    border: 1px solid $color-secondary;
-    border-radius: 16px;
-    margin: 7px 4px;
+    @include seat-base($seat-size, 16px);
+    @include seat-variants($seat-size);
+    user-select: none;
+    cursor: pointer;
 
-    .seat-text-wrapper {
-      display: flex;
-      flex-flow: row nowrap;
-      justify-content: center;
-      align-content: center;
-      align-items: center;
-      height: 48px;
-      width: 48px;
+    &.extra-legroom {
+      margin-top: $extra-legroom;
+    }
+
+    .seat-number {
+      @extend %flex-parent;
+      height: 100%;
+      width: 100%;
+
+      @extend %text;
     }
   }
 
   .aisle {
-    flex: 1;
-    box-sizing: border-box;
-    width: 28px;
-    height: 48px;
-    margin: 7px 4px;
+    width: $aisle-size;
+    height: $seat-size;
   }
 }

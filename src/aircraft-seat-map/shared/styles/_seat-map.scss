@@ -1,0 +1,112 @@
+@import "~src/app/styles/variables";
+
+$seat-size: 48px;
+$aisle-size: 28px;
+
+$seat-half-outer-spacing: 4px;
+
+$regular-legroom: 14px;
+$extra-legroom: 28px;
+
+%flex-parent {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+%flex-child {
+  flex: 0 1 auto;
+  align-self: auto;
+}
+
+%text {
+  color: $color-text-light;
+  font-family: Roboto;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 22px;
+}
+
+@mixin seat-base($size, $radius) {
+  height: $size;
+  width: $size;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: $radius;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+@mixin seat-variants($size) {
+  &.selected {
+    border-color: $color-secondary;
+    background-color: $color-secondary;
+    & > div {
+      color: white;
+    }
+  }
+
+  &.available {
+    border-color: $color-secondary;
+  }
+
+  &.unavailable {
+    border-color: $color-text-lightest;
+    background-color: $light-bg;
+    &:before,
+    &:after {
+      background-color: $color-text-lightest;
+    }
+  }
+
+  &.occupied {
+    border-color: $color-secondary;
+    background-color: $color-bg-blue-light;
+    &:before,
+    &:after {
+      background-color: $color-secondary;
+    }
+  }
+
+  &.unknown {
+    border-color: $color-text-lightest;
+    background-color: $light-bg;
+  }
+
+  &.unknown,
+  &.unavailable,
+  &.occupied {
+    .seat-number {
+      display: none;
+    }
+  }
+
+  &.unavailable,
+  &.occupied {
+    @include box-cross($size);
+  }
+}
+
+@mixin box-cross($size) {
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: -52.5%;
+    width: 1px;
+    height: $size * 2;
+  }
+
+  &:before {
+    transform: rotate(45deg);
+    right: calc(50% + 1px);
+  }
+
+  &:after {
+    transform: rotate(-45deg);
+    left: calc(50% + 1px);
+  }
+}

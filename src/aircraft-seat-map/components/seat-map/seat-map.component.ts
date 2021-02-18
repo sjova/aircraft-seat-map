@@ -32,4 +32,9 @@ export class SeatMapComponent implements OnInit {
     const [firstItem] = this.flightSeatMap.items;
     this.seatMap = firstItem.seatMap;
   }
+
+  selectSeat(event: MouseEvent, data: any) {
+    // console.log(event);
+    console.log(data);
+  }
 }

@@ -5,11 +5,37 @@
   <pre>{{ seatMap.cabins | json }}</pre>
 </code>-->
 
-<pre>{{ flight | json }}</pre>
-<pre>{{ traveler | json }}</pre>
+<!--<pre>{{ flight | json }}</pre>-->
+<!--<pre>{{ traveler | json }}</pre>-->
 
 <div class="aircraft">
   <div class="cabins-wrapper">
+    <!--<div class="cabin">
+      <div class="row">
+        <div class="seat selected">
+          <div class="seat-number">
+            <div>0X</div>
+          </div>
+        </div>
+        <div class="seat unavailable">
+          <div class="seat-number">
+            <div>0X</div>
+          </div>
+        </div>
+        <div class="aisle"></div>
+        <div class="seat occupied">
+          <div class="seat-number">
+            <div>0X</div>
+          </div>
+        </div>
+        <div class="seat unknown">
+          <div class="seat-number">
+            <div>0X</div>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
     <div *ngFor="let cabin of seatMap.cabins" class="cabin">
       <!--<pre>{{ cabin | json }}</pre>-->
       <!--<h4>{{ cabin.type }}</h4>-->
@@ -23,8 +49,23 @@
             *ngIf="seat.type === 'Aisle'; else seatTemplate"
           ></div>
           <ng-template #seatTemplate>
-            <div class="seat">
-              <div class="seat-text-wrapper">
+            <div
+              class="seat available"
+              matTooltip="Seat {{ seat.rowNumber }}{{
+                seat.code
+              }} - Standard seat - 0&euro; : This seat belong to Henrik Larsson"
+              matTooltipDisabled="false"
+              (click)="
+                selectSeat($event, {
+                  flight: flight,
+                  traveler: traveler,
+                  rowNumber: seat.rowNumber,
+                  code: seat.code,
+                  price: undefined
+                })
+              "
+            >
+              <div class="seat-number">
                 <div>{{ seat.rowNumber }}{{ seat.code }}</div>
               </div>
             </div>

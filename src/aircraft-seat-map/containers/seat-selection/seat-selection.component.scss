@@ -1,11 +1,103 @@
 @import "~src/app/styles/variables";
+@import "~src/aircraft-seat-map/shared/styles/seat-map";
 
 :host {
   display: block;
   width: 808px;
   min-height: 746px;
   margin: 0 auto;
-  padding: 32px 24px;
+  padding: 32px 24px 24px;
   background-color: $color-white;
   box-shadow: 0 5px 40px -10px rgba(0, 0, 0, 0.18);
+
+  .header {
+    @extend %flex-parent;
+    margin-bottom: 24px;
+    & > div {
+      @extend %flex-child;
+      flex-basis: 50%;
+      &:first-child {
+        padding-right: 22px;
+      }
+      &:last-child {
+        padding-left: 22px;
+      }
+    }
+    .mat-form-field {
+      width: 100%;
+    }
+  }
+
+  .content {
+    @extend %flex-parent;
+    align-items: flex-start;
+
+    .selection-wrapper,
+    .aircraft-wrapper,
+    .right-placeholder {
+      @extend %flex-child;
+      flex: 1;
+    }
+
+    .selection-wrapper,
+    .right-placeholder {
+      margin-top: $regular-legroom;
+    }
+  }
+
+  .footer {
+    @extend %flex-parent;
+    align-items: flex-end;
+    margin-top: 56px;
+    .seat-info-wrapper,
+    .cta-wrapper {
+      @extend %flex-child;
+      flex-basis: 50%;
+    }
+
+    .cta-wrapper {
+      @extend %flex-parent;
+      justify-content: flex-end;
+      .cta-inner-wrapper {
+        @extend %flex-child;
+      }
+    }
+  }
+
+  .seat-info-wrapper {
+    .seat-info {
+      @extend %flex-parent;
+      justify-content: left;
+      .info-box,
+      .label {
+        @extend %flex-child;
+      }
+
+      .info-box {
+        @include seat-base(14px, 5px);
+        @include seat-variants(14px);
+        margin-right: 8px;
+      }
+
+      .label {
+        @extend %text;
+      }
+    }
+  }
+
+  .cta-inner-wrapper {
+    .price {
+      color: $color-text-dark;
+      //font-family: BasicSansAlt-Bold;
+      font-size: 22px;
+      letter-spacing: 0;
+      line-height: 26px;
+      text-align: right;
+      font-weight: bold;
+    }
+
+    .confirm {
+      margin-left: 14px;
+    }
+  }
 }
