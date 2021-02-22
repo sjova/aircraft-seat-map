@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { Store } from '@app/store';
-import { FlightDetails } from '@app/aircraft-seat-map/shared/models/flight-details';
 import { Observable } from 'rxjs';
+import { FlightsState } from '@app/aircraft-seat-map/shared/models/flight-state';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { setDemoQueryParam } from '@app/aircraft-seat-map/shared/helpers/query-params';
 
 @Component({
   selector: 'app-flight-summary',
@@ -11,11 +13,23 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlightSummaryComponent implements OnInit {
-  flightsDetails$: Observable<FlightDetails[]>;
+  flights$: Observable<FlightsState>;
 
-  constructor(private store: Store) {}
+  queryParams: Params;
+
+  constructor(
+    private store: Store,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.flightsDetails$ = this.store.select<FlightDetails[]>('flightsDetails');
+    this.queryParams = setDemoQueryParam(
+      this.activatedRoute,
+      this.router,
+      this.queryParams
+    );
+
+    this.flights$ = this.store.select<FlightsState>('flights');
   }
 }

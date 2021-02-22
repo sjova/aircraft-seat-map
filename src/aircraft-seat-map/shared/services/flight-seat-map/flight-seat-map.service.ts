@@ -3,13 +3,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { catchError, delay, tap } from 'rxjs/operators';
-import { enc, SHA512 } from 'crypto-js';
 
-import { FlightSeatMapResponse } from '@app/aircraft-seat-map/shared/models/flight-seat-map-response';
+import { Store } from '@app/store';
+
+import { FlightSeatMapApiResponse } from '@app/aircraft-seat-map/shared/models/flight-seat-map-api-response';
 import { SharedModule } from '@app/aircraft-seat-map/shared/shared.module';
 import { environment } from '@app/environments/environment';
+import { getRandomIntFromRange } from '@app/aircraft-seat-map/shared/helpers/random-int-from-range';
+import { getMROSignatureAuthentication } from '@app/aircraft-seat-map/shared/helpers/mro-signature-authentication';
 
-import FlightSeatMapData from 'flightretrieveseatmap.json';
+import FlightSeatMapDataExample1 from 'flightretrieveseatmap-example-1.json';
+import FlightSeatMapDataExample2 from 'flightretrieveseatmap-example-2.json';
+import FlightSeatMapDataExample3 from 'flightretrieveseatmap-example-3.json';
 
 @Injectable({
   providedIn: SharedModule,
@@ -19,13 +24,13 @@ export class FlightSeatMapService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      Authorization: this.getMROSignatureAuthentication(),
+      Authorization: getMROSignatureAuthentication(),
     }),
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private store: Store) {}
 
-  getFlightSeatMap(): Observable<Partial<FlightSeatMapResponse>> {
+  getFlightSeatMap(): Observable<Partial<FlightSeatMapApiResponse>> {
     const partnerId = 1;
     const conversationId = 'd9a7e02b-8b2e-4b35-8199-df7f697c9dd3';
     const source = 'Amadeus';
@@ -34,27 +39,37 @@ export class FlightSeatMapService {
     const urlParams = `partnerid=${partnerId}&conversationId=${conversationId}&source=${source}&identifier=${identifier}`;
     const url = `${this.apiUrl}/flightretrieveseatmap?${urlParams}`;
 
-    return this.http.get<FlightSeatMapResponse>(url, this.httpOptions).pipe(
-      tap((_) => console.log('fetched flight seat map')),
+    return this.http.get<FlightSeatMapApiResponse>(url, this.httpOptions).pipe(
+      tap((_) =>
+        console.log('[FLIGHT SEAT MAP][API] get flight seat map success')
+      ),
       catchError(
-        this.handleError<Partial<FlightSeatMapResponse>>('getFlightSeatMap', {})
+        this.handleError<Partial<FlightSeatMapApiResponse>>(
+          'getFlightSeatMap',
+          {}
+        )
       )
     );
   }
 
-  getFlightSeatMapMock(): Observable<FlightSeatMapResponse> {
-    const fakeDelay = getRandomIntFromRange(800, 1200);
-    return of(FlightSeatMapData).pipe(delay(fakeDelay));
-  }
+  getFlightSeatMapMock(
+    dataExampleIndex: number
+  ): Observable<FlightSeatMapApiResponse> {
+    const dataExample = [
+      undefined,
+      FlightSeatMapDataExample1,
+      FlightSeatMapDataExample2,
+      FlightSeatMapDataExample3,
+    ];
 
-  private getMROSignatureAuthentication(): string {
-    const { apiKey, secret } = environment.mrOrange;
-    const timestamp = Math.round(new Date().getTime() / 1000);
-    const hash = SHA512(apiKey + secret + timestamp).toString(enc.Hex);
-    const authHeaderValue =
-      'MRO APIKey=' + apiKey + ',Signature=' + hash + ',timestamp=' + timestamp;
-    // console.log('MROSignatureAuthentication', authHeaderValue);
-    return authHeaderValue;
+    const fakeDelay = getRandomIntFromRange(800, 1200);
+
+    return of(dataExample[dataExampleIndex] as FlightSeatMapApiResponse).pipe(
+      delay(fakeDelay),
+      tap((_) =>
+        console.log('[FLIGHT SEAT MAP][API] get flight seat map success')
+      )
+    );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
@@ -63,10 +78,4 @@ export class FlightSeatMapService {
       return of(result as T);
     };
   }
-}
-
-function getRandomIntFromRange(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min);
 }

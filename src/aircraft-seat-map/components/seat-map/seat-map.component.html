@@ -1,15 +1,6 @@
-<!--<h3>Seat Map</h3>-->
-
-<!--<code>
-  <pre>{{ flightSeatMap | json }}</pre>
-  <pre>{{ seatMap.cabins | json }}</pre>
-</code>-->
-
-<!--<pre>{{ flight | json }}</pre>-->
-<!--<pre>{{ traveler | json }}</pre>-->
-
-<div class="aircraft">
+<div class="aircraft" *ngIf="flightNumber && passengerId">
   <div class="cabins-wrapper">
+    <!--seat example begin-->
     <!--<div class="cabin">
       <div class="row">
         <div class="seat selected">
@@ -35,15 +26,47 @@
         </div>
       </div>
     </div>-->
+    <!--seat example end-->
+    <div class="cabin">
+      <div *ngFor="let row of seatMap" class="row">
+        <ng-container *ngFor="let item of row">
+          <div
+            class="aisle"
+            *ngIf="item.type === itemItemType.Aisle; else seatTemplate"
+          ></div>
+          <ng-template #seatTemplate>
+            <div
+              class="seat"
+              [ngClass]="{
+                selected: item.selected,
+                available: item.availability === seatAvailability.Available,
+                unavailable: item.availability === seatAvailability.Unavailable,
+                occupied: item.availability === seatAvailability.Occupied,
+                unknown: item.availability === seatAvailability.Unknown
+              }"
+              [matTooltip]="getTooltip(item)"
+              [matTooltipDisabled]="
+                item.availability !== seatAvailability.Available
+              "
+              (click)="selectSeat(item)"
+            >
+              <div class="seat-number">
+                <div>{{ item.rowNumber }}{{ item.code }}</div>
+              </div>
+            </div>
+          </ng-template>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <div *ngFor="let cabin of seatMap.cabins" class="cabin">
-      <!--<pre>{{ cabin | json }}</pre>-->
-      <!--<h4>{{ cabin.type }}</h4>-->
-      <!--<h5>{{ cabin.deck }}</h5>-->
+<!--
+<div class="aircraft">
+  <div class="cabins-wrapper">
+    <div *ngFor="let cabin of seatMapRawApi.cabins" class="cabin">
       <div *ngFor="let row of cabin.rows" class="row">
-        <!--<pre>{{ row | json }}</pre>-->
         <ng-container *ngFor="let seat of row.items">
-          <!--<pre>{{ seat | json }}</pre>-->
           <div
             class="aisle"
             *ngIf="seat.type === 'Aisle'; else seatTemplate"
@@ -55,15 +78,7 @@
                 seat.code
               }} - Standard seat - 0&euro; : This seat belong to Henrik Larsson"
               matTooltipDisabled="false"
-              (click)="
-                selectSeat($event, {
-                  flight: flight,
-                  traveler: traveler,
-                  rowNumber: seat.rowNumber,
-                  code: seat.code,
-                  price: undefined
-                })
-              "
+              (click)="selectSeat($event, seat)"
             >
               <div class="seat-number">
                 <div>{{ seat.rowNumber }}{{ seat.code }}</div>
@@ -75,3 +90,4 @@
     </div>
   </div>
 </div>
+-->

@@ -1,13 +1,26 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
-  OnInit,
+  Output,
 } from '@angular/core';
 import {
-  FlightSeatMap,
-  FlightSeatMapResponse,
-} from '@app/aircraft-seat-map/shared/models/flight-seat-map-response';
+  ItemState,
+  SeatMapCodeState,
+  SeatMapState,
+} from '@app/aircraft-seat-map/shared/models/flight-state';
+import {
+  ItemAvailabilityEnum,
+  ItemTypeEnum,
+} from '@app/aircraft-seat-map/shared/models/flight-seat-map-api-response';
+
+export interface SeatSelection {
+  flightNumber: string;
+  passengerId: string;
+  seatRowNumber: string;
+  seatCode: string;
+}
 
 @Component({
   selector: 'app-seat-map',
@@ -15,26 +28,41 @@ import {
   styleUrls: ['./seat-map.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SeatMapComponent implements OnInit {
-  @Input() flightSeatMap: FlightSeatMapResponse;
-  @Input() flight: string;
-  @Input() traveler: string;
+export class SeatMapComponent {
+  @Input() flightNumber: string;
+  @Input() passengerId: number;
 
-  seatMap: FlightSeatMap;
+  @Input()
+  set seatMapState(seatMap: SeatMapState) {
+    if (seatMap) {
+      this.seatMap = Object.values(seatMap).map((row: SeatMapCodeState) =>
+        Object.values(row)
+      );
+    }
+  }
+  seatMap: ItemState[][];
 
-  constructor() {}
+  @Output() seatSelection = new EventEmitter<SeatSelection>();
 
-  ngOnInit(): void {
-    this.prepareRawFlightSeatMapData();
+  itemItemType = ItemTypeEnum;
+  seatAvailability = ItemAvailabilityEnum;
+
+  getTooltip(item: ItemState): string {
+    if (item.selected) {
+      return 'This seat belong to ...';
+    } else {
+      return `Seat ${item.rowNumber} - Standard seat - 0€`;
+    }
   }
 
-  private prepareRawFlightSeatMapData() {
-    const [firstItem] = this.flightSeatMap.items;
-    this.seatMap = firstItem.seatMap;
-  }
-
-  selectSeat(event: MouseEvent, data: any) {
-    // console.log(event);
-    console.log(data);
+  selectSeat(seat: ItemState) {
+    if (seat.availability === this.seatAvailability.Available) {
+      this.seatSelection.next({
+        flightNumber: this.flightNumber,
+        passengerId: `${this.passengerId}`,
+        seatRowNumber: `${seat.rowNumber}`,
+        seatCode: seat.code,
+      });
+    }
   }
 }

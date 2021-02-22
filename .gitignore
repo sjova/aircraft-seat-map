@@ -50,5 +50,7 @@ Thumbs.db
 firebase-debug.log
 
 # MrOrange
-flightretrieveseatmap.json
 src/environments/environment.mrorange.ts
+flightretrieveseatmap-example-1.json
+flightretrieveseatmap-example-2.json
+flightretrieveseatmap-example-3.json

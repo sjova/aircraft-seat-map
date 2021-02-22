@@ -1,5 +1,4 @@
 @import "~src/app/styles/variables";
-
 @import "~src/aircraft-seat-map/shared/styles/seat-map";
 
 :host {
@@ -28,7 +27,7 @@
     @include seat-base($seat-size, 16px);
     @include seat-variants($seat-size);
     user-select: none;
-    cursor: pointer;
+    transition: all 150ms ease-in;
 
     &.extra-legroom {
       margin-top: $extra-legroom;

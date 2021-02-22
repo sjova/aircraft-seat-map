@@ -32,8 +32,8 @@ $extra-legroom: 28px;
 @mixin seat-base($size, $radius) {
   height: $size;
   width: $size;
-  border-width: 1px;
-  border-style: solid;
+  border: 1px solid $color-text-lightest;
+  background-color: $light-bg;
   border-radius: $radius;
   position: relative;
   overflow: hidden;
@@ -41,6 +41,8 @@ $extra-legroom: 28px;
 }
 
 @mixin seat-variants($size) {
+  cursor: not-allowed;
+
   &.selected {
     border-color: $color-secondary;
     background-color: $color-secondary;
@@ -50,7 +52,11 @@ $extra-legroom: 28px;
   }
 
   &.available {
+    cursor: pointer;
     border-color: $color-secondary;
+    &:hover:not(.selected) {
+      background-color: $color-bg-blue-light;
+    }
   }
 
   &.unavailable {

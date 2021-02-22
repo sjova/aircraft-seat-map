@@ -1,21 +1,19 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 
-import { Store } from '@app/store';
-import { Observable } from 'rxjs';
+import { Store, UserSelection } from '@app/store';
 
-import { FlightDetails } from '@app/aircraft-seat-map/shared/models/flight-details';
 import { FlightSeatMapService } from '@app/aircraft-seat-map/shared/services/flight-seat-map/flight-seat-map.service';
-import { FlightSeatMapResponse } from '@app/aircraft-seat-map/shared/models/flight-seat-map-response';
 
-export interface Flight {
-  value: string;
-  viewValue: string;
-}
-
-export interface Traveler {
-  value: string;
-  viewValue: string;
-}
+import { exhaustMap, filter, map, take, tap } from 'rxjs/operators';
+import { FlightsState } from '@app/aircraft-seat-map/shared/models/flight-state';
+import { Observable, of } from 'rxjs';
+import { responseToState } from '@app/aircraft-seat-map/shared/helpers/response-to-state';
+import { SeatSelection } from '@app/aircraft-seat-map/components/seat-map/seat-map.component';
+import { updateFlightsState } from '@app/aircraft-seat-map/shared/helpers/update-flights-state';
+import { MatSelectChange } from '@angular/material/select';
+import { prepareDefaultUserSelection } from '@app/aircraft-seat-map/shared/helpers/prepare-default-user-selection';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { setDemoQueryParam } from '@app/aircraft-seat-map/shared/helpers/query-params';
 
 @Component({
   selector: 'app-seat-selection',
@@ -24,127 +22,78 @@ export interface Traveler {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SeatSelectionComponent implements OnInit {
-  flightsDetailsExample: FlightDetails[] = [
-    {
-      passenger: {
-        firstName: 'Henrik',
-        lastName: 'Larsson',
-      },
-      flights: [
-        {
-          flightInfo: {
-            departure: {
-              code: 'ARN',
-            },
-            arrival: {
-              code: 'BEG',
-            },
-          },
-          flightSeat: {
-            code: 'F',
-            rowNumber: 2,
-          },
-        },
-        {
-          flightInfo: {
-            departure: {
-              code: 'BEG',
-            },
-            arrival: {
-              code: 'ARN',
-            },
-          },
-          flightSeat: {
-            code: 'B',
-            rowNumber: 6,
-          },
-        },
-      ],
-    },
-    {
-      passenger: {
-        firstName: 'Freddie',
-        lastName: 'Ljungberg',
-      },
-      flights: [
-        {
-          flightInfo: {
-            departure: {
-              code: 'ARN',
-            },
-            arrival: {
-              code: 'BEG',
-            },
-          },
-          flightSeat: {
-            code: 'E',
-            rowNumber: 3,
-          },
-        },
-        {
-          flightInfo: {
-            departure: {
-              code: 'BEG',
-            },
-            arrival: {
-              code: 'ARN',
-            },
-          },
-          flightSeat: {
-            code: 'C',
-            rowNumber: 6,
-          },
-        },
-      ],
-    },
-  ];
+  flights$: Observable<FlightsState>;
 
-  flights: Flight[] = [
-    {
-      value: 'ARN - BEG',
-      viewValue: 'Stockholm (ARN) - Belgrade (BEG)',
-    },
-    {
-      value: 'BEG - ARN',
-      viewValue: 'Belgrade (BEG) - Stockholm (ARN)',
-    },
-  ];
-
-  selectedFlight = 'ARN - BEG';
-
-  travelers: Traveler[] = [
-    {
-      value: 'Henrik Larsson',
-      viewValue: 'Henrik Larsson',
-    },
-    {
-      value: 'Freddie Ljungberg',
-      viewValue: 'Freddie Ljungberg',
-    },
-  ];
-
-  selectedTraveler = 'Henrik Larsson';
-
-  flightSeatMap$: Observable<FlightSeatMapResponse>;
+  userSelection: UserSelection;
+  queryParams: Params;
 
   constructor(
     private flightSeatMapService: FlightSeatMapService,
-    private store: Store
+    private store: Store,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.queryParams = setDemoQueryParam(
+      this.activatedRoute,
+      this.router,
+      this.queryParams
+    );
+
+    this.store
+      .select<UserSelection>('userFlightsSelection')
+      .pipe(filter(Boolean), take(1))
+      .subscribe((userSelection: UserSelection) => {
+        this.userSelection = userSelection;
+      });
+
     // TODO: Revisit CORS issues and setup
     // this.flightSeatMap$ = this.flightSeatMapService.getFlightSeatMap();
 
-    this.flightSeatMap$ = this.flightSeatMapService.getFlightSeatMapMock();
-
-    this.store.set<FlightDetails[]>(
-      'flightsDetails',
-      this.flightsDetailsExample
+    // TODO: Revisit this after demo
+    this.flights$ = this.store.select<FlightsState>('flights').pipe(
+      exhaustMap((flightsState) => {
+        if (Boolean(flightsState)) {
+          return of(flightsState);
+        } else {
+          return this.flightSeatMapService
+            .getFlightSeatMapMock(this.queryParams.demo)
+            .pipe(
+              map(responseToState),
+              tap((flightsState: FlightsState) => {
+                this.store.set(
+                  'userFlightsSelection',
+                  prepareDefaultUserSelection(flightsState)
+                );
+                this.store.set('flights', flightsState);
+              })
+            );
+        }
+      })
     );
   }
 
-  confirmSettings() {
-    console.log('TODO: Confirm settings');
+  onSelection(event: SeatSelection) {
+    const stateName = 'flights';
+    const updatedFlightsState = updateFlightsState(
+      this.store.selectStateValue<FlightsState>(stateName),
+      event
+    );
+    this.store.set(stateName, updatedFlightsState);
+  }
+
+  selectFlight(event: MatSelectChange) {
+    this.store.set('userFlightsSelection', {
+      ...this.userSelection,
+      flightNumber: event.value,
+    });
+  }
+
+  selectPassenger(event: MatSelectChange) {
+    this.store.set('userFlightsSelection', {
+      ...this.userSelection,
+      passengerId: event.value,
+    });
   }
 }
