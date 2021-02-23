@@ -42,7 +42,10 @@
                 available: item.availability === seatAvailability.Available,
                 unavailable: item.availability === seatAvailability.Unavailable,
                 occupied: item.availability === seatAvailability.Occupied,
-                unknown: item.availability === seatAvailability.Unknown
+                unknown: item.availability === seatAvailability.Unknown,
+                'extra-legroom': item.characteristics.includes(
+                  itemCharacteristic.LegSpaceSeat
+                )
               }"
               [matTooltip]="getTooltip(item)"
               [matTooltipDisabled]="

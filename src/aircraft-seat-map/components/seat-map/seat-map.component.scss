@@ -21,29 +21,30 @@
       @extend %flex-child;
       margin: $regular-legroom $seat-half-outer-spacing 0;
     }
-  }
 
-  .seat {
-    @include seat-base($seat-size, 16px);
-    @include seat-variants($seat-size);
-    user-select: none;
-    transition: all 150ms ease-in;
+    .seat {
+      @include seat-base($seat-size, 16px);
+      @include seat-variants($seat-size);
+      user-select: none;
+      cursor: not-allowed;
+      transition: all 200ms ease-in;
 
-    &.extra-legroom {
-      margin-top: $extra-legroom;
+      &.extra-legroom {
+        margin-top: $extra-legroom;
+      }
+
+      .seat-number {
+        @extend %flex-parent;
+        height: 100%;
+        width: 100%;
+
+        @extend %text;
+      }
     }
 
-    .seat-number {
-      @extend %flex-parent;
-      height: 100%;
-      width: 100%;
-
-      @extend %text;
+    .aisle {
+      width: $aisle-size;
+      height: $seat-size;
     }
-  }
-
-  .aisle {
-    width: $aisle-size;
-    height: $seat-size;
   }
 }

@@ -46,15 +46,18 @@
   <div class="content">
     <div class="selection-wrapper">
       <div *ngFor="let flight of flights | keyvalue">
-        <h4>
+        <h4 class="label text-bold">
           {{ flight.value.flightInfo.departure.code }} -
           {{ flight.value.flightInfo.arrival.code }}
         </h4>
 
         <ng-container
-          *ngFor="let passenger of flight.value.passengers | keyvalue"
+          *ngFor="
+            let passenger of flight.value.passengers | keyvalue;
+            let last = last
+          "
         >
-          <h5>
+          <h5 class="label" [ngClass]="{ 'bottom-spacing': last }">
             {{ passenger.value.firstName }} {{ passenger.value.lastName }}:
             <ng-container
               *ngIf="
@@ -64,25 +67,32 @@
             >
               {{ passenger.value.seatRowNumber }}{{ passenger.value.seatCode }}
             </ng-container>
-            <ng-template #notSelectedSeat> (not selected seat) </ng-template>
+            <ng-template #notSelectedSeat>
+              <span matTooltip="Not selected seat">(?)</span>
+            </ng-template>
           </h5>
         </ng-container>
       </div>
-
-      <h4 *ngIf="userSelection.flightNumber || userSelection.passengerId">
-        Dev Output:
-      </h4>
-      <pre *ngIf="userSelection.flightNumber">
-Flight: {{ userSelection.flightNumber | json }}</pre
-      >
-      <pre *ngIf="userSelection.passengerId">
-Passenger: {{ userSelection.passengerId | json }}</pre
-      >
+      <div>
+        <h4
+          class="label text-bold"
+          *ngIf="userSelection.flightNumber || userSelection.passengerId"
+        >
+          Dev Output:
+        </h4>
+        <h5 class="label" *ngIf="userSelection.flightNumber">
+          Flight: {{ userSelection.flightNumber }}
+        </h5>
+        <h5 class="label" *ngIf="userSelection.passengerId">
+          Passenger: {{ userSelection.passengerId }}
+        </h5>
+      </div>
     </div>
     <div class="aircraft-wrapper">
       <app-seat-map
         [flightNumber]="userSelection.flightNumber"
         [passengerId]="userSelection.passengerId"
+        [passengers]="flights[userSelection.flightNumber]?.passengers"
         [seatMapState]="flights[userSelection.flightNumber]?.seatMap"
         (seatSelection)="onSelection($event)"
       ></app-seat-map>
@@ -126,6 +136,7 @@ Passenger: {{ userSelection.passengerId | json }}</pre
           color="accent"
           routerLink="/demo/summary"
           [queryParams]="queryParams"
+          [disabled]="!isSeatSelectionValid"
         >
           Confirm settings
         </button>

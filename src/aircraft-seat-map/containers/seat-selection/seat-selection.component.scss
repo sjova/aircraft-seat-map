@@ -3,8 +3,7 @@
 
 :host {
   display: block;
-  width: 808px;
-  min-height: 746px;
+  min-height: 650px;
   margin: 0 auto;
   padding: 32px 24px 24px;
   background-color: $color-white;
@@ -13,14 +12,29 @@
   .header {
     @extend %flex-parent;
     margin-bottom: 24px;
+    @media (max-width: $screen-sm) {
+      flex-wrap: wrap;
+    }
     & > div {
       @extend %flex-child;
+      @media (max-width: $screen-sm) {
+        flex-basis: 100%;
+      }
+
       flex-basis: 50%;
+
       &:first-child {
         padding-right: 22px;
       }
       &:last-child {
         padding-left: 22px;
+      }
+
+      &:first-child,
+      &:last-child {
+        @media (max-width: $screen-sm) {
+          padding: 0px;
+        }
       }
     }
     .mat-form-field {
@@ -31,17 +45,36 @@
   .content {
     @extend %flex-parent;
     align-items: flex-start;
+    @media (max-width: $screen-sm) {
+      flex-wrap: wrap;
+    }
 
     .selection-wrapper,
     .aircraft-wrapper,
     .right-placeholder {
       @extend %flex-child;
       flex: 1;
+      @media (max-width: $screen-sm) {
+        flex-basis: 100%;
+      }
     }
 
     .selection-wrapper,
     .right-placeholder {
       margin-top: $regular-legroom;
+    }
+
+    .selection-wrapper {
+      padding-right: $aisle-size;
+      @media (max-width: $screen-sm) {
+        padding-bottom: $aisle-size;
+        order: 1;
+        display: flex;
+        flex-flow: row nowrap;
+        & > div {
+          flex: 0 1 33.33%;
+        }
+      }
     }
   }
 
@@ -78,11 +111,20 @@
         @include seat-variants(14px);
         margin-right: 8px;
       }
-
-      .label {
-        @extend %text;
-      }
     }
+  }
+
+  .label {
+    @extend %text;
+    margin: 0;
+  }
+
+  .text-bold {
+    font-weight: bold;
+  }
+
+  .bottom-spacing {
+    margin-bottom: 12px;
   }
 
   .cta-inner-wrapper {

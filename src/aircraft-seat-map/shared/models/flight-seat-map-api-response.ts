@@ -1,6 +1,6 @@
 export interface FlightSeatMapApiResponse {
   header: Header;
-  // TODO: Clarify how many flights we'll have (MVP and later updates)?
+  // TODO: Clarify how many flights we'll have (MVP and later updates)!?
   // 1. outbound flight - the flight to the destination
   // 2. mid connection flight ???
   // 3. inbound flight - the flight back to the origin city
@@ -200,6 +200,13 @@ export type ItemCharacteristic =
   | 'X' // No facility seat (indifferent seat)"
   | 'Z'; // Buffer zone seat"
 
+export enum ItemCharacteristicEnum {
+  ExitRowSeat = 'E',
+  OverwingSeat = 'OW',
+  BulkheadSeat = 'K',
+  LegSpaceSeat = 'L',
+}
+
 export interface Item {
   type: ItemType;
   code?: string;
@@ -209,7 +216,7 @@ export interface Item {
   offers?: Offer[];
 }
 
-// TODO: Revisit `Offer` in final API response (currently we're missing this info)
+// TODO: Revisit `Offer` in final API response (currently we're missing this info!?)
 export interface Offer {
   rateKey: string;
   passengerId: number;

@@ -1,4 +1,5 @@
 @import "~src/app/styles/variables";
+@import "~src/aircraft-seat-map/shared/styles/seat-map";
 
 :host {
   display: block;
@@ -7,4 +8,17 @@
   border: 1px solid $color-bg-gray;
   border-radius: 4px;
   padding: 22px;
+
+  .label {
+    @extend %text;
+    margin: 0;
+  }
+
+  .text-bold {
+    font-weight: bold;
+  }
+
+  .bottom-spacing {
+    margin-bottom: 12px;
+  }
 }

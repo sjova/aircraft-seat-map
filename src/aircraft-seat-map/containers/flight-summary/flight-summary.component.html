@@ -8,18 +8,22 @@
 >
   {{ (flights$ | async) ? "Edit" : "Select" }} seats
 </button>
-
 <br /><br />
-
 <ng-container *ngIf="flights$ | async as flights; else notSelectedSeat">
   <div *ngFor="let flight of flights | keyvalue">
-    <h4>
+    <h4 class="label text-bold">
       {{ flight.value.flightInfo.departure.code }} -
       {{ flight.value.flightInfo.arrival.code }}
+      ({{ flight.value.flightInfo.flightNumber }})
     </h4>
 
-    <ng-container *ngFor="let passenger of flight.value.passengers | keyvalue">
-      <h5>
+    <ng-container
+      *ngFor="
+        let passenger of flight.value.passengers | keyvalue;
+        let last = last
+      "
+    >
+      <h5 class="label" [ngClass]="{ 'bottom-spacing': last }">
         {{ passenger.value.firstName }} {{ passenger.value.lastName }}:
         <ng-container
           *ngIf="
@@ -33,7 +37,11 @@
       </h5>
     </ng-container>
   </div>
+  <br />
+  <button mat-flat-button color="primary" (click)="apiExampleData()">
+    API Example Data
+  </button>
 </ng-container>
 <ng-template #notSelectedSeat>
-  <p>Seats are not selected</p>
+  <p class="label">(seats are not selected - API data is not yet loaded)</p>
 </ng-template>

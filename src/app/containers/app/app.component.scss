@@ -1,9 +1,16 @@
+@import "~src/app/styles/variables";
+
 :host {
   display: block;
   padding: 28px 50px;
+  min-width: 650px;
+
+  @media (max-width: $screen-sm) {
+    padding: 16px 4px;
+  }
 
   .wrapper {
-    max-width: 850px;
+    max-width: 950px;
     width: 95%;
     margin: 0 auto;
   }

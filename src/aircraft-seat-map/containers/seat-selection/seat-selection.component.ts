@@ -14,6 +14,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { prepareDefaultUserSelection } from '@app/aircraft-seat-map/shared/helpers/prepare-default-user-selection';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { setDemoQueryParam } from '@app/aircraft-seat-map/shared/helpers/query-params';
+import { seatSelectionValidation } from '@app/aircraft-seat-map/shared/helpers/seat-selection-validation';
 
 @Component({
   selector: 'app-seat-selection',
@@ -23,6 +24,7 @@ import { setDemoQueryParam } from '@app/aircraft-seat-map/shared/helpers/query-p
 })
 export class SeatSelectionComponent implements OnInit {
   flights$: Observable<FlightsState>;
+  isSeatSelectionValid: boolean;
 
   userSelection: UserSelection;
   queryParams: Params;
@@ -81,6 +83,8 @@ export class SeatSelectionComponent implements OnInit {
       event
     );
     this.store.set(stateName, updatedFlightsState);
+
+    this.isSeatSelectionValid = seatSelectionValidation(updatedFlightsState);
   }
 
   selectFlight(event: MatSelectChange) {
