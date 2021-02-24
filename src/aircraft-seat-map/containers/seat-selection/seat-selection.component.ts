@@ -36,6 +36,10 @@ export class SeatSelectionComponent implements OnInit {
     private router: Router
   ) {}
 
+  get userSelectionPassengerIdAsNumber(): number {
+    return +this.userSelection.passengerId;
+  }
+
   ngOnInit(): void {
     this.queryParams = setDemoQueryParam(
       this.activatedRoute,

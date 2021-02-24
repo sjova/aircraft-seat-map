@@ -46,7 +46,14 @@
   <div class="content">
     <div class="selection-wrapper">
       <div *ngFor="let flight of flights | keyvalue">
-        <h4 class="label text-bold">
+        <h4
+          class="label"
+          [ngClass]="{
+            active:
+              userSelection.flightNumber ===
+              flight.value.flightInfo.flightNumber
+          }"
+        >
           {{ flight.value.flightInfo.departure.code }} -
           {{ flight.value.flightInfo.arrival.code }}
         </h4>
@@ -57,7 +64,16 @@
             let last = last
           "
         >
-          <h5 class="label" [ngClass]="{ 'bottom-spacing': last }">
+          <h5
+            class="label"
+            [ngClass]="{
+              active:
+                userSelection.flightNumber ===
+                  flight.value.flightInfo.flightNumber &&
+                userSelectionPassengerIdAsNumber === passenger.value.id,
+              'bottom-spacing': last
+            }"
+          >
             {{ passenger.value.firstName }} {{ passenger.value.lastName }}:
             <ng-container
               *ngIf="
@@ -75,7 +91,7 @@
       </div>
       <div>
         <h4
-          class="label text-bold"
+          class="label"
           *ngIf="userSelection.flightNumber || userSelection.passengerId"
         >
           Dev Output:

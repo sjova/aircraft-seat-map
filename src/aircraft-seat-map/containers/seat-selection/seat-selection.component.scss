@@ -115,10 +115,10 @@
   .label {
     @extend %text;
     margin: 0;
-  }
-
-  .text-bold {
-    font-weight: bold;
+    &.active {
+      font-weight: bold;
+      color: $color-secondary;
+    }
   }
 
   .bottom-spacing {
