@@ -54,7 +54,6 @@ export class SeatMapComponent {
   getTooltip(item: ItemState): string {
     const tooltipText = `Seat ${item.rowNumber}${item.code}`;
     if (item.selected) {
-      console.log(item);
       return `${tooltipText} - This seat belong to ${
         this.passengers[item.passengerId].firstName
       } ${this.passengers[item.passengerId].lastName}`;

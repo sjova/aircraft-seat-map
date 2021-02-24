@@ -32,9 +32,4 @@ export class FlightSummaryComponent implements OnInit {
 
     this.flights$ = this.store.select<FlightsState>('flights');
   }
-
-  apiExampleData() {
-    const state = this.store.stateValue;
-    console.log(state.flights);
-  }
 }

@@ -2,7 +2,7 @@ export interface FlightSeatMapApiResponse {
   header: Header;
   // TODO: Clarify how many flights we'll have (MVP and later updates)!?
   // 1. outbound flight - the flight to the destination
-  // 2. mid connection flight ???
+  // 2. mid-connection flight!?
   // 3. inbound flight - the flight back to the origin city
   items: Flight[];
 }
