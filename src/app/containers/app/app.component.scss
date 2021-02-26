@@ -3,7 +3,8 @@
 :host {
   display: block;
   padding: 28px 50px;
-  min-width: 720px;
+  //min-width: 720px;
+  min-width: 560px;
 
   @media (max-width: $screen-sm) {
     padding: 16px 4px;

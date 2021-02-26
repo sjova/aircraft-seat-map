@@ -1,6 +1,7 @@
 import {
   FlightsState,
   FlightState,
+  OffersState,
   PassengersState,
   SeatMapCodeState,
   SeatMapState,
@@ -11,6 +12,7 @@ import {
   FlightSeatMapApiResponse,
   Item,
   ItemTypeEnum,
+  Offer,
   Passenger,
   Row,
 } from '@app/aircraft-seat-map/shared/models/flight-seat-map-api-response';
@@ -30,8 +32,19 @@ const reducePassengers = (
     lastName: titleCase(passenger.lastName),
     seatRowNumber: undefined,
     seatCode: undefined,
+    seatOffer: undefined,
   },
 });
+
+const reduceItemOffersState = (
+  state: OffersState,
+  offer: Offer
+): OffersState => {
+  return {
+    ...state,
+    [offer.passengerId]: offer,
+  };
+};
 
 const reduceItemsState = (
   state: SeatMapCodeState,
@@ -48,6 +61,9 @@ const reduceItemsState = (
       flightNumber: undefined,
       passengerId: undefined,
       selected: false,
+      offers: item.offers
+        ? item.offers.reduce(reduceItemOffersState, {})
+        : undefined,
     },
   };
 };

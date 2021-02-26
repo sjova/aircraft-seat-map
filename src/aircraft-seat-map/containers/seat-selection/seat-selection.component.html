@@ -137,25 +137,38 @@
     </div>
     <div class="cta-wrapper">
       <div class="cta-inner-wrapper">
-        <p class="price">Total price: 0&euro;</p>
-        <button
-          class="cancel"
-          mat-stroked-button
-          routerLink="/demo/summary"
-          [queryParams]="queryParams"
-        >
-          Cancel
-        </button>
-        <button
-          class="confirm"
-          mat-flat-button
-          color="accent"
-          routerLink="/demo/summary"
-          [queryParams]="queryParams"
-          [disabled]="!isSeatSelectionValid"
-        >
-          Confirm settings
-        </button>
+        <div>
+          <p class="price">
+            Total price:
+            <ng-container
+              *ngIf="totalPrice$ | async as totalPrice; else defaultZero"
+            >
+              {{ totalPrice.total | number: "1.2-2" }}
+              {{ totalPrice.currencyCode }}
+            </ng-container>
+            <ng-template #defaultZero>0</ng-template>
+          </p>
+        </div>
+        <div>
+          <button
+            class="cancel"
+            mat-stroked-button
+            routerLink="/demo/summary"
+            [queryParams]="queryParams"
+          >
+            Cancel
+          </button>
+          <button
+            class="confirm"
+            mat-flat-button
+            color="accent"
+            routerLink="/demo/summary"
+            [queryParams]="queryParams"
+            [disabled]="!isSeatSelectionValid"
+          >
+            Confirm settings
+          </button>
+        </div>
       </div>
     </div>
   </div>

@@ -2,7 +2,10 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { Store } from '@app/store';
 import { Observable } from 'rxjs';
-import { FlightsState } from '@app/aircraft-seat-map/shared/models/flight-state';
+import {
+  FlightsState,
+  FlightsTotalPrice,
+} from '@app/aircraft-seat-map/shared/models/flight-state';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { setDemoQueryParam } from '@app/aircraft-seat-map/shared/helpers/query-params';
 
@@ -14,6 +17,7 @@ import { setDemoQueryParam } from '@app/aircraft-seat-map/shared/helpers/query-p
 })
 export class FlightSummaryComponent implements OnInit {
   flights$: Observable<FlightsState>;
+  totalPrice$: Observable<FlightsTotalPrice>;
 
   queryParams: Params;
 
@@ -28,6 +32,10 @@ export class FlightSummaryComponent implements OnInit {
       this.activatedRoute,
       this.router,
       this.queryParams
+    );
+
+    this.totalPrice$ = this.store.select<FlightsTotalPrice>(
+      'flightsTotalPrice'
     );
 
     this.flights$ = this.store.select<FlightsState>('flights');

@@ -1,20 +1,26 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, pluck } from 'rxjs/operators';
 
-import { FlightsState } from '@app/aircraft-seat-map/shared/models/flight-state';
+import {
+  FlightsState,
+  FlightsTotalPrice,
+} from '@app/aircraft-seat-map/shared/models/flight-state';
 
 export interface UserSelection {
   flightNumber?: string;
   passengerId?: string;
 }
 
+// TODO: Rewrite into Redux state (byId, allIds) after demo
 export interface State {
   flights: FlightsState;
+  flightsTotalPrice: FlightsTotalPrice;
   userFlightsSelection: UserSelection;
 }
 
 const initialState: State = {
   flights: undefined,
+  flightsTotalPrice: undefined,
   userFlightsSelection: undefined,
 };
 

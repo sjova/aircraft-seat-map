@@ -40,7 +40,10 @@
               [ngClass]="{
                 selected: item.selected,
                 available: item.availability === seatAvailability.Available,
-                unavailable: item.availability === seatAvailability.Unavailable,
+                unavailable:
+                  item.availability === seatAvailability.Unavailable ||
+                  item.availability === seatAvailability.NotAvailable ||
+                  !item.availability,
                 occupied: item.availability === seatAvailability.Occupied,
                 unknown: item.availability === seatAvailability.Unknown,
                 'extra-legroom': item.characteristics.includes(

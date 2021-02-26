@@ -30,7 +30,7 @@ const getSeatPartialState = (
 const getPassengerPartialState = (
   passenger: PassengerState,
   seatSelection: SeatSelection
-): Pick<PassengerState, 'seatRowNumber' | 'seatCode'> => {
+): Pick<PassengerState, 'seatRowNumber' | 'seatCode' | 'seatOffer'> => {
   if (
     passenger.seatRowNumber === seatSelection.seatRowNumber &&
     passenger.seatCode === seatSelection.seatCode
@@ -38,11 +38,13 @@ const getPassengerPartialState = (
     return {
       seatRowNumber: undefined,
       seatCode: undefined,
+      seatOffer: undefined,
     };
   } else {
     return {
       seatRowNumber: seatSelection.seatRowNumber,
       seatCode: seatSelection.seatCode,
+      seatOffer: seatSelection.seatOffer,
     };
   }
 };

@@ -5,7 +5,10 @@ import { Store, UserSelection } from '@app/store';
 import { FlightSeatMapService } from '@app/aircraft-seat-map/shared/services/flight-seat-map/flight-seat-map.service';
 
 import { exhaustMap, filter, map, take, tap } from 'rxjs/operators';
-import { FlightsState } from '@app/aircraft-seat-map/shared/models/flight-state';
+import {
+  FlightsState,
+  FlightsTotalPrice,
+} from '@app/aircraft-seat-map/shared/models/flight-state';
 import { Observable, of } from 'rxjs';
 import { responseToState } from '@app/aircraft-seat-map/shared/helpers/response-to-state';
 import { SeatSelection } from '@app/aircraft-seat-map/components/seat-map/seat-map.component';
@@ -15,6 +18,7 @@ import { prepareDefaultUserSelection } from '@app/aircraft-seat-map/shared/helpe
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { setDemoQueryParam } from '@app/aircraft-seat-map/shared/helpers/query-params';
 import { seatSelectionValidation } from '@app/aircraft-seat-map/shared/helpers/seat-selection-validation';
+import { getTotalPrice } from '@app/aircraft-seat-map/shared/helpers/total-price';
 
 @Component({
   selector: 'app-seat-selection',
@@ -24,6 +28,7 @@ import { seatSelectionValidation } from '@app/aircraft-seat-map/shared/helpers/s
 })
 export class SeatSelectionComponent implements OnInit {
   flights$: Observable<FlightsState>;
+  totalPrice$: Observable<FlightsTotalPrice>;
   isSeatSelectionValid: boolean;
 
   userSelection: UserSelection;
@@ -45,6 +50,10 @@ export class SeatSelectionComponent implements OnInit {
       this.activatedRoute,
       this.router,
       this.queryParams
+    );
+
+    this.totalPrice$ = this.store.select<FlightsTotalPrice>(
+      'flightsTotalPrice'
     );
 
     this.store
@@ -76,7 +85,11 @@ export class SeatSelectionComponent implements OnInit {
               })
             );
         }
-      })
+      }),
+      tap(
+        (flightsState: FlightsState) =>
+          (this.isSeatSelectionValid = seatSelectionValidation(flightsState))
+      )
     );
   }
 
@@ -87,6 +100,8 @@ export class SeatSelectionComponent implements OnInit {
       event
     );
     this.store.set(stateName, updatedFlightsState);
+
+    this.store.set('flightsTotalPrice', getTotalPrice(updatedFlightsState));
 
     this.isSeatSelectionValid = seatSelectionValidation(updatedFlightsState);
   }

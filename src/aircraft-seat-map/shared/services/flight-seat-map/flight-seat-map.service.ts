@@ -15,6 +15,8 @@ import { getMROSignatureAuthentication } from '@app/aircraft-seat-map/shared/hel
 import FlightSeatMapDataExample1 from 'flightretrieveseatmap-example-1.json';
 import FlightSeatMapDataExample2 from 'flightretrieveseatmap-example-2.json';
 import FlightSeatMapDataExample3 from 'flightretrieveseatmap-example-3.json';
+import FlightSeatMapDataExample4 from 'flightretrieveseatmap-example-4.json';
+import FlightSeatMapDataExample5 from 'flightretrieveseatmap-example-5.json';
 
 @Injectable({
   providedIn: SharedModule,
@@ -32,9 +34,11 @@ export class FlightSeatMapService {
 
   getFlightSeatMap(): Observable<Partial<FlightSeatMapApiResponse>> {
     const partnerId = 1;
-    const conversationId = 'd9a7e02b-8b2e-4b35-8199-df7f697c9dd3';
+    // const conversationId = 'd9a7e02b-8b2e-4b35-8199-df7f697c9dd3';
+    const conversationId = 'seating-test';
     const source = 'Amadeus';
-    const identifier = 'S7CZV8';
+    // const identifier = 'S7CZV8';
+    const identifier = 'VEDQLI';
 
     const urlParams = `partnerid=${partnerId}&conversationId=${conversationId}&source=${source}&identifier=${identifier}`;
     const url = `${this.apiUrl}/flightretrieveseatmap?${urlParams}`;
@@ -60,6 +64,8 @@ export class FlightSeatMapService {
       FlightSeatMapDataExample1,
       FlightSeatMapDataExample2,
       FlightSeatMapDataExample3,
+      FlightSeatMapDataExample4,
+      FlightSeatMapDataExample5,
     ];
 
     const fakeDelay = getRandomIntFromRange(800, 1200);

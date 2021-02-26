@@ -15,6 +15,7 @@ import {
   ItemAvailabilityEnum,
   ItemCharacteristicEnum,
   ItemTypeEnum,
+  Offer,
 } from '@app/aircraft-seat-map/shared/models/flight-seat-map-api-response';
 
 export interface SeatSelection {
@@ -22,6 +23,7 @@ export interface SeatSelection {
   passengerId: string;
   seatRowNumber: string;
   seatCode: string;
+  seatOffer: Offer;
 }
 
 @Component({
@@ -53,12 +55,25 @@ export class SeatMapComponent {
 
   getTooltip(item: ItemState): string {
     const tooltipText = `Seat ${item.rowNumber}${item.code}`;
+
     if (item.selected) {
       return `${tooltipText} - This seat belong to ${
         this.passengers[item.passengerId].firstName
       } ${this.passengers[item.passengerId].lastName}`;
     } else {
-      return `${tooltipText} - Standard seat - 0€`;
+      if (
+        item.offers &&
+        item.offers[this.passengerId] &&
+        item.offers[this.passengerId].price
+      ) {
+        return `${tooltipText} - Standard seat - ${item.offers[
+          this.passengerId
+        ].price.total.toFixed(2)} ${
+          item.offers[this.passengerId].price.currencyCode
+        }`;
+      } else {
+        return `${tooltipText} - Standard seat`;
+      }
     }
   }
 
@@ -72,6 +87,7 @@ export class SeatMapComponent {
         passengerId: `${this.passengerId}`,
         seatRowNumber: `${seat.rowNumber}`,
         seatCode: seat.code,
+        seatOffer: seat.offers ? seat.offers[this.passengerId] : undefined,
       });
     }
   }

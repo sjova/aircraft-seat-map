@@ -85,6 +85,7 @@ export type ItemAvailability =
 export enum ItemAvailabilityEnum {
   Available = 'Available',
   Unavailable = 'Unavailable',
+  NotAvailable = 'NotAvailable', // TODO: Remove in final version
   Occupied = 'Occupied',
   Unknown = 'Unknown',
 }
@@ -216,7 +217,6 @@ export interface Item {
   offers?: Offer[];
 }
 
-// TODO: Revisit `Offer` in final API response (currently we're missing this info!?)
 export interface Offer {
   rateKey: string;
   passengerId: number;

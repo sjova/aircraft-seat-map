@@ -37,6 +37,13 @@
       </h5>
     </ng-container>
   </div>
+  <h4 class="label text-bold">
+    Total price:
+    <ng-container *ngIf="totalPrice$ | async as totalPrice; else defaultZero">
+      {{ totalPrice.total | number: "1.2-2" }} {{ totalPrice.currencyCode }}
+    </ng-container>
+    <ng-template #defaultZero>0</ng-template>
+  </h4>
 </ng-container>
 <ng-template #notSelectedSeat>
   <p class="label">(Flights Seat Map API data is not yet loaded)</p>
