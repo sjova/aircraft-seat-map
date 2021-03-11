@@ -1,11 +1,11 @@
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-const updateUrlQueryParams = (
-  activatedRoute: ActivatedRoute,
+const updateUrlQueryParams = async (
   router: Router,
+  activatedRoute: ActivatedRoute,
   queryParams: Params
-): void => {
-  router.navigate(['.'], {
+): Promise<void> => {
+  await router.navigate(['.'], {
     relativeTo: activatedRoute,
     queryParams,
   });
@@ -29,7 +29,7 @@ export const setDemoQueryParam = (
       demo: 1,
     };
 
-    updateUrlQueryParams(activatedRoute, router, queryParams);
+    updateUrlQueryParams(router, activatedRoute, queryParams);
   }
 
   return queryParams;

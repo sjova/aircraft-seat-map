@@ -10,28 +10,31 @@
 </button>
 <br /><br />
 <ng-container *ngIf="flights$ | async as flights; else notSelectedSeat">
-  <div *ngFor="let flight of flights | keyvalue">
+  <div *ngFor="let flightId of flights.allIds">
     <h4 class="label text-bold">
-      {{ flight.value.flightInfo.departure.code }} -
-      {{ flight.value.flightInfo.arrival.code }}
-      ({{ flight.value.flightInfo.flightNumber }})
+      {{ flights.byId[flightId].flightInfo.departure.code }} -
+      {{ flights.byId[flightId].flightInfo.arrival.code }}
+      ({{ flights.byId[flightId].flightInfo.flightNumber }})
     </h4>
 
     <ng-container
       *ngFor="
-        let passenger of flight.value.passengers | keyvalue;
+        let passengerId of flights.byId[flightId].passengers.allIds;
         let last = last
       "
     >
       <h5 class="label" [ngClass]="{ 'bottom-spacing': last }">
-        {{ passenger.value.firstName }} {{ passenger.value.lastName }}:
+        {{ flights.byId[flightId].passengers.byId[passengerId].firstName }}
+        {{ flights.byId[flightId].passengers.byId[passengerId].lastName }}:
         <ng-container
           *ngIf="
-            passenger.value.seatRowNumber && passenger.value.seatCode;
+            flights.byId[flightId].passengers.byId[passengerId].seatRowNumber &&
+              flights.byId[flightId].passengers.byId[passengerId].seatCode;
             else notSelectedSeat
           "
         >
-          {{ passenger.value.seatRowNumber }}{{ passenger.value.seatCode }}
+          {{ flights.byId[flightId].passengers.byId[passengerId].seatRowNumber
+          }}{{ flights.byId[flightId].passengers.byId[passengerId].seatCode }}
         </ng-container>
         <ng-template #notSelectedSeat> (not selected seat) </ng-template>
       </h5>

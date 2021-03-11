@@ -11,22 +11,23 @@ export const getTotalPrice = (
     currencyCode: undefined,
   };
 
-  // TODO: Revisit this later
-  Object.keys(flightsState).forEach((flightNumber: string) => {
-    Object.keys(flightsState[flightNumber].passengers).forEach(
-      (passengerId: string) => {
-        const passenger = flightsState[flightNumber].passengers[passengerId];
+  for (let i = 0; i < flightsState.allIds.length; i++) {
+    const flightNumber = flightsState.allIds[i];
+    const flight = flightsState.byId[flightNumber];
 
-        if (passenger.seatOffer) {
-          totalPrice = {
-            ...totalPrice,
-            total: totalPrice.total + passenger.seatOffer.price.total,
-            currencyCode: passenger.seatOffer.price.currencyCode,
-          };
-        }
+    for (let j = 0; j < flight.passengers.allIds.length; j++) {
+      const passengerId = flight.passengers.allIds[j];
+      const passenger = flight.passengers.byId[passengerId];
+
+      if (passenger.seatOffer) {
+        totalPrice = {
+          ...totalPrice,
+          total: totalPrice.total + passenger.seatOffer.price.total,
+          currencyCode: passenger.seatOffer.price.currencyCode,
+        };
       }
-    );
-  });
+    }
+  }
 
   return totalPrice;
 };

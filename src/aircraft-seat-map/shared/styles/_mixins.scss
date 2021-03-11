@@ -1,34 +1,5 @@
 @import "~src/app/styles/variables";
 
-$seat-size: 48px;
-$aisle-size: 28px;
-
-$seat-half-outer-spacing: 4px;
-
-$regular-legroom: 14px;
-$extra-legroom: 28px;
-
-%flex-parent {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-}
-
-%flex-child {
-  flex: 0 1 auto;
-  align-self: auto;
-}
-
-%text {
-  color: $color-text-light;
-  font-family: Roboto;
-  font-size: 14px;
-  letter-spacing: 0;
-  line-height: 22px;
-}
-
 @mixin seat-base($size, $radius) {
   height: $size;
   width: $size;

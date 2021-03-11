@@ -6,8 +6,13 @@ import {
   Price,
 } from '@app/aircraft-seat-map/shared/models/flight-seat-map-api-response';
 
-export interface FlightsState {
+export interface FlightsStateById {
   [flightNumber: string]: FlightState;
+}
+
+export interface FlightsState {
+  byId: FlightsStateById;
+  allIds: string[];
 }
 
 export interface FlightState {
@@ -16,8 +21,13 @@ export interface FlightState {
   seatMap: SeatMapState;
 }
 
-export interface PassengersState {
+export interface PassengersStateById {
   [passengerId: string]: PassengerState;
+}
+
+export interface PassengersState {
+  byId: PassengersStateById;
+  allIds: string[];
 }
 
 export interface PassengerState extends Passenger {

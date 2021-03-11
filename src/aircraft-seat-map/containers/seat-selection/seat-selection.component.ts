@@ -1,24 +1,24 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { MatSelectChange } from '@angular/material/select';
+import { Observable, of } from 'rxjs';
+import { exhaustMap, filter, map, take, tap } from 'rxjs/operators';
 
 import { Store, UserSelection } from '@app/store';
-
 import { FlightSeatMapService } from '@app/aircraft-seat-map/shared/services/flight-seat-map/flight-seat-map.service';
-
-import { exhaustMap, filter, map, take, tap } from 'rxjs/operators';
+import { SeatSelection } from '@app/aircraft-seat-map/components/seat-map/seat-map.component';
 import {
   FlightsState,
   FlightsTotalPrice,
 } from '@app/aircraft-seat-map/shared/models/flight-state';
-import { Observable, of } from 'rxjs';
-import { responseToState } from '@app/aircraft-seat-map/shared/helpers/response-to-state';
-import { SeatSelection } from '@app/aircraft-seat-map/components/seat-map/seat-map.component';
-import { updateFlightsState } from '@app/aircraft-seat-map/shared/helpers/update-flights-state';
-import { MatSelectChange } from '@angular/material/select';
-import { prepareDefaultUserSelection } from '@app/aircraft-seat-map/shared/helpers/prepare-default-user-selection';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { setDemoQueryParam } from '@app/aircraft-seat-map/shared/helpers/query-params';
-import { seatSelectionValidation } from '@app/aircraft-seat-map/shared/helpers/seat-selection-validation';
-import { getTotalPrice } from '@app/aircraft-seat-map/shared/helpers/total-price';
+import {
+  getTotalPrice,
+  prepareDefaultUserSelection,
+  responseToState,
+  seatSelectionValidation,
+  setDemoQueryParam,
+  updateFlightsState,
+} from '@app/aircraft-seat-map/shared/helpers';
 
 @Component({
   selector: 'app-seat-selection',

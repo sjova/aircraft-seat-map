@@ -11,7 +11,6 @@ export interface UserSelection {
   passengerId?: string;
 }
 
-// TODO: Rewrite into Redux state (byId, allIds) after demo
 export interface State {
   flights: FlightsState;
   flightsTotalPrice: FlightsTotalPrice;

@@ -5,15 +5,15 @@
         <mat-label>Select Flight</mat-label>
         <mat-select
           name="flight"
-          [(ngModel)]="this.userSelection.flightNumber"
+          [(ngModel)]="userSelection.flightNumber"
           (selectionChange)="selectFlight($event)"
         >
           <mat-option
-            *ngFor="let flight of flights | keyvalue"
-            [value]="flight.key"
+            *ngFor="let flightId of flights.allIds"
+            [value]="flightId"
           >
-            {{ flight.value.flightInfo.departure.code }} -
-            {{ flight.value.flightInfo.arrival.code }}
+            {{ flights.byId[flightId].flightInfo.departure.code }} -
+            {{ flights.byId[flightId].flightInfo.arrival.code }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -24,19 +24,27 @@
         <mat-label>Select Traveler</mat-label>
         <mat-select
           name="passenger"
-          [disabled]="!this.userSelection.flightNumber"
-          [(ngModel)]="this.userSelection.passengerId"
+          [disabled]="!userSelection.flightNumber"
+          [(ngModel)]="userSelection.passengerId"
           (selectionChange)="selectPassenger($event)"
         >
           <mat-option
             *ngFor="
-              let passenger of flights[this.userSelection.flightNumber]
-                ?.passengers | keyvalue
+              let passengerId of flights.byId[userSelection.flightNumber]
+                .passengers.allIds
             "
-            [value]="passenger.key"
+            [value]="passengerId"
           >
-            {{ passenger.value.firstName }}
-            {{ passenger.value.lastName }}
+            {{
+              flights.byId[userSelection.flightNumber].passengers.byId[
+                passengerId
+              ].firstName
+            }}
+            {{
+              flights.byId[userSelection.flightNumber].passengers.byId[
+                passengerId
+              ].lastName
+            }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -45,22 +53,22 @@
 
   <div class="content">
     <div class="selection-wrapper">
-      <div *ngFor="let flight of flights | keyvalue">
+      <div *ngFor="let flightId of flights.allIds">
         <h4
           class="label"
           [ngClass]="{
             active:
               userSelection.flightNumber ===
-              flight.value.flightInfo.flightNumber
+              flights.byId[flightId].flightInfo.flightNumber
           }"
         >
-          {{ flight.value.flightInfo.departure.code }} -
-          {{ flight.value.flightInfo.arrival.code }}
+          {{ flights.byId[flightId].flightInfo.departure.code }} -
+          {{ flights.byId[flightId].flightInfo.arrival.code }}
         </h4>
 
         <ng-container
           *ngFor="
-            let passenger of flight.value.passengers | keyvalue;
+            let passengerId of flights.byId[flightId].passengers.allIds;
             let last = last
           "
         >
@@ -69,19 +77,28 @@
             [ngClass]="{
               active:
                 userSelection.flightNumber ===
-                  flight.value.flightInfo.flightNumber &&
-                userSelectionPassengerIdAsNumber === passenger.value.id,
+                  flights.byId[flightId].flightInfo.flightNumber &&
+                userSelectionPassengerIdAsNumber ===
+                  flights.byId[flightId].passengers.byId[passengerId].id,
               'bottom-spacing': last
             }"
           >
-            {{ passenger.value.firstName }} {{ passenger.value.lastName }}:
+            {{ flights.byId[flightId].passengers.byId[passengerId].firstName }}
+            {{ flights.byId[flightId].passengers.byId[passengerId].lastName }}:
             <ng-container
               *ngIf="
-                passenger.value.seatRowNumber && passenger.value.seatCode;
+                flights.byId[flightId].passengers.byId[passengerId]
+                  .seatRowNumber &&
+                  flights.byId[flightId].passengers.byId[passengerId].seatCode;
                 else notSelectedSeat
               "
             >
-              {{ passenger.value.seatRowNumber }}{{ passenger.value.seatCode }}
+              {{
+                flights.byId[flightId].passengers.byId[passengerId]
+                  .seatRowNumber
+              }}{{
+                flights.byId[flightId].passengers.byId[passengerId].seatCode
+              }}
             </ng-container>
             <ng-template #notSelectedSeat>
               <span matTooltip="Not selected seat">(?)</span>
@@ -108,8 +125,8 @@
       <app-seat-map
         [flightNumber]="userSelection.flightNumber"
         [passengerId]="userSelection.passengerId"
-        [passengers]="flights[userSelection.flightNumber]?.passengers"
-        [seatMapState]="flights[userSelection.flightNumber]?.seatMap"
+        [passengers]="flights.byId[userSelection.flightNumber]?.passengers"
+        [seatMapState]="flights.byId[userSelection.flightNumber]?.seatMap"
         (seatSelection)="onSelection($event)"
       ></app-seat-map>
     </div>

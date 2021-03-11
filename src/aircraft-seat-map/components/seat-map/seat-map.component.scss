@@ -1,13 +1,15 @@
 @import "~src/app/styles/variables";
-@import "~src/aircraft-seat-map/shared/styles/seat-map";
+@import "../../shared/styles/extends";
+@import "../../shared/styles/mixins";
+@import "../../shared/styles/variables";
 
 :host {
   display: block;
 
   .aircraft {
-    @extend %flex-parent;
+    @extend %default-flex-parent;
     .cabins-wrapper {
-      @extend %flex-child;
+      @extend %default-flex-child;
       .cabin {
         padding: 0 $seat-half-outer-spacing;
       }
@@ -15,12 +17,12 @@
   }
 
   .row {
-    @extend %flex-parent;
-    align-items: flex-end; // TODO: Revisit this fix (if WingRow seats are missing "L" property)
+    @extend %default-flex-parent;
+    align-items: flex-end; // TODO: Revisit this fix (if `WingRow` seats are missing "L" property)
     .seat,
     .aisle {
-      @extend %flex-child;
-      margin: $regular-legroom $seat-half-outer-spacing 0;
+      @extend %default-flex-child;
+      margin: $legroom-regular $seat-half-outer-spacing 0;
     }
 
     .seat {
@@ -42,15 +44,15 @@
       }
 
       &.extra-legroom {
-        margin-top: $extra-legroom;
+        margin-top: $legroom-extra;
       }
 
       .seat-number {
-        @extend %flex-parent;
+        @extend %default-flex-parent;
         height: 100%;
         width: 100%;
 
-        @extend %text;
+        @extend %default-text;
 
         // TODO: Temp for demo
         @media (max-width: $screen-sm) {

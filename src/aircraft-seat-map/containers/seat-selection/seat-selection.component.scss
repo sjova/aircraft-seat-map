@@ -1,5 +1,7 @@
 @import "~src/app/styles/variables";
-@import "~src/aircraft-seat-map/shared/styles/seat-map";
+@import "../../shared/styles/extends";
+@import "../../shared/styles/mixins";
+@import "../../shared/styles/variables";
 
 :host {
   display: block;
@@ -10,13 +12,13 @@
   box-shadow: 0 5px 40px -10px rgba(0, 0, 0, 0.18);
 
   .header {
-    @extend %flex-parent;
+    @extend %default-flex-parent;
     margin-bottom: 24px;
     @media (max-width: $screen-sm) {
       flex-wrap: wrap;
     }
     & > div {
-      @extend %flex-child;
+      @extend %default-flex-child;
       @media (max-width: $screen-sm) {
         flex-basis: 100%;
       }
@@ -43,7 +45,7 @@
   }
 
   .content {
-    @extend %flex-parent;
+    @extend %default-flex-parent;
     align-items: flex-start;
     @media (max-width: $screen-sm) {
       flex-wrap: wrap;
@@ -52,7 +54,7 @@
     .selection-wrapper,
     .aircraft-wrapper,
     .right-placeholder {
-      @extend %flex-child;
+      @extend %default-flex-child;
       flex: 1;
       @media (max-width: $screen-sm) {
         flex-basis: 100%;
@@ -61,7 +63,7 @@
 
     .selection-wrapper,
     .right-placeholder {
-      margin-top: $regular-legroom;
+      margin-top: $legroom-regular;
     }
 
     .selection-wrapper {
@@ -77,31 +79,31 @@
   }
 
   .footer {
-    @extend %flex-parent;
+    @extend %default-flex-parent;
     align-items: flex-end;
     margin-top: 56px;
     .seat-info-wrapper,
     .cta-wrapper {
-      @extend %flex-child;
+      @extend %default-flex-child;
       flex-basis: 50%;
     }
 
     .cta-wrapper {
-      @extend %flex-parent;
+      @extend %default-flex-parent;
       justify-content: flex-end;
       .cta-inner-wrapper {
-        @extend %flex-child;
+        @extend %default-flex-child;
       }
     }
   }
 
   .seat-info-wrapper {
     .seat-info {
-      @extend %flex-parent;
+      @extend %default-flex-parent;
       justify-content: left;
       .info-box,
       .label {
-        @extend %flex-child;
+        @extend %default-flex-child;
       }
 
       .info-box {
@@ -113,7 +115,7 @@
   }
 
   .label {
-    @extend %text;
+    @extend %default-text;
     margin: 0;
     &.active {
       font-weight: bold;

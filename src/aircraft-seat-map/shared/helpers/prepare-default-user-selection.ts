@@ -4,8 +4,8 @@ import { UserSelection } from '@app/store';
 export const prepareDefaultUserSelection = (
   flightsState: FlightsState
 ): UserSelection => {
-  const [flightNumber] = Object.keys(flightsState);
-  const [passengerId] = Object.keys(flightsState[flightNumber].passengers);
+  const [flightNumber] = flightsState.allIds;
+  const [passengerId] = flightsState.byId[flightNumber].passengers.allIds;
 
   return {
     flightNumber,

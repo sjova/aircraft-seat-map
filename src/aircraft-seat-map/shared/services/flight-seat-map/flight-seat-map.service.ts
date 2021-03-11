@@ -9,8 +9,10 @@ import { Store } from '@app/store';
 import { FlightSeatMapApiResponse } from '@app/aircraft-seat-map/shared/models/flight-seat-map-api-response';
 import { SharedModule } from '@app/aircraft-seat-map/shared/shared.module';
 import { environment } from '@app/environments/environment';
-import { getRandomIntFromRange } from '@app/aircraft-seat-map/shared/helpers/random-int-from-range';
-import { getMROSignatureAuthentication } from '@app/aircraft-seat-map/shared/helpers/mro-signature-authentication';
+import {
+  getRandomIntegerFromRange,
+  getMROSignatureAuthentication,
+} from '@app/aircraft-seat-map/shared/helpers/utilities';
 
 import FlightSeatMapDataExample1 from 'flightretrieveseatmap-example-1.json';
 import FlightSeatMapDataExample2 from 'flightretrieveseatmap-example-2.json';
@@ -68,7 +70,7 @@ export class FlightSeatMapService {
       FlightSeatMapDataExample5,
     ];
 
-    const fakeDelay = getRandomIntFromRange(800, 1200);
+    const fakeDelay = getRandomIntegerFromRange(800, 1200);
 
     return of(dataExample[dataExampleIndex] as FlightSeatMapApiResponse).pipe(
       delay(fakeDelay),

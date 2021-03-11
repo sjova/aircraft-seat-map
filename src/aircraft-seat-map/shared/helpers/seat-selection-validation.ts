@@ -6,19 +6,19 @@ const passengerSeatSelectionValidation = (
   passengerId: string
 ): boolean =>
   Boolean(
-    flights[flightNumber].passengers[passengerId].seatCode &&
-      flights[flightNumber].passengers[passengerId].seatCode
+    flights.byId[flightNumber].passengers.byId[passengerId].seatCode &&
+      flights.byId[flightNumber].passengers.byId[passengerId].seatCode
   );
 
 const passengersSeatSelectionValidation = (
   flights: FlightsState,
   flightNumber: string
-) =>
-  Object.keys(flights[flightNumber].passengers).every((passengerId) =>
+): boolean =>
+  flights.byId[flightNumber].passengers.allIds.every((passengerId) =>
     passengerSeatSelectionValidation(flights, flightNumber, passengerId)
   );
 
-export const seatSelectionValidation = (flights: FlightsState) =>
-  Object.keys(flights).every((flightNumber) =>
+export const seatSelectionValidation = (flights: FlightsState): boolean =>
+  flights.allIds.every((flightNumber) =>
     passengersSeatSelectionValidation(flights, flightNumber)
   );

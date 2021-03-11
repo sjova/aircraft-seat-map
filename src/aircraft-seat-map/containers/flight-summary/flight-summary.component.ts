@@ -7,7 +7,7 @@ import {
   FlightsTotalPrice,
 } from '@app/aircraft-seat-map/shared/models/flight-state';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { setDemoQueryParam } from '@app/aircraft-seat-map/shared/helpers/query-params';
+import { setDemoQueryParam } from '@app/aircraft-seat-map/shared/helpers';
 
 @Component({
   selector: 'app-flight-summary',

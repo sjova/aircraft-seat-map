@@ -1,0 +1,22 @@
+@import "~src/app/styles/variables";
+
+%default-flex-parent {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+%default-flex-child {
+  flex: 0 1 auto;
+  align-self: auto;
+}
+
+%default-text {
+  color: $color-text-light;
+  font-family: Roboto;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 22px;
+}

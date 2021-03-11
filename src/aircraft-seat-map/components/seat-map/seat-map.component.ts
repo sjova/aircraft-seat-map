@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import {
   ItemState,
-  PassengerState,
+  PassengersState,
   SeatMapCodeState,
   SeatMapState,
 } from '@app/aircraft-seat-map/shared/models/flight-state';
@@ -35,7 +35,7 @@ export interface SeatSelection {
 export class SeatMapComponent {
   @Input() flightNumber: string;
   @Input() passengerId: string;
-  @Input() passengers: PassengerState;
+  @Input() passengers: PassengersState;
 
   @Input()
   set seatMapState(seatMap: SeatMapState) {
@@ -58,8 +58,8 @@ export class SeatMapComponent {
 
     if (item.selected) {
       return `${tooltipText} - This seat belong to ${
-        this.passengers[item.passengerId].firstName
-      } ${this.passengers[item.passengerId].lastName}`;
+        this.passengers.byId[item.passengerId].firstName
+      } ${this.passengers.byId[item.passengerId].lastName}`;
     } else {
       if (
         item.offers &&

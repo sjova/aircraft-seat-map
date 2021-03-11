@@ -1,5 +1,5 @@
 @import "~src/app/styles/variables";
-@import "~src/aircraft-seat-map/shared/styles/seat-map";
+@import "../../shared/styles/extends";
 
 :host {
   display: block;
@@ -10,7 +10,7 @@
   padding: 22px;
 
   .label {
-    @extend %text;
+    @extend %default-text;
     margin: 0;
   }
 
