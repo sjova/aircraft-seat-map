@@ -13,6 +13,7 @@ import {
 } from '@app/aircraft-seat-map/shared/models/flight-state';
 import {
   ItemAvailabilityEnum,
+  ItemCharacteristic,
   ItemCharacteristicEnum,
   ItemTypeEnum,
   Offer,
@@ -61,20 +62,42 @@ export class SeatMapComponent {
         this.passengers.byId[item.passengerId].firstName
       } ${this.passengers.byId[item.passengerId].lastName}`;
     } else {
+      const seatType = this.getSeatType(item.characteristics);
+
       if (
         item.offers &&
         item.offers[this.passengerId] &&
         item.offers[this.passengerId].price
       ) {
-        return `${tooltipText} - Standard seat - ${item.offers[
+        return `${tooltipText} - ${seatType} - ${item.offers[
           this.passengerId
         ].price.total.toFixed(2)} ${
           item.offers[this.passengerId].price.currencyCode
         }`;
       } else {
-        return `${tooltipText} - Standard seat`;
+        return `${tooltipText} - ${seatType}`;
       }
     }
+  }
+
+  // TODO: Revisit this in final implementation
+  private getSeatType(seatCharacteristics: ItemCharacteristic[]): string {
+    let type = '';
+
+    if (seatCharacteristics.includes(this.itemCharacteristic.LegSpaceSeat)) {
+      type += 'Extra Legroom';
+    }
+
+    if (seatCharacteristics.includes(this.itemCharacteristic.ExitRowSeat)) {
+      type += type.length ? ', ' : '';
+      type += 'Emergency Exit Row';
+    }
+
+    if (type.length === 0) {
+      type = 'Standard Seat';
+    }
+
+    return type;
   }
 
   selectSeat(seat: ItemState) {

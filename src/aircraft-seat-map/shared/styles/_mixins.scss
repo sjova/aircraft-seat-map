@@ -1,13 +1,11 @@
 @import "~src/app/styles/variables";
 
 @mixin seat-base($size, $radius) {
-  height: $size;
   width: $size;
+  height: $size;
   border: 1px solid $color-text-lightest;
   background-color: $color-white;
   border-radius: $radius;
-  position: relative;
-  overflow: hidden;
   box-sizing: border-box;
 }
 
@@ -69,6 +67,8 @@
 }
 
 @mixin box-cross($size) {
+  position: relative;
+  overflow: hidden;
   &:before,
   &:after {
     content: "";
@@ -76,6 +76,8 @@
     top: -52.5%;
     width: 1px;
     height: $size * 2;
+    // default color
+    //background-color: $color-bg-gray;
   }
 
   &:before {

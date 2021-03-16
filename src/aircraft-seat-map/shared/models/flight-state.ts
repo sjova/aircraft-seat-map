@@ -13,6 +13,8 @@ export interface FlightsStateById {
 export interface FlightsState {
   byId: FlightsStateById;
   allIds: string[];
+  totalPrice: FlightsTotalPrice;
+  isSeatSelectionValid: boolean;
 }
 
 export interface FlightState {

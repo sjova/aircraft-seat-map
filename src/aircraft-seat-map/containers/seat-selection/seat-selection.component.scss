@@ -63,10 +63,12 @@
 
     .selection-wrapper,
     .right-placeholder {
+      flex: 0 0 200px;
       margin-top: $legroom-regular;
     }
 
     .selection-wrapper {
+      padding-right: 2 * $seat-half-outer-spacing;
       @media (max-width: $screen-sm) {
         order: 1;
         display: flex;
@@ -119,7 +121,18 @@
     margin: 0;
     &.active {
       font-weight: bold;
-      color: $color-secondary;
+      color: $color-secondary-highlight;
+    }
+
+    &.cursor {
+      display: block;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 8px;
+      mat-icon {
+        vertical-align: middle;
+      }
     }
   }
 
@@ -145,5 +158,34 @@
     .confirm {
       margin-left: 14px;
     }
+  }
+
+  .icon-size {
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+    line-height: 40px;
+  }
+
+  .test-wrapper {
+    @extend %default-flex-parent;
+    justify-content: space-between;
+    & > * {
+      @extend %default-flex-child;
+      margin: 0;
+    }
+    h2 {
+      color: $color-secondary;
+      margin: 0;
+      mat-icon {
+        position: relative;
+        top: -2px;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  mat-icon {
+    margin-right: 4px;
   }
 }

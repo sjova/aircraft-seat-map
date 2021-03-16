@@ -11,6 +11,13 @@ const updateUrlQueryParams = async (
   });
 };
 
+/**
+ * Set Demo Query Params
+ *
+ * @param activatedRoute
+ * @param router
+ * @param queryParams
+ */
 export const setDemoQueryParam = (
   activatedRoute: ActivatedRoute,
   router: Router,

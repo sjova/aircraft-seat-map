@@ -18,6 +18,11 @@ const passengersSeatSelectionValidation = (
     passengerSeatSelectionValidation(flights, flightNumber, passengerId)
   );
 
+/**
+ * Seat Selection Validation From Base Flights State
+ *
+ * @param flights
+ */
 export const seatSelectionValidation = (flights: FlightsState): boolean =>
   flights.allIds.every((flightNumber) =>
     passengersSeatSelectionValidation(flights, flightNumber)

@@ -8,11 +8,7 @@ import {
 } from '@app/aircraft-seat-map/shared/models/flight-seat-map-api-response';
 import { reducePassengers } from '@app/aircraft-seat-map/shared/helpers/normalize/reduce-passengers';
 import { reduceCabinsState } from '@app/aircraft-seat-map/shared/helpers/normalize/reduce-cabins';
-
-const initialState = {
-  byId: undefined,
-  allIds: [],
-};
+import { initialState } from '@app/aircraft-seat-map/shared/helpers/normalize/initial-state';
 
 const reduceFlightItem = (item: Flight): FlightState => {
   const flightInfo = { ...item.flightInfo };

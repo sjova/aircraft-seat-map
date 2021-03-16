@@ -19,10 +19,31 @@
   .row {
     @extend %default-flex-parent;
     align-items: flex-end; // TODO: Revisit this fix (if `WingRow` seats are missing "L" property)
-    .seat,
+    .seat-wrapper,
     .aisle {
       @extend %default-flex-child;
       margin: $legroom-regular $seat-half-outer-spacing 0;
+    }
+
+    .seat-wrapper {
+      &.extra-legroom {
+        margin-top: $legroom-extra;
+      }
+      &.emergency-exit-row {
+        position: relative;
+        &:before {
+          content: "EXIT";
+          position: absolute;
+          top: -18px;
+          left: 0;
+          right: 0;
+          color: $color-tertiary;
+          font-family: Helvetica;
+          font-weight: bold;
+          font-size: 10px;
+          text-align: center;
+        }
+      }
     }
 
     .seat {
@@ -41,10 +62,6 @@
         &:after {
           height: ($seat-size - 10px) * 2 !important;
         }
-      }
-
-      &.extra-legroom {
-        margin-top: $legroom-extra;
       }
 
       .seat-number {

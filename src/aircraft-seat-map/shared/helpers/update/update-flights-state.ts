@@ -2,6 +2,8 @@ import { FlightsState } from '@app/aircraft-seat-map/shared/models/flight-state'
 import { SeatSelection } from '@app/aircraft-seat-map/components/seat-map/seat-map.component';
 import { getSeatPartialState } from '@app/aircraft-seat-map/shared/helpers/update/seat-partial-state';
 import { getPassengerPartialState } from '@app/aircraft-seat-map/shared/helpers/update/passenger-partial-state';
+import { getTotalPrice } from '@app/aircraft-seat-map/shared/helpers/total-price';
+import { seatSelectionValidation } from '@app/aircraft-seat-map/shared/helpers/seat-selection-validation';
 
 export const updateFlightsState = (
   flights: FlightsState,
@@ -53,7 +55,7 @@ export const updateFlightsState = (
     },
   };
 
-  return {
+  const newStateBase = {
     ...flights,
     byId: {
       ...flights.byId,
@@ -63,5 +65,11 @@ export const updateFlightsState = (
         seatMap,
       },
     },
+  };
+
+  return {
+    ...newStateBase,
+    totalPrice: getTotalPrice(newStateBase),
+    isSeatSelectionValid: seatSelectionValidation(newStateBase),
   };
 };

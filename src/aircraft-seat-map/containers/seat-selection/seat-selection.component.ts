@@ -1,8 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { MatSelectChange } from '@angular/material/select';
 import { Observable, of } from 'rxjs';
-import { exhaustMap, filter, map, take, tap } from 'rxjs/operators';
+import { exhaustMap, filter, map, tap } from 'rxjs/operators';
 
 import { Store, UserSelection } from '@app/store';
 import { FlightSeatMapService } from '@app/aircraft-seat-map/shared/services/flight-seat-map/flight-seat-map.service';
@@ -12,13 +11,17 @@ import {
   FlightsTotalPrice,
 } from '@app/aircraft-seat-map/shared/models/flight-state';
 import {
-  getTotalPrice,
   prepareDefaultUserSelection,
   responseToState,
   seatSelectionValidation,
   setDemoQueryParam,
   updateFlightsState,
 } from '@app/aircraft-seat-map/shared/helpers';
+
+interface Step {
+  id: string;
+  type: 'flight' | 'passenger';
+}
 
 @Component({
   selector: 'app-seat-selection',
@@ -33,6 +36,13 @@ export class SeatSelectionComponent implements OnInit {
 
   userSelection: UserSelection;
   queryParams: Params;
+
+  steps: UserSelection[] = [];
+  stepIndex = 0;
+  defaultPassengerId: number;
+
+  // TODO: Revisit this later
+  initialFlightsState: FlightsState;
 
   constructor(
     private flightSeatMapService: FlightSeatMapService,
@@ -52,16 +62,14 @@ export class SeatSelectionComponent implements OnInit {
       this.queryParams
     );
 
-    this.totalPrice$ = this.store.select<FlightsTotalPrice>(
-      'flightsTotalPrice'
-    );
-
     this.store
       .select<UserSelection>('userFlightsSelection')
-      .pipe(filter(Boolean), take(1))
-      .subscribe((userSelection: UserSelection) => {
-        this.userSelection = userSelection;
-      });
+      // TODO: Revisit this later
+      // .pipe(filter(Boolean), take(1))
+      .pipe(filter(Boolean))
+      .subscribe(
+        (userSelection: UserSelection) => (this.userSelection = userSelection)
+      );
 
     // TODO: Revisit CORS issues and setup
     // this.flightSeatMap$ = this.flightSeatMapService.getFlightSeatMap();
@@ -77,13 +85,21 @@ export class SeatSelectionComponent implements OnInit {
             .pipe(
               map(responseToState),
               tap((flightsState: FlightsState) => {
-                this.store.set(
-                  'userFlightsSelection',
-                  prepareDefaultUserSelection(flightsState)
-                );
                 this.store.set('flights', flightsState);
               })
             );
+        }
+      }),
+      tap((flightsState: FlightsState) => {
+        // TODO: Revisit this
+        if (this.initialFlightsState === undefined) {
+          this.store.set(
+            'userFlightsSelection',
+            prepareDefaultUserSelection(flightsState)
+          );
+
+          this.setSteps(flightsState);
+          this.initialFlightsState = flightsState;
         }
       }),
       tap(
@@ -99,24 +115,105 @@ export class SeatSelectionComponent implements OnInit {
       this.store.selectStateValue<FlightsState>(stateName),
       event
     );
+
     this.store.set(stateName, updatedFlightsState);
 
-    this.store.set('flightsTotalPrice', getTotalPrice(updatedFlightsState));
-
-    this.isSeatSelectionValid = seatSelectionValidation(updatedFlightsState);
+    this.isSeatSelectionValid = updatedFlightsState.isSeatSelectionValid;
   }
 
-  selectFlight(event: MatSelectChange) {
-    this.store.set('userFlightsSelection', {
-      ...this.userSelection,
-      flightNumber: event.value,
+  // V1
+  // selectFlight(event: MatSelectChange) {
+  //   this.store.set('userFlightsSelection', {
+  //     ...this.userSelection,
+  //     flightNumber: event.value,
+  //   });
+  // }
+
+  // V1
+  // selectPassenger(event: MatSelectChange) {
+  //   this.store.set('userFlightsSelection', {
+  //     ...this.userSelection,
+  //     passengerId: event.value,
+  //   });
+  // }
+
+  private setSteps(flightsState: FlightsState): void {
+    flightsState.allIds.forEach((flightNumber) => {
+      const [firstPassengerId] = flightsState.byId[
+        flightNumber
+      ].passengers.allIds;
+      this.defaultPassengerId = +firstPassengerId;
+
+      flightsState.byId[flightNumber].passengers.allIds.forEach(
+        (passengerId) => {
+          this.steps = [
+            ...this.steps,
+            {
+              flightNumber,
+              passengerId,
+            },
+          ];
+        }
+      );
     });
   }
 
-  selectPassenger(event: MatSelectChange) {
+  // Demo: Additional ideas
+  selectFlightV2(flightNumber: string) {
+    const newState = {
+      ...this.userSelection,
+      flightNumber,
+      passengerId: `${this.defaultPassengerId}`,
+    };
+
+    this.stepIndex = this.steps.findIndex(
+      (step) =>
+        step.flightNumber === newState.flightNumber &&
+        step.passengerId === newState.passengerId
+    );
+
+    this.store.set('userFlightsSelection', newState);
+  }
+
+  // Demo: Additional ideas
+  selectPassengerV2(flightNumber: string, passengerId: string) {
+    const newState = {
+      ...this.userSelection,
+      flightNumber,
+      passengerId,
+    };
+
+    this.stepIndex = this.steps.findIndex(
+      (step) =>
+        step.flightNumber === newState.flightNumber &&
+        step.passengerId === newState.passengerId
+    );
+
+    this.store.set('userFlightsSelection', newState);
+  }
+
+  nextStep() {
+    this.stepIndex++;
+
     this.store.set('userFlightsSelection', {
       ...this.userSelection,
-      passengerId: event.value,
+      flightNumber: this.steps[this.stepIndex].flightNumber,
+      passengerId: this.steps[this.stepIndex].passengerId,
     });
+  }
+
+  prevStep() {
+    this.stepIndex--;
+
+    this.store.set('userFlightsSelection', {
+      ...this.userSelection,
+      flightNumber: this.steps[this.stepIndex].flightNumber,
+      passengerId: this.steps[this.stepIndex].passengerId,
+    });
+  }
+
+  cancelSeatSelection() {
+    this.store.set('flights', { ...this.initialFlightsState });
+    this.router.navigate(['/demo/summary'], { queryParams: this.queryParams });
   }
 }

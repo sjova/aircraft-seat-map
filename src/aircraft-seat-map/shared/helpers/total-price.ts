@@ -3,6 +3,11 @@ import {
   FlightsTotalPrice,
 } from '@app/aircraft-seat-map/shared/models/flight-state';
 
+/**
+ * Total Price From Base Flights State
+ *
+ * @param flightsState
+ */
 export const getTotalPrice = (
   flightsState: FlightsState
 ): FlightsTotalPrice => {

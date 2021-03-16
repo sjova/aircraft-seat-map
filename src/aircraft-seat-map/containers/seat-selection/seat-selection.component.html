@@ -1,5 +1,5 @@
 <ng-container *ngIf="flights$ | async as flights; else loading">
-  <div class="header">
+  <!--<div class="header v1">
     <div>
       <mat-form-field appearance="fill">
         <mat-label>Select Flight</mat-label>
@@ -49,9 +49,89 @@
         </mat-select>
       </mat-form-field>
     </div>
+  </div>-->
+
+  <div class="header v2">
+    <div class="test-wrapper">
+      <button
+        mat-icon-button
+        color="primary"
+        aria-label="Prev Step"
+        title="Previous Step"
+        [disabled]="stepIndex === 0"
+        (click)="prevStep()"
+      >
+        <mat-icon
+          aria-hidden="false"
+          aria-label="arrow_back_ios"
+          class="icon-size"
+          >arrow_back_ios</mat-icon
+        >
+      </button>
+
+      <!--<mat-icon aria-hidden="false" aria-label="flight">flight</mat-icon>
+      <mat-icon aria-hidden="false" aria-label="card_travel"
+        >card_travel</mat-icon
+      >
+      <mat-icon aria-hidden="false" aria-label="arrow_back"
+        >arrow_back</mat-icon
+      >
+      <mat-icon aria-hidden="false" aria-label="arrow_forward"
+        >arrow_forward</mat-icon
+      >
+      <mat-icon
+        aria-hidden="false"
+        aria-label="arrow_back_ios_new
+"
+        >arrow_back_ios_new
+      </mat-icon>
+      <mat-icon aria-hidden="false" aria-label="arrow_forward_ios_new"
+        >arrow_forward_ios_new</mat-icon
+      >-->
+
+      <h2>
+        <mat-icon aria-hidden="false" aria-label="flight">flight</mat-icon>
+        {{ flights.byId[userSelection.flightNumber].flightInfo.departure.code }}
+        -
+        {{ flights.byId[userSelection.flightNumber].flightInfo.arrival.code }}
+      </h2>
+    </div>
+
+    <div class="test-wrapper">
+      <h2>
+        <mat-icon aria-hidden="false" aria-label="card_travel"
+          >card_travel</mat-icon
+        >
+        {{
+          flights.byId[userSelection.flightNumber].passengers.byId[
+            userSelection.passengerId
+          ].firstName
+        }}
+        {{
+          flights.byId[userSelection.flightNumber].passengers.byId[
+            userSelection.passengerId
+          ].lastName
+        }}
+      </h2>
+      <button
+        mat-icon-button
+        color="primary"
+        aria-label="Next Step"
+        title="Next Step"
+        [disabled]="stepIndex === steps.length - 1"
+        (click)="nextStep()"
+      >
+        <mat-icon
+          aria-hidden="false"
+          aria-label="arrow_forward_ios"
+          class="icon-size"
+          >arrow_forward_ios</mat-icon
+        >
+      </button>
+    </div>
   </div>
 
-  <div class="content">
+  <!--<div class="content v1">
     <div class="selection-wrapper">
       <div *ngFor="let flightId of flights.allIds">
         <h4
@@ -131,6 +211,102 @@
       ></app-seat-map>
     </div>
     <div class="right-placeholder"></div>
+  </div>-->
+
+  <div class="content v2">
+    <div class="selection-wrapper">
+      <h4>
+        <b>Steps: {{ stepIndex + 1 }}/{{ steps.length }}</b>
+      </h4>
+      <p>
+        Please select flight and passenger below, and choose a seat for each:
+      </p>
+      <br />
+      <div *ngFor="let flightId of flights.allIds">
+        <a
+          class="label cursor"
+          (click)="selectFlightV2(flightId)"
+          [ngClass]="{
+            active:
+              userSelection.flightNumber ===
+              flights.byId[flightId].flightInfo.flightNumber
+          }"
+        >
+          <mat-icon aria-hidden="false" aria-label="flight">flight</mat-icon>
+          {{ flights.byId[flightId].flightInfo.departure.code }} -
+          {{ flights.byId[flightId].flightInfo.arrival.code }}
+        </a>
+
+        <ng-container
+          *ngFor="
+            let passengerId of flights.byId[flightId].passengers.allIds;
+            let last = last
+          "
+        >
+          <a
+            class="label cursor"
+            (click)="selectPassengerV2(flightId, passengerId)"
+            [ngClass]="{
+              active:
+                userSelection.flightNumber ===
+                  flights.byId[flightId].flightInfo.flightNumber &&
+                userSelectionPassengerIdAsNumber ===
+                  flights.byId[flightId].passengers.byId[passengerId].id,
+              'bottom-spacing': last
+            }"
+          >
+            <mat-icon aria-hidden="false" aria-label="card_travel"
+              >card_travel</mat-icon
+            >
+            {{ flights.byId[flightId].passengers.byId[passengerId].firstName }}
+            {{ flights.byId[flightId].passengers.byId[passengerId].lastName }}:
+            <ng-container
+              *ngIf="
+                flights.byId[flightId].passengers.byId[passengerId]
+                  .seatRowNumber &&
+                  flights.byId[flightId].passengers.byId[passengerId].seatCode;
+                else notSelectedSeat
+              "
+            >
+              {{
+                flights.byId[flightId].passengers.byId[passengerId]
+                  .seatRowNumber
+              }}{{
+                flights.byId[flightId].passengers.byId[passengerId].seatCode
+              }}
+            </ng-container>
+            <ng-template #notSelectedSeat>
+              <span matTooltip="Not selected seat">(?)</span>
+            </ng-template>
+          </a>
+        </ng-container>
+        <br />
+      </div>
+      <!--<div>
+        <h4
+          class="label"
+          *ngIf="userSelection.flightNumber || userSelection.passengerId"
+        >
+          Dev Output:
+        </h4>
+        <h5 class="label" *ngIf="userSelection.flightNumber">
+          Flight: {{ userSelection.flightNumber }}
+        </h5>
+        <h5 class="label" *ngIf="userSelection.passengerId">
+          Passenger: {{ userSelection.passengerId }}
+        </h5>
+      </div>-->
+    </div>
+    <div class="aircraft-wrapper">
+      <app-seat-map
+        [flightNumber]="userSelection.flightNumber"
+        [passengerId]="userSelection.passengerId"
+        [passengers]="flights.byId[userSelection.flightNumber]?.passengers"
+        [seatMapState]="flights.byId[userSelection.flightNumber]?.seatMap"
+        (seatSelection)="onSelection($event)"
+      ></app-seat-map>
+    </div>
+    <div class="right-placeholder"></div>
   </div>
 
   <div class="footer">
@@ -157,11 +333,9 @@
         <div>
           <p class="price">
             Total price:
-            <ng-container
-              *ngIf="totalPrice$ | async as totalPrice; else defaultZero"
-            >
-              {{ totalPrice.total | number: "1.2-2" }}
-              {{ totalPrice.currencyCode }}
+            <ng-container *ngIf="flights.totalPrice; else defaultZero">
+              {{ flights.totalPrice.total | number: "1.2-2" }}
+              {{ flights.totalPrice.currencyCode }}
             </ng-container>
             <ng-template #defaultZero>0</ng-template>
           </p>
@@ -170,8 +344,7 @@
           <button
             class="cancel"
             mat-stroked-button
-            routerLink="/demo/summary"
-            [queryParams]="queryParams"
+            (click)="cancelSeatSelection()"
           >
             Cancel
           </button>

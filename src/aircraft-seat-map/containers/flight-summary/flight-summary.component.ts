@@ -34,10 +34,6 @@ export class FlightSummaryComponent implements OnInit {
       this.queryParams
     );
 
-    this.totalPrice$ = this.store.select<FlightsTotalPrice>(
-      'flightsTotalPrice'
-    );
-
     this.flights$ = this.store.select<FlightsState>('flights');
   }
 }
