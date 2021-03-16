@@ -11,6 +11,10 @@
   background-color: $color-white;
   box-shadow: 0 5px 40px -10px rgba(0, 0, 0, 0.18);
 
+  @media (max-width: $screen-sm) {
+    padding: 16px 28px;
+  }
+
   .header {
     @extend %default-flex-parent;
     margin-bottom: 24px;
@@ -20,22 +24,21 @@
     & > div {
       @extend %default-flex-child;
       @media (max-width: $screen-sm) {
-        flex-basis: 100%;
+        flex-basis: calc(50% - 8px);
       }
 
       flex-basis: 50%;
 
       &:first-child {
         padding-right: 22px;
+        @media (max-width: $screen-sm) {
+          padding-right: 8px;
+        }
       }
       &:last-child {
         padding-left: 22px;
-      }
-
-      &:first-child,
-      &:last-child {
         @media (max-width: $screen-sm) {
-          padding: 0px;
+          padding-left: 8px;
         }
       }
     }
@@ -70,11 +73,13 @@
     .selection-wrapper {
       padding-right: 2 * $seat-half-outer-spacing;
       @media (max-width: $screen-sm) {
-        order: 1;
+        padding: 0 $seat-half-outer-spacing;
+        flex: 1;
+        //order: 1;
         display: flex;
-        flex-flow: row nowrap;
+        flex-flow: row wrap;
         & > div {
-          flex: 0 1 33.33%;
+          flex: 0 0 50%;
         }
       }
     }

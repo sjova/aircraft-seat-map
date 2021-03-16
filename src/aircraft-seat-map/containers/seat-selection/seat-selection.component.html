@@ -215,14 +215,16 @@
 
   <div class="content v2">
     <div class="selection-wrapper">
-      <h4>
-        <b>Steps: {{ stepIndex + 1 }}/{{ steps.length }}</b>
-      </h4>
-      <p>
-        Please select flight and passenger below, and choose a seat for each:
-      </p>
-      <br />
-      <div *ngFor="let flightId of flights.allIds">
+      <div class="group">
+        <h4>
+          <b>Steps: {{ stepIndex + 1 }}/{{ steps.length }}</b>
+        </h4>
+        <p>
+          Please select flight and passenger below, and choose a seat for each:
+        </p>
+        <br />
+      </div>
+      <div *ngFor="let flightId of flights.allIds" class="group">
         <a
           class="label cursor"
           (click)="selectFlightV2(flightId)"
