@@ -1,0 +1,64 @@
+@import "~src/app/styles/variables";
+
+%emergency-exit {
+  position: relative;
+
+  // exit label
+  &:before {
+    position: absolute;
+    top: -15px;
+    color: $color-tertiary;
+    font-family: $primary-font-alt;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    line-height: 13px;
+  }
+
+  // exit line
+  &:after {
+    position: absolute;
+    top: -17px;
+    width: 2px;
+    height: 16px;
+    background-color: $color-bg-gray;
+  }
+
+  &:first-child:before,
+  &:last-child:before {
+    content: "EXIT";
+  }
+
+  &:first-child:after,
+  &:last-child:after {
+    content: "";
+  }
+
+  &:first-child {
+    &:before {
+      left: 6px;
+    }
+    &:after {
+      left: 0;
+    }
+  }
+
+  &:last-child {
+    &:before {
+      right: 6px;
+    }
+    &:after {
+      right: 0;
+    }
+  }
+
+  // extra legroom special case
+  &.extra-legroom {
+    &:before {
+      top: -24px;
+    }
+    &:after {
+      top: -26px;
+    }
+  }
+}

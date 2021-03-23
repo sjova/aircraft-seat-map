@@ -25,6 +25,7 @@ export interface SeatSelection {
   seatRowNumber: string;
   seatCode: string;
   seatOffer: Offer;
+  selected: boolean;
 }
 
 @Component({
@@ -111,6 +112,7 @@ export class SeatMapComponent {
         seatRowNumber: `${seat.rowNumber}`,
         seatCode: seat.code,
         seatOffer: seat.offers ? seat.offers[this.passengerId] : undefined,
+        selected: seat.selected,
       });
     }
   }

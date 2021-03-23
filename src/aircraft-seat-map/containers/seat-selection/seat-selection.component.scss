@@ -2,195 +2,191 @@
 @import "../../shared/styles/extends";
 @import "../../shared/styles/mixins";
 @import "../../shared/styles/variables";
+@import "styles/extends";
 
 :host {
   display: block;
-  min-height: 650px;
-  margin: 0 auto;
-  padding: 32px 24px 24px;
-  background-color: $color-white;
-  box-shadow: 0 5px 40px -10px rgba(0, 0, 0, 0.18);
 
-  @media (max-width: $screen-sm) {
-    padding: 16px 28px;
-  }
-
-  .header {
-    @extend %default-flex-parent;
-    margin-bottom: 24px;
-    @media (max-width: $screen-sm) {
-      flex-wrap: wrap;
-    }
-    & > div {
-      @extend %default-flex-child;
-      @media (max-width: $screen-sm) {
-        flex-basis: calc(50% - 8px);
-      }
-
-      flex-basis: 50%;
-
-      &:first-child {
-        padding-right: 22px;
-        @media (max-width: $screen-sm) {
-          padding-right: 8px;
-        }
-      }
-      &:last-child {
-        padding-left: 22px;
-        @media (max-width: $screen-sm) {
-          padding-left: 8px;
-        }
-      }
-    }
-    .mat-form-field {
-      width: 100%;
+  @media (min-width: $seat-selection-breakpoint) {
+    @include default-flex-container;
+    width: 100vw;
+    height: 100vh;
+    .progress-bar-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
     }
   }
 
-  .content {
-    @extend %default-flex-parent;
-    align-items: flex-start;
-    @media (max-width: $screen-sm) {
-      flex-wrap: wrap;
-    }
-
-    .selection-wrapper,
-    .aircraft-wrapper,
-    .right-placeholder {
-      @extend %default-flex-child;
-      flex: 1;
-      @media (max-width: $screen-sm) {
-        flex-basis: 100%;
-      }
-    }
-
-    .selection-wrapper,
-    .right-placeholder {
-      flex: 0 0 200px;
-      margin-top: $legroom-regular;
-    }
-
-    .selection-wrapper {
-      padding-right: 2 * $seat-half-outer-spacing;
-      @media (max-width: $screen-sm) {
-        padding: 0 $seat-half-outer-spacing;
-        flex: 1;
-        //order: 1;
-        display: flex;
-        flex-flow: row wrap;
-        & > div {
-          flex: 0 0 50%;
-        }
-      }
-    }
-  }
-
-  .footer {
-    @extend %default-flex-parent;
-    align-items: flex-end;
-    margin-top: 56px;
-    .seat-info-wrapper,
-    .cta-wrapper {
-      @extend %default-flex-child;
-      flex-basis: 50%;
-    }
-
-    .cta-wrapper {
-      @extend %default-flex-parent;
-      justify-content: flex-end;
-      .cta-inner-wrapper {
-        @extend %default-flex-child;
-      }
-    }
-  }
-
-  .seat-info-wrapper {
-    .seat-info {
-      @extend %default-flex-parent;
-      justify-content: left;
-      .info-box,
-      .label {
-        @extend %default-flex-child;
-      }
-
-      .info-box {
-        @include seat-base(14px, 5px);
-        @include seat-variants(14px);
-        margin-right: 8px;
-      }
-    }
-  }
-
-  .label {
-    @extend %default-text;
-    margin: 0;
-    &.active {
-      font-weight: bold;
-      color: $color-secondary-highlight;
-    }
-
-    &.cursor {
-      display: block;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-bottom: 8px;
-      mat-icon {
-        vertical-align: middle;
-      }
-    }
-  }
-
-  .bottom-spacing {
-    margin-bottom: 12px;
-  }
-
-  .cta-inner-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-
-    .price {
+  .seat-selection-wrapper {
+    .flight {
       color: $color-text-dark;
-      //font-family: BasicSansAlt-Bold;
-      font-size: 22px;
+      font-family: $secondary-font;
+      font-weight: 400;
+      font-size: 18px;
       letter-spacing: 0;
-      line-height: 26px;
-      text-align: right;
-      font-weight: bold;
+      line-height: 22px;
+      margin: 0 0 6px;
     }
 
-    .confirm {
-      margin-left: 14px;
+    .passenger {
+      color: $color-text-light;
+      font-family: $primary-font;
+      font-size: 14px;
+      letter-spacing: 0;
+      line-height: 40px;
+      padding: 0 14px;
+      @extend %passenger-button;
+
+      &.condensed-item {
+        @media (min-width: $seat-selection-breakpoint) {
+          line-height: 26px;
+        }
+      }
+
+      &.last-item {
+        margin-bottom: 14px;
+      }
+    }
+  }
+}
+
+.container {
+  // TODO: Revisit this
+  $footer-mobile-height: 138px;
+
+  padding: $seat-map-outer-spacing-small $seat-map-outer-spacing-small
+    ($footer-mobile-height + $seat-map-gradient-height);
+  min-width: $seat-map-width-small;
+  @media (min-width: $seat-selection-breakpoint) {
+    @include default-flex-item;
+    padding: 0;
+    min-width: auto;
+    box-shadow: 0 5px 40px -10px rgba(0, 0, 0, 0.18);
+    height: calc(100vh - 28px - 28px);
+    background-color: $color-white;
+  }
+}
+
+.content {
+  @media (min-width: $seat-selection-breakpoint) {
+    @include default-flex-container;
+    align-items: flex-start;
+    width: 100%;
+    height: calc(100% - 110px);
+    overflow: hidden;
+
+    .seat-selection-wrapper,
+    .seat-map-wrapper {
+      @include default-flex-item;
+    }
+
+    .seat-selection-wrapper {
+      width: $sidebar-width;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding-top: $legroom-regular;
+      padding-left: $seat-map-outer-spacing;
+      box-sizing: border-box;
+    }
+
+    .seat-map-wrapper {
+      width: $seat-map-width;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding-right: $seat-map-outer-spacing - ($seat-spacing / 2);
+
+      @media (max-width: $seat-selection-breakpoint - 1) {
+        padding-right: $seat-map-outer-spacing - ($seat-spacing-small / 2);
+      }
+
+      app-seat-map {
+        margin-bottom: $seat-map-gradient-height;
+      }
+    }
+  }
+}
+
+.footer {
+  @extend %bottom-gradient;
+  @include default-flex-container;
+
+  @media (max-width: $seat-selection-breakpoint - 1) {
+    flex-wrap: wrap;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 10px 0 20px;
+    background: $color-white;
+  }
+
+  @media (min-width: $seat-selection-breakpoint) {
+    position: relative;
+    padding: 0 $seat-map-outer-spacing $seat-map-outer-spacing;
+    box-sizing: border-box;
+    align-items: flex-end;
+    height: 110px;
+  }
+
+  .legend-outer-wrapper,
+  .cta-outer-wrapper {
+    @include default-flex-item;
+    flex-basis: 100%;
+    @media (min-width: $seat-selection-breakpoint) {
+      flex-basis: 50%;
     }
   }
 
-  .icon-size {
-    width: 40px;
-    height: 40px;
-    font-size: 40px;
-    line-height: 40px;
-  }
-
-  .test-wrapper {
-    @extend %default-flex-parent;
-    justify-content: space-between;
-    & > * {
-      @extend %default-flex-child;
+  .legend-outer-wrapper {
+    @include default-flex-container;
+    margin-bottom: 10px;
+    @media (min-width: $seat-selection-breakpoint) {
       margin: 0;
+      justify-content: flex-start;
     }
-    h2 {
-      color: $color-secondary;
-      margin: 0;
-      mat-icon {
-        position: relative;
-        top: -2px;
-        vertical-align: middle;
+
+    .legend-inner-wrapper {
+      @include default-flex-container;
+      .legend {
+        @include default-flex-container;
+        &:not(:first-child) {
+          margin-left: 14px;
+        }
+        .info-box,
+        .label {
+          @include default-flex-item;
+        }
+
+        .info-box {
+          @include seat-base(14px, 5px);
+          @include seat-variants(14px);
+          margin-right: 8px;
+        }
       }
     }
   }
 
-  mat-icon {
-    margin-right: 4px;
+  .cta-outer-wrapper {
+    @include default-flex-container;
+    @media (min-width: $seat-selection-breakpoint) {
+      justify-content: flex-end;
+    }
+
+    .cta-inner-wrapper {
+      @include default-flex-item;
+
+      .label-total-price {
+        @extend %label-price;
+        text-align: right;
+      }
+
+      .confirm {
+        margin-left: 14px;
+      }
+    }
   }
 }

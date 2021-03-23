@@ -1,4 +1,11 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  Renderer2,
+  OnDestroy,
+  Inject,
+} from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { exhaustMap, filter, map, tap } from 'rxjs/operators';
@@ -17,11 +24,14 @@ import {
   setDemoQueryParam,
   updateFlightsState,
 } from '@app/aircraft-seat-map/shared/helpers';
+import { DOCUMENT } from '@angular/common';
 
 interface Step {
   id: string;
   type: 'flight' | 'passenger';
 }
+
+const PAGE_SEAT_SELECTION = 'page-seat-selection';
 
 @Component({
   selector: 'app-seat-selection',
@@ -29,7 +39,7 @@ interface Step {
   styleUrls: ['./seat-selection.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SeatSelectionComponent implements OnInit {
+export class SeatSelectionComponent implements OnInit, OnDestroy {
   flights$: Observable<FlightsState>;
   totalPrice$: Observable<FlightsTotalPrice>;
   isSeatSelectionValid: boolean;
@@ -45,6 +55,8 @@ export class SeatSelectionComponent implements OnInit {
   initialFlightsState: FlightsState;
 
   constructor(
+    @Inject(DOCUMENT) private document,
+    private renderer: Renderer2,
     private flightSeatMapService: FlightSeatMapService,
     private store: Store,
     private activatedRoute: ActivatedRoute,
@@ -56,6 +68,8 @@ export class SeatSelectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.renderer.addClass(this.document.body, PAGE_SEAT_SELECTION);
+
     this.queryParams = setDemoQueryParam(
       this.activatedRoute,
       this.router,
@@ -109,7 +123,13 @@ export class SeatSelectionComponent implements OnInit {
     );
   }
 
+  ngOnDestroy(): void {
+    this.renderer.removeClass(this.document.body, PAGE_SEAT_SELECTION);
+  }
+
   onSelection(event: SeatSelection) {
+    console.log(event);
+
     const stateName = 'flights';
     const updatedFlightsState = updateFlightsState(
       this.store.selectStateValue<FlightsState>(stateName),
@@ -117,6 +137,11 @@ export class SeatSelectionComponent implements OnInit {
     );
 
     this.store.set(stateName, updatedFlightsState);
+
+    // Prevent next step until select new seat
+    if (!event.selected) {
+      this.nextStep();
+    }
 
     this.isSeatSelectionValid = updatedFlightsState.isSeatSelectionValid;
   }
@@ -195,22 +220,24 @@ export class SeatSelectionComponent implements OnInit {
   nextStep() {
     this.stepIndex++;
 
-    this.store.set('userFlightsSelection', {
-      ...this.userSelection,
-      flightNumber: this.steps[this.stepIndex].flightNumber,
-      passengerId: this.steps[this.stepIndex].passengerId,
-    });
+    if (this.stepIndex < this.steps.length) {
+      this.store.set('userFlightsSelection', {
+        ...this.userSelection,
+        flightNumber: this.steps[this.stepIndex].flightNumber,
+        passengerId: this.steps[this.stepIndex].passengerId,
+      });
+    }
   }
 
-  prevStep() {
-    this.stepIndex--;
-
-    this.store.set('userFlightsSelection', {
-      ...this.userSelection,
-      flightNumber: this.steps[this.stepIndex].flightNumber,
-      passengerId: this.steps[this.stepIndex].passengerId,
-    });
-  }
+  // prevStep() {
+  //   this.stepIndex--;
+  //
+  //   this.store.set('userFlightsSelection', {
+  //     ...this.userSelection,
+  //     flightNumber: this.steps[this.stepIndex].flightNumber,
+  //     passengerId: this.steps[this.stepIndex].passengerId,
+  //   });
+  // }
 
   cancelSeatSelection() {
     this.store.set('flights', { ...this.initialFlightsState });

@@ -1,12 +1,15 @@
+@import "~src/app/styles/variables";
+
 :host {
   display: block;
   line-height: 1.2;
   margin: 0;
+  padding: 64px;
 
   .outer-wrapper {
     color: #888;
     display: table;
-    font-family: sans-serif;
+    font-family: $primary-font;
     height: 100%;
     text-align: center;
     width: 100%;

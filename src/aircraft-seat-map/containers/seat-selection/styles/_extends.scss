@@ -1,0 +1,31 @@
+@import "~src/app/styles/variables";
+@import "../../../shared/styles/variables";
+
+%bottom-gradient {
+  &:after {
+    content: "";
+    position: absolute;
+    top: -($seat-map-gradient-height);
+    height: $seat-map-gradient-height;
+    width: 100%;
+    background: linear-gradient(180deg, rgba(#fff, 0) 0%, #fff 100%);
+    pointer-events: none;
+    @media (min-width: $seat-selection-breakpoint) {
+      left: $sidebar-width;
+      width: $seat-map-width;
+    }
+  }
+}
+
+%passenger-button {
+  display: block;
+  user-select: none;
+  cursor: pointer;
+  transition: $transition-default;
+
+  &:hover,
+  &.active {
+    border-radius: 4px;
+    background-color: $color-bg-green-light;
+  }
+}

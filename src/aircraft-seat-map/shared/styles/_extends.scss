@@ -1,22 +1,21 @@
 @import "~src/app/styles/variables";
 
-%default-flex-parent {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-}
-
-%default-flex-child {
-  flex: 0 1 auto;
-  align-self: auto;
-}
-
-%default-text {
+// text below "seat selection" label, seat number, legend
+%label-default {
   color: $color-text-light;
-  font-family: Roboto;
+  font-family: $primary-font;
   font-size: 14px;
   letter-spacing: 0;
   line-height: 22px;
+}
+
+// both total price
+%label-price {
+  color: $color-text-dark;
+  font-family: $secondary-font;
+  font-weight: bold;
+  font-size: 22px;
+  letter-spacing: 0;
+  line-height: 26px;
+  margin: 0 0 16px;
 }

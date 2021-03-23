@@ -1,32 +1,5 @@
 <div class="aircraft" *ngIf="flightNumber && passengerId">
   <div class="cabins-wrapper">
-    <!--seat example begin-->
-    <!--<div class="cabin">
-      <div class="row">
-        <div class="seat selected">
-          <div class="seat-number">
-            <div>0X</div>
-          </div>
-        </div>
-        <div class="seat unavailable">
-          <div class="seat-number">
-            <div>0X</div>
-          </div>
-        </div>
-        <div class="aisle"></div>
-        <div class="seat occupied">
-          <div class="seat-number">
-            <div>0X</div>
-          </div>
-        </div>
-        <div class="seat unknown">
-          <div class="seat-number">
-            <div>0X</div>
-          </div>
-        </div>
-      </div>
-    </div>-->
-    <!--seat example end-->
     <div class="cabin">
       <div *ngFor="let row of seatMap" class="row">
         <ng-container *ngFor="let item of row">
@@ -53,10 +26,10 @@
                   available: item.availability === seatAvailability.Available,
                   unavailable:
                     item.availability === seatAvailability.Unavailable ||
+                    item.availability === seatAvailability.Unknown ||
                     item.availability === seatAvailability.NotAvailable ||
                     !item.availability,
-                  occupied: item.availability === seatAvailability.Occupied,
-                  unknown: item.availability === seatAvailability.Unknown
+                  occupied: item.availability === seatAvailability.Occupied
                 }"
                 [matTooltip]="getTooltip(item)"
                 [matTooltipDisabled]="
@@ -75,34 +48,3 @@
     </div>
   </div>
 </div>
-
-<!--
-<div class="aircraft">
-  <div class="cabins-wrapper">
-    <div *ngFor="let cabin of seatMapRawApi.cabins" class="cabin">
-      <div *ngFor="let row of cabin.rows" class="row">
-        <ng-container *ngFor="let seat of row.items">
-          <div
-            class="aisle"
-            *ngIf="seat.type === 'Aisle'; else seatTemplate"
-          ></div>
-          <ng-template #seatTemplate>
-            <div
-              class="seat available"
-              matTooltip="Seat {{ seat.rowNumber }}{{
-                seat.code
-              }} - Standard seat - 0&euro; : This seat belong to Henrik Larsson"
-              matTooltipDisabled="false"
-              (click)="selectSeat($event, seat)"
-            >
-              <div class="seat-number">
-                <div>{{ seat.rowNumber }}{{ seat.code }}</div>
-              </div>
-            </div>
-          </ng-template>
-        </ng-container>
-      </div>
-    </div>
-  </div>
-</div>
--->

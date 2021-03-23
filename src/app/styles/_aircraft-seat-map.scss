@@ -1,0 +1,9 @@
+@import "~src/aircraft-seat-map/shared/styles/variables";
+
+/* Aircraft Seat Map - Seat Selection */
+
+.page-seat-selection {
+  @media (min-width: $seat-selection-breakpoint) {
+    overflow: hidden;
+  }
+}

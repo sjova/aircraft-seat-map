@@ -1,60 +1,51 @@
-<p class="mat-body-2">Seat selection</p>
-
-<button
-  mat-flat-button
-  color="primary"
-  routerLink="/demo/seat-selection"
-  [queryParams]="queryParams"
->
-  {{ (flights$ | async)?.isSeatSelectionValid ? "Edit" : "Select" }} seats
-</button>
-<br /><br />
-<!--TODO: Revisit template in final implementation-->
-<!--<ng-container *ngIf="flights$ | async as flights; else notSelectedSeat">-->
-<ng-container *ngIf="flights$ | async as flights">
-  <ng-container *ngIf="flights.isSeatSelectionValid">
-    <div *ngFor="let flightId of flights.allIds">
-      <h4 class="label text-bold">
-        {{ flights.byId[flightId].flightInfo.departure.code }} -
-        {{ flights.byId[flightId].flightInfo.arrival.code }}
-        ({{ flights.byId[flightId].flightInfo.flightNumber }})
-      </h4>
-
-      <ng-container
-        *ngFor="
-          let passengerId of flights.byId[flightId].passengers.allIds;
-          let last = last
-        "
-      >
-        <h5 class="label" [ngClass]="{ 'bottom-spacing': last }">
-          {{ flights.byId[flightId].passengers.byId[passengerId].firstName }}
-          {{ flights.byId[flightId].passengers.byId[passengerId].lastName }}:
+<div class="col-wrapper">
+  <div class="col">
+    <div class="item">
+      <p class="label-seat-selection">Seat selection</p>
+    </div>
+    <div class="item" *ngIf="flights$ | async as flights">
+      <ng-container *ngIf="flights.isSeatSelectionValid">
+        <p class="label-default" *ngFor="let flightId of flights.allIds">
+          {{ flights.byId[flightId].flightInfo.departure.code }} -
+          {{ flights.byId[flightId].flightInfo.arrival.code }}:
           <ng-container
-            *ngIf="
-              flights.byId[flightId].passengers.byId[passengerId]
-                .seatRowNumber &&
-                flights.byId[flightId].passengers.byId[passengerId].seatCode;
-              else notSelectedSeat
+            *ngFor="
+              let passengerId of flights.byId[flightId].passengers.allIds;
+              let last = last
             "
           >
-            {{
-              flights.byId[flightId].passengers.byId[passengerId].seatRowNumber
-            }}{{ flights.byId[flightId].passengers.byId[passengerId].seatCode }}
+            <ng-container
+              *ngIf="
+                flights.byId[flightId].passengers.byId[passengerId]
+                  .seatRowNumber &&
+                flights.byId[flightId].passengers.byId[passengerId].seatCode
+              "
+            >
+              {{
+                flights.byId[flightId].passengers.byId[passengerId]
+                  .seatRowNumber
+              }}{{ flights.byId[flightId].passengers.byId[passengerId].seatCode
+              }}<ng-container *ngIf="!last">,</ng-container>
+            </ng-container>
           </ng-container>
-          <ng-template #notSelectedSeat> (not selected seat) </ng-template>
-        </h5>
+        </p>
+        <p class="label-total-price">
+          Total price:
+          {{ flights.totalPrice.total | number: "1.2-2" }}
+          {{ flights.totalPrice.currencyCode }}
+        </p>
       </ng-container>
     </div>
-    <h4 class="label text-bold">
-      Total price:
-      <ng-container *ngIf="flights.totalPrice; else defaultZero">
-        {{ flights.totalPrice.total | number: "1.2-2" }}
-        {{ flights.totalPrice.currencyCode }}
-      </ng-container>
-      <ng-template #defaultZero>0</ng-template>
-    </h4>
-  </ng-container>
-</ng-container>
-<!--<ng-template #notSelectedSeat>
-  <p class="label">(Flights Seat Map API data is not yet loaded)</p>
-</ng-template>-->
+  </div>
+  <div class="col">
+    <button
+      mat-flat-button
+      color="primary"
+      routerLink="/demo/seat-selection"
+      title="Seats Selection"
+      [queryParams]="queryParams"
+    >
+      {{ (flights$ | async)?.isSeatSelectionValid ? "Edit" : "Select" }} Seats
+    </button>
+  </div>
+</div>

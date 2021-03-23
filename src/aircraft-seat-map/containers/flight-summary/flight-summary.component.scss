@@ -1,24 +1,64 @@
 @import "~src/app/styles/variables";
+@import "../../shared/styles/mixins";
 @import "../../shared/styles/extends";
 
 :host {
   display: block;
-  width: 550px;
-  margin: 0 auto;
+  box-sizing: border-box;
+  height: auto;
+  width: 90%;
+  max-width: 550px;
   border: 1px solid $color-bg-gray;
   border-radius: 4px;
+  background-color: $color-white;
+  margin: 90px auto 16px;
   padding: 22px;
 
-  .label {
-    @extend %default-text;
+  .col-wrapper {
+    @include default-flex-container;
+    align-items: flex-start;
+
+    .col,
+    .item {
+      @include default-flex-item;
+    }
+
+    .col {
+      flex-basis: 50%;
+      @include default-flex-container;
+      flex-wrap: wrap;
+
+      &:first-child {
+        justify-content: flex-start;
+      }
+      &:last-child {
+        justify-content: flex-end;
+      }
+
+      .item {
+        flex-basis: 100%;
+      }
+    }
+  }
+
+  .label-seat-selection {
+    color: $color-text-light;
+    font-family: $primary-font-alt;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.2px;
+    line-height: 16px;
+    text-transform: uppercase;
+  }
+
+  .label-default {
+    @extend %label-default;
     margin: 0;
   }
 
-  .text-bold {
-    font-weight: bold;
-  }
-
-  .bottom-spacing {
-    margin-bottom: 12px;
+  .label-total-price {
+    @extend %label-price;
+    margin-top: 12px;
+    margin-bottom: 0;
   }
 }

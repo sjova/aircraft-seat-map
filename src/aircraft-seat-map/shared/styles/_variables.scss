@@ -1,7 +1,27 @@
-$seat-size: 48px;
-$aisle-size: 28px;
-
-$seat-half-outer-spacing: 4px;
-
+// Seat
+$seat-size: 42px;
+$seat-size-small: 32px;
+$seat-spacing: 8px;
+$seat-spacing-small: 4px;
 $legroom-regular: 18px;
-$legroom-extra: 32px;
+$legroom-extra: 36px;
+
+// Aisle
+$aisle-size: 16px;
+$aisle-size-small: 12px;
+
+// Seat Selection
+$seat-selection-breakpoint: 924px;
+
+// Sidebar
+$sidebar-width: 340px;
+
+// Seat Map
+$seat-map-width: 556px;
+$seat-map-width-small: 396px;
+$seat-map-outer-spacing: 32px;
+$seat-map-outer-spacing-small: 20px;
+$seat-map-gradient-height: 55px;
+
+// Misc
+$transition-default: background-color 300ms ease-in;
