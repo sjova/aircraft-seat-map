@@ -5,19 +5,27 @@
   &:after {
     content: "";
     position: absolute;
-    top: -($seat-map-gradient-height-small);
-    left: $seat-map-outer-spacing-small;
+    top: -($seat-map-gradient-height-xs);
+    left: $seat-map-outer-spacing-xs;
     width: calc(
-      100% - #{$seat-map-outer-spacing-small} - #{$seat-map-outer-spacing-small}
+      100% - #{$seat-map-outer-spacing-xs} - #{$seat-map-outer-spacing-xs}
     );
-    height: $seat-map-gradient-height-small;
+    height: $seat-map-gradient-height-xs;
     background: linear-gradient(180deg, rgba(#fff, 0) 0%, #fff 100%);
     pointer-events: none;
-    @media (min-width: $seat-selection-breakpoint) {
-      top: -($seat-map-gradient-height);
-      left: $sidebar-width + $seat-spacing + $seat-map-inner-spacing;
-      width: $seat-map-width;
-      height: $seat-map-gradient-height;
+    @media (min-width: $seat-map-breakpoint-sm) {
+      top: -($seat-map-gradient-height-sm);
+      left: $seat-map-outer-spacing-sm;
+      width: calc(
+        100% - #{$seat-map-outer-spacing-sm} - #{$seat-map-outer-spacing-sm}
+      );
+      height: $seat-map-gradient-height-sm;
+    }
+    @media (min-width: $seat-map-breakpoint-md) {
+      top: -($seat-map-gradient-height-md);
+      left: $sidebar-width + $seat-spacing-md + $seat-map-inner-spacing-md;
+      width: $seat-map-width-md;
+      height: $seat-map-gradient-height-md;
     }
   }
 }
@@ -26,7 +34,6 @@
   display: block;
   user-select: none;
   cursor: pointer;
-  transition: $transition-default;
 
   &:hover,
   &.active {

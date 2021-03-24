@@ -7,7 +7,7 @@
 :host {
   display: block;
 
-  @media (min-width: $seat-selection-breakpoint) {
+  @media (min-width: $seat-map-breakpoint-md) {
     @include default-flex-container;
     width: 100vw;
     height: 100vh;
@@ -40,9 +40,7 @@
       @extend %passenger-button;
 
       &.condensed-item {
-        @media (min-width: $seat-selection-breakpoint) {
-          line-height: 26px;
-        }
+        line-height: 26px;
       }
 
       &.last-item {
@@ -53,19 +51,23 @@
 }
 
 .container {
-  padding: 0 $seat-map-outer-spacing-small;
-  min-width: $seat-map-width-small;
-  height: calc(100vh - #{$footer-height-small});
+  padding: 0 $seat-map-outer-spacing-xs;
+  min-width: $seat-map-width-xs;
+  height: calc(100vh - #{$footer-height-xs});
   overflow-x: hidden;
   overflow-y: auto;
 
-  @media (min-width: $seat-selection-breakpoint) {
+  @media (min-width: $seat-map-breakpoint-sm) {
+    padding: 0 $seat-map-outer-spacing-sm;
+  }
+
+  @media (min-width: $seat-map-breakpoint-md) {
     @include default-flex-item;
     padding: 0;
     min-width: auto;
     box-shadow: 0 5px 40px -10px rgba(0, 0, 0, 0.18);
     height: calc(
-      100vh - #{$seat-map-outer-spacing} - #{$seat-map-outer-spacing}
+      100vh - #{$seat-map-outer-spacing-md} - #{$seat-map-outer-spacing-md}
     );
     overflow: auto;
     background-color: $color-white;
@@ -73,42 +75,48 @@
 }
 
 .content {
-  @media (min-width: $seat-selection-breakpoint) {
+  @media (min-width: $seat-map-breakpoint-md) {
     @include default-flex-container;
     align-items: flex-start;
     width: 100%;
-    height: calc(100% - #{$footer-height});
+    height: calc(100% - #{$footer-height-md});
     overflow: hidden;
   }
 
   .seat-selection-wrapper,
   .seat-map-wrapper {
-    @media (min-width: $seat-selection-breakpoint) {
+    @media (min-width: $seat-map-breakpoint-md) {
       @include default-flex-item;
     }
   }
 
   .seat-selection-wrapper {
-    padding: $seat-map-outer-spacing-small 0 0;
-    @media (min-width: $seat-selection-breakpoint) {
+    padding: $seat-map-outer-spacing-xs 0 0;
+    @media (min-width: $seat-map-breakpoint-sm) {
+      padding: $seat-map-outer-spacing-sm 0 0;
+    }
+    @media (min-width: $seat-map-breakpoint-md) {
       width: $sidebar-width;
       height: 100%;
       overflow-x: hidden;
       overflow-y: auto;
-      padding: $seat-map-inner-spacing $seat-spacing 0 $seat-map-inner-spacing;
+      padding: $seat-map-inner-spacing-md $seat-spacing-md 0
+        $seat-map-inner-spacing-md;
     }
   }
 
   .seat-map-wrapper {
-    @media (max-width: $seat-selection-breakpoint - 1) {
+    @media (max-width: $seat-map-breakpoint-md - 1) {
       display: flex;
       justify-content: center;
     }
-    @media (min-width: $seat-selection-breakpoint) {
-      margin-top: $seat-map-inner-spacing - $legroom-regular;
-      padding-right: $seat-map-inner-spacing - ($seat-spacing / 2);
-      width: $seat-map-width;
-      height: calc(100% - (#{$seat-map-inner-spacing} - #{$legroom-regular}));
+    @media (min-width: $seat-map-breakpoint-md) {
+      margin-top: $seat-map-inner-spacing-md - $legroom-regular-md;
+      padding-right: $seat-map-inner-spacing-md - ($seat-spacing-md / 2);
+      width: $seat-map-width-md;
+      height: calc(
+        100% - (#{$seat-map-inner-spacing-md} - #{$legroom-regular-md})
+      );
       overflow-x: hidden;
       overflow-y: auto;
     }
@@ -117,8 +125,8 @@
   app-seat-map {
     //margin-bottom: $seat-map-gradient-height-small;
     margin-bottom: 92px; // TODO: android fix (revisit after demo)
-    @media (min-width: $seat-selection-breakpoint) {
-      margin-bottom: $seat-map-gradient-height;
+    @media (min-width: $seat-map-breakpoint-md) {
+      margin-bottom: $seat-map-gradient-height-md;
     }
   }
 }
@@ -127,31 +135,35 @@
   @extend %bottom-gradient;
   @include default-flex-container;
 
-  @media (max-width: $seat-selection-breakpoint - 1) {
+  @media (max-width: $seat-map-breakpoint-sm - 1) {
+    padding: 10px 0 $seat-map-outer-spacing-xs;
+  }
+
+  @media (max-width: $seat-map-breakpoint-md - 1) {
     flex-wrap: wrap;
     position: absolute;
     left: 0;
     bottom: 0;
-    padding: 10px 0 $seat-map-outer-spacing-small;
+    padding: 10px 0 $seat-map-outer-spacing-sm;
     background: $color-white;
     box-sizing: border-box;
     width: 100%;
-    height: $footer-height-small;
+    height: $footer-height-xs;
   }
 
-  @media (min-width: $seat-selection-breakpoint) {
+  @media (min-width: $seat-map-breakpoint-md) {
     position: relative;
-    padding: 0 $seat-map-inner-spacing $seat-map-inner-spacing;
+    padding: 0 $seat-map-inner-spacing-md $seat-map-inner-spacing-md;
     box-sizing: border-box;
     align-items: flex-end;
-    height: $footer-height;
+    height: $footer-height-md;
   }
 
   .legend-outer-wrapper,
   .cta-outer-wrapper {
     @include default-flex-item;
     flex-basis: 100%;
-    @media (min-width: $seat-selection-breakpoint) {
+    @media (min-width: $seat-map-breakpoint-md) {
       flex-basis: 50%;
     }
   }
@@ -159,7 +171,7 @@
   .legend-outer-wrapper {
     @include default-flex-container;
     margin-bottom: 10px;
-    @media (min-width: $seat-selection-breakpoint) {
+    @media (min-width: $seat-map-breakpoint-md) {
       margin: 0;
       justify-content: flex-start;
     }
@@ -187,7 +199,7 @@
 
   .cta-outer-wrapper {
     @include default-flex-container;
-    @media (min-width: $seat-selection-breakpoint) {
+    @media (min-width: $seat-map-breakpoint-md) {
       justify-content: flex-end;
     }
 

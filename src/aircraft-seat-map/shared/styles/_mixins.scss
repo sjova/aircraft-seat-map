@@ -43,7 +43,10 @@
 
     border-color: $color-secondary;
     &:hover:not(.selected, .info-box) {
-      background-color: $color-bg-blue-light;
+      background-color: $color-secondary;
+      .seat-number {
+        color: $color-white;
+      }
     }
   }
 

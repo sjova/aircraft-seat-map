@@ -13,9 +13,12 @@
       @include default-flex-item;
       flex-shrink: 0;
       .cabin {
-        padding: 0 ($seat-spacing-small/2);
-        @media (min-width: $seat-selection-breakpoint - 1) {
-          padding: 0 ($seat-spacing/2);
+        padding: 0 ($seat-spacing-xs/2);
+        @media (min-width: $seat-map-breakpoint-sm) {
+          padding: 0 ($seat-spacing-sm/2);
+        }
+        @media (min-width: $seat-map-breakpoint-md) {
+          padding: 0 ($seat-spacing-md/2);
         }
       }
     }
@@ -27,17 +30,23 @@
     .seat-wrapper,
     .aisle {
       @include default-flex-item;
-      margin: $legroom-regular-small ($seat-spacing-small/2) 0;
-      @media (min-width: $seat-selection-breakpoint) {
-        margin: $legroom-regular ($seat-spacing/2) 0;
+      margin: $legroom-regular-xs ($seat-spacing-xs/2) 0;
+      @media (min-width: $seat-map-breakpoint-sm) {
+        margin: $legroom-regular-sm ($seat-spacing-sm/2) 0;
+      }
+      @media (min-width: $seat-map-breakpoint-md) {
+        margin: $legroom-regular-md ($seat-spacing-md/2) 0;
       }
     }
 
     .seat-wrapper {
       &.extra-legroom {
-        margin-top: $legroom-extra-small;
-        @media (min-width: $seat-selection-breakpoint) {
-          margin-top: $legroom-extra;
+        margin-top: $legroom-extra-xs;
+        @media (min-width: $seat-map-breakpoint-sm) {
+          margin-top: $legroom-extra-sm;
+        }
+        @media (min-width: $seat-map-breakpoint-md) {
+          margin-top: $legroom-extra-md;
         }
       }
       &.emergency-exit-row {
@@ -46,14 +55,18 @@
     }
 
     .seat {
-      @include seat-base($seat-size-small, 8px);
-      @include seat-variants($seat-size-small);
+      @include seat-base($seat-size-xs, 8px);
+      @include seat-variants($seat-size-xs);
       user-select: none;
-      transition: $transition-default;
 
-      @media (min-width: $seat-selection-breakpoint) {
-        @include seat-base($seat-size, 14px);
-        @include seat-variants($seat-size);
+      @media (min-width: $seat-map-breakpoint-sm) {
+        @include seat-base($seat-size-sm, 14px);
+        @include seat-variants($seat-size-sm);
+      }
+
+      @media (min-width: $seat-map-breakpoint-md) {
+        @include seat-base($seat-size-md, 14px);
+        @include seat-variants($seat-size-md);
       }
 
       .seat-number {
@@ -61,18 +74,24 @@
         @include default-flex-container;
         width: 100%;
         height: 100%;
-        @media (max-width: $seat-selection-breakpoint - 1) {
+        @media (max-width: $seat-map-breakpoint-sm - 1) {
           font-size: 11px;
         }
       }
     }
 
     .aisle {
-      width: $aisle-size-small;
-      height: $seat-size-small;
-      @media (min-width: $seat-selection-breakpoint) {
-        width: $aisle-size;
-        height: $seat-size;
+      width: $aisle-size-xs;
+      height: $seat-size-xs;
+
+      @media (min-width: $seat-map-breakpoint-sm) {
+        width: $aisle-size-sm;
+        height: $seat-size-sm;
+      }
+
+      @media (min-width: $seat-map-breakpoint-md) {
+        width: $aisle-size-md;
+        height: $seat-size-md;
       }
     }
   }
