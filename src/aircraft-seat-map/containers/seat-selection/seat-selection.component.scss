@@ -53,18 +53,21 @@
 }
 
 .container {
-  // TODO: Revisit this
-  $footer-mobile-height: 138px;
-
-  padding: $seat-map-outer-spacing-small $seat-map-outer-spacing-small
-    ($footer-mobile-height + $seat-map-gradient-height);
+  padding: 0 $seat-map-outer-spacing-small;
   min-width: $seat-map-width-small;
+  height: calc(100vh - #{$footer-height-small});
+  overflow-x: hidden;
+  overflow-y: auto;
+
   @media (min-width: $seat-selection-breakpoint) {
     @include default-flex-item;
     padding: 0;
     min-width: auto;
     box-shadow: 0 5px 40px -10px rgba(0, 0, 0, 0.18);
-    height: calc(100vh - 28px - 28px);
+    height: calc(
+      100vh - #{$seat-map-outer-spacing} - #{$seat-map-outer-spacing}
+    );
+    overflow: auto;
     background-color: $color-white;
   }
 }
@@ -74,38 +77,48 @@
     @include default-flex-container;
     align-items: flex-start;
     width: 100%;
-    height: calc(100% - 110px);
+    height: calc(100% - #{$footer-height});
     overflow: hidden;
+  }
 
-    .seat-selection-wrapper,
-    .seat-map-wrapper {
+  .seat-selection-wrapper,
+  .seat-map-wrapper {
+    @media (min-width: $seat-selection-breakpoint) {
       @include default-flex-item;
     }
+  }
 
-    .seat-selection-wrapper {
+  .seat-selection-wrapper {
+    padding: $seat-map-outer-spacing-small 0 0;
+    @media (min-width: $seat-selection-breakpoint) {
       width: $sidebar-width;
       height: 100%;
       overflow-x: hidden;
       overflow-y: auto;
-      padding-top: $legroom-regular;
-      padding-left: $seat-map-outer-spacing;
-      box-sizing: border-box;
+      padding: $seat-map-inner-spacing $seat-spacing 0 $seat-map-inner-spacing;
     }
+  }
 
-    .seat-map-wrapper {
+  .seat-map-wrapper {
+    @media (max-width: $seat-selection-breakpoint - 1) {
+      display: flex;
+      justify-content: center;
+    }
+    @media (min-width: $seat-selection-breakpoint) {
+      margin-top: $seat-map-inner-spacing - $legroom-regular;
+      padding-right: $seat-map-inner-spacing - ($seat-spacing / 2);
       width: $seat-map-width;
-      height: 100%;
+      height: calc(100% - (#{$seat-map-inner-spacing} - #{$legroom-regular}));
       overflow-x: hidden;
       overflow-y: auto;
-      padding-right: $seat-map-outer-spacing - ($seat-spacing / 2);
+    }
+  }
 
-      @media (max-width: $seat-selection-breakpoint - 1) {
-        padding-right: $seat-map-outer-spacing - ($seat-spacing-small / 2);
-      }
-
-      app-seat-map {
-        margin-bottom: $seat-map-gradient-height;
-      }
+  app-seat-map {
+    //margin-bottom: $seat-map-gradient-height-small;
+    margin-bottom: 92px; // TODO: android fix (revisit after demo)
+    @media (min-width: $seat-selection-breakpoint) {
+      margin-bottom: $seat-map-gradient-height;
     }
   }
 }
@@ -116,20 +129,22 @@
 
   @media (max-width: $seat-selection-breakpoint - 1) {
     flex-wrap: wrap;
-    position: fixed;
+    position: absolute;
     left: 0;
-    right: 0;
     bottom: 0;
-    padding: 10px 0 20px;
+    padding: 10px 0 $seat-map-outer-spacing-small;
     background: $color-white;
+    box-sizing: border-box;
+    width: 100%;
+    height: $footer-height-small;
   }
 
   @media (min-width: $seat-selection-breakpoint) {
     position: relative;
-    padding: 0 $seat-map-outer-spacing $seat-map-outer-spacing;
+    padding: 0 $seat-map-inner-spacing $seat-map-inner-spacing;
     box-sizing: border-box;
     align-items: flex-end;
-    height: 110px;
+    height: $footer-height;
   }
 
   .legend-outer-wrapper,
@@ -181,7 +196,7 @@
 
       .label-total-price {
         @extend %label-price;
-        text-align: right;
+        text-align: center;
       }
 
       .confirm {

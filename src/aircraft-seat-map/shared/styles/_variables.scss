@@ -1,27 +1,35 @@
 // Seat
 $seat-size: 42px;
-$seat-size-small: 32px;
+$seat-size-small: 28px;
 $seat-spacing: 8px;
-$seat-spacing-small: 4px;
+$seat-spacing-small: 2px;
 $legroom-regular: 18px;
+$legroom-regular-small: 12px;
 $legroom-extra: 36px;
+$legroom-extra-small: 24px;
 
 // Aisle
 $aisle-size: 16px;
-$aisle-size-small: 12px;
+$aisle-size-small: 6px;
 
 // Seat Selection
 $seat-selection-breakpoint: 924px;
 
 // Sidebar
-$sidebar-width: 340px;
+$sidebar-width: 300px;
 
 // Seat Map
 $seat-map-width: 556px;
-$seat-map-width-small: 396px;
-$seat-map-outer-spacing: 32px;
-$seat-map-outer-spacing-small: 20px;
-$seat-map-gradient-height: 55px;
+$seat-map-width-small: 318px;
+$seat-map-inner-spacing: 32px;
+$seat-map-outer-spacing: 28px;
+$seat-map-outer-spacing-small: 16px;
+$seat-map-gradient-height: $seat-size + ($legroom-regular / 2);
+$seat-map-gradient-height-small: $seat-size-small + ($legroom-regular-small / 2);
+
+// Footer
+$footer-height: 110px;
+$footer-height-small: 132px;
 
 // Misc
 $transition-default: background-color 300ms ease-in;

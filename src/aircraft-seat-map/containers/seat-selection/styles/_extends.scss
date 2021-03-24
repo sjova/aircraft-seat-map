@@ -5,14 +5,19 @@
   &:after {
     content: "";
     position: absolute;
-    top: -($seat-map-gradient-height);
-    height: $seat-map-gradient-height;
-    width: 100%;
+    top: -($seat-map-gradient-height-small);
+    left: $seat-map-outer-spacing-small;
+    width: calc(
+      100% - #{$seat-map-outer-spacing-small} - #{$seat-map-outer-spacing-small}
+    );
+    height: $seat-map-gradient-height-small;
     background: linear-gradient(180deg, rgba(#fff, 0) 0%, #fff 100%);
     pointer-events: none;
     @media (min-width: $seat-selection-breakpoint) {
-      left: $sidebar-width;
+      top: -($seat-map-gradient-height);
+      left: $sidebar-width + $seat-spacing + $seat-map-inner-spacing;
       width: $seat-map-width;
+      height: $seat-map-gradient-height;
     }
   }
 }

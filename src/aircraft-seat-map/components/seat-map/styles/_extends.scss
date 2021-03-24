@@ -1,27 +1,39 @@
 @import "~src/app/styles/variables";
+@import "../../../shared/styles/variables";
 
 %emergency-exit {
+  $exit-label-height: 13px;
+  $exit-line-height: 16px;
+
   position: relative;
 
   // exit label
   &:before {
     position: absolute;
-    top: -15px;
+    top: -($exit-label-height +
+          (($legroom-regular-small - $exit-label-height) / 2));
     color: $color-tertiary;
     font-family: $primary-font-alt;
     font-size: 10px;
     font-weight: bold;
     letter-spacing: 1px;
-    line-height: 13px;
+    line-height: $exit-label-height;
+    @media (min-width: $seat-selection-breakpoint) {
+      top: -($exit-label-height + (($legroom-regular - $exit-label-height) / 2));
+    }
   }
 
   // exit line
   &:after {
     position: absolute;
-    top: -17px;
+    top: -($exit-line-height +
+          (($legroom-regular-small - $exit-line-height) / 2));
     width: 2px;
-    height: 16px;
+    height: $exit-line-height;
     background-color: $color-bg-gray;
+    @media (min-width: $seat-selection-breakpoint) {
+      top: -($exit-line-height + (($legroom-regular - $exit-line-height) / 2));
+    }
   }
 
   &:first-child:before,
@@ -36,7 +48,7 @@
 
   &:first-child {
     &:before {
-      left: 6px;
+      left: 5px;
     }
     &:after {
       left: 0;
@@ -45,7 +57,7 @@
 
   &:last-child {
     &:before {
-      right: 6px;
+      right: 5px;
     }
     &:after {
       right: 0;
@@ -55,10 +67,18 @@
   // extra legroom special case
   &.extra-legroom {
     &:before {
-      top: -24px;
+      top: -($exit-label-height +
+            (($legroom-extra-small - $exit-label-height) / 2));
+      @media (min-width: $seat-selection-breakpoint) {
+        top: -($exit-label-height + (($legroom-extra - $exit-label-height) / 2));
+      }
     }
     &:after {
-      top: -26px;
+      top: -($exit-line-height +
+            (($legroom-extra-small - $exit-line-height) / 2));
+      @media (min-width: $seat-selection-breakpoint) {
+        top: -($exit-line-height + (($legroom-extra - $exit-line-height) / 2));
+      }
     }
   }
 }

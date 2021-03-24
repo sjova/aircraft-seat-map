@@ -13,9 +13,9 @@
       @include default-flex-item;
       flex-shrink: 0;
       .cabin {
-        padding: 0 ($seat-spacing/2);
-        @media (max-width: $seat-selection-breakpoint - 1) {
-          padding: 0 ($seat-spacing-small/2);
+        padding: 0 ($seat-spacing-small/2);
+        @media (min-width: $seat-selection-breakpoint - 1) {
+          padding: 0 ($seat-spacing/2);
         }
       }
     }
@@ -27,15 +27,18 @@
     .seat-wrapper,
     .aisle {
       @include default-flex-item;
-      margin: $legroom-regular ($seat-spacing/2) 0;
-      @media (max-width: $seat-selection-breakpoint - 1) {
-        margin: $legroom-regular ($seat-spacing-small/2) 0;
+      margin: $legroom-regular-small ($seat-spacing-small/2) 0;
+      @media (min-width: $seat-selection-breakpoint) {
+        margin: $legroom-regular ($seat-spacing/2) 0;
       }
     }
 
     .seat-wrapper {
       &.extra-legroom {
-        margin-top: $legroom-extra;
+        margin-top: $legroom-extra-small;
+        @media (min-width: $seat-selection-breakpoint) {
+          margin-top: $legroom-extra;
+        }
       }
       &.emergency-exit-row {
         @extend %emergency-exit;
@@ -43,14 +46,14 @@
     }
 
     .seat {
-      @include seat-base($seat-size, 14px);
-      @include seat-variants($seat-size);
+      @include seat-base($seat-size-small, 8px);
+      @include seat-variants($seat-size-small);
       user-select: none;
       transition: $transition-default;
 
-      @media (max-width: $seat-selection-breakpoint - 1) {
-        @include seat-base($seat-size-small, 10px);
-        @include seat-variants($seat-size-small);
+      @media (min-width: $seat-selection-breakpoint) {
+        @include seat-base($seat-size, 14px);
+        @include seat-variants($seat-size);
       }
 
       .seat-number {
@@ -59,16 +62,17 @@
         width: 100%;
         height: 100%;
         @media (max-width: $seat-selection-breakpoint - 1) {
-          font-size: 12px;
+          font-size: 11px;
         }
       }
     }
 
     .aisle {
-      width: $aisle-size;
-      height: $seat-size;
-      @media (max-width: $seat-selection-breakpoint - 1) {
-        width: $aisle-size-small;
+      width: $aisle-size-small;
+      height: $seat-size-small;
+      @media (min-width: $seat-selection-breakpoint) {
+        width: $aisle-size;
+        height: $seat-size;
       }
     }
   }
