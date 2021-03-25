@@ -16,7 +16,14 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ### Demo Example
 
-![Aircraft Seat Map Demo Example](docs/images/aircraft-seat-map-demo-example.png)
+Medium+ Screen
+![Aircraft Seat Map Demo Example - Medium](docs/images/aircraft-seat-map-demo-example-md.jpg)
+
+Small Screen
+![Aircraft Seat Map Demo Example - Small](docs/images/aircraft-seat-map-demo-example-sm.jpg)
+
+Extra Small Screen
+![Aircraft Seat Map Demo Example - Extra SMall](docs/images/aircraft-seat-map-demo-example-xs.jpg)
 
 #### Different Examples
 
