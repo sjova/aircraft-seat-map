@@ -1,10 +1,10 @@
 @import "~src/app/styles/variables";
-@import "../../../shared/styles/variables";
+@import "~src/aircraft-seat-map/shared/styles/variables";
+
+$exit-label-height: 13px;
+$exit-line-height: 16px;
 
 %emergency-exit {
-  $exit-label-height: 13px;
-  $exit-line-height: 16px;
-
   position: relative;
 
   // exit label
@@ -17,11 +17,11 @@
     font-weight: bold;
     letter-spacing: 1px;
     line-height: $exit-label-height;
-    @media (min-width: $seat-map-breakpoint-sm) {
+    @media only screen and (min-width: $seat-map-breakpoint-sm) {
       top: -($exit-label-height +
             (($legroom-regular-sm - $exit-label-height) / 2));
     }
-    @media (min-width: $seat-map-breakpoint-md) {
+    @media only screen and (min-width: $seat-map-breakpoint-md) {
       top: -($exit-label-height +
             (($legroom-regular-md - $exit-label-height) / 2));
     }
@@ -34,10 +34,10 @@
     width: 2px;
     height: $exit-line-height;
     background-color: $color-bg-gray;
-    @media (min-width: $seat-map-breakpoint-sm) {
+    @media only screen and (min-width: $seat-map-breakpoint-sm) {
       top: -($exit-line-height + (($legroom-regular-sm - $exit-line-height) / 2));
     }
-    @media (min-width: $seat-map-breakpoint-md) {
+    @media only screen and (min-width: $seat-map-breakpoint-md) {
       top: -($exit-line-height + (($legroom-regular-md - $exit-line-height) / 2));
     }
   }
@@ -70,25 +70,25 @@
     }
   }
 
-  // extra legroom special case
+  // extra legroom (special case)
   &.extra-legroom {
     &:before {
       top: -($exit-label-height + (($legroom-extra-xs - $exit-label-height) / 2));
-      @media (min-width: $seat-map-breakpoint-sm) {
+      @media only screen and (min-width: $seat-map-breakpoint-sm) {
         top: -($exit-label-height +
               (($legroom-extra-sm - $exit-label-height) / 2));
       }
-      @media (min-width: $seat-map-breakpoint-md) {
+      @media only screen and (min-width: $seat-map-breakpoint-md) {
         top: -($exit-label-height +
               (($legroom-extra-md - $exit-label-height) / 2));
       }
     }
     &:after {
       top: -($exit-line-height + (($legroom-extra-xs - $exit-line-height) / 2));
-      @media (min-width: $seat-map-breakpoint-sm) {
+      @media only screen and (min-width: $seat-map-breakpoint-sm) {
         top: -($exit-line-height + (($legroom-extra-sm - $exit-line-height) / 2));
       }
-      @media (min-width: $seat-map-breakpoint-md) {
+      @media only screen and (min-width: $seat-map-breakpoint-md) {
         top: -($exit-line-height + (($legroom-extra-md - $exit-line-height) / 2));
       }
     }

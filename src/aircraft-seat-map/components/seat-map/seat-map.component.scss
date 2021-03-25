@@ -1,7 +1,7 @@
 @import "~src/app/styles/variables";
-@import "../../shared/styles/extends";
-@import "../../shared/styles/mixins";
-@import "../../shared/styles/variables";
+@import "~src/aircraft-seat-map/shared/styles/extends";
+@import "~src/aircraft-seat-map/shared/styles/mixins";
+@import "~src/aircraft-seat-map/shared/styles/variables";
 @import "styles/extends";
 
 :host {
@@ -14,10 +14,12 @@
       flex-shrink: 0;
       .cabin {
         padding: 0 ($seat-spacing-xs/2);
-        @media (min-width: $seat-map-breakpoint-sm) {
+
+        @media only screen and (min-width: $seat-map-breakpoint-sm) {
           padding: 0 ($seat-spacing-sm/2);
         }
-        @media (min-width: $seat-map-breakpoint-md) {
+
+        @media only screen and (min-width: $seat-map-breakpoint-md) {
           padding: 0 ($seat-spacing-md/2);
         }
       }
@@ -27,14 +29,18 @@
   .row {
     @include default-flex-container;
     align-items: flex-end;
+
     .seat-wrapper,
     .aisle {
       @include default-flex-item;
+
       margin: $legroom-regular-xs ($seat-spacing-xs/2) 0;
-      @media (min-width: $seat-map-breakpoint-sm) {
+
+      @media only screen and (min-width: $seat-map-breakpoint-sm) {
         margin: $legroom-regular-sm ($seat-spacing-sm/2) 0;
       }
-      @media (min-width: $seat-map-breakpoint-md) {
+
+      @media only screen and (min-width: $seat-map-breakpoint-md) {
         margin: $legroom-regular-md ($seat-spacing-md/2) 0;
       }
     }
@@ -42,30 +48,33 @@
     .seat-wrapper {
       &.extra-legroom {
         margin-top: $legroom-extra-xs;
-        @media (min-width: $seat-map-breakpoint-sm) {
+
+        @media only screen and (min-width: $seat-map-breakpoint-sm) {
           margin-top: $legroom-extra-sm;
         }
-        @media (min-width: $seat-map-breakpoint-md) {
+
+        @media only screen and (min-width: $seat-map-breakpoint-md) {
           margin-top: $legroom-extra-md;
         }
       }
+
       &.emergency-exit-row {
         @extend %emergency-exit;
       }
     }
 
     .seat {
-      @include seat-base($seat-size-xs, 8px);
+      @include seat-base($seat-size-xs, $seat-radius-xs);
       @include seat-variants($seat-size-xs);
       user-select: none;
 
-      @media (min-width: $seat-map-breakpoint-sm) {
-        @include seat-base($seat-size-sm, 14px);
+      @media only screen and (min-width: $seat-map-breakpoint-sm) {
+        @include seat-base($seat-size-sm, $seat-radius-sm);
         @include seat-variants($seat-size-sm);
       }
 
-      @media (min-width: $seat-map-breakpoint-md) {
-        @include seat-base($seat-size-md, 14px);
+      @media only screen and (min-width: $seat-map-breakpoint-md) {
+        @include seat-base($seat-size-md, $seat-radius-md);
         @include seat-variants($seat-size-md);
       }
 
@@ -74,7 +83,7 @@
         @include default-flex-container;
         width: 100%;
         height: 100%;
-        @media (max-width: $seat-map-breakpoint-sm - 1) {
+        @media only screen and (max-width: $seat-map-breakpoint-sm - 1) {
           font-size: 11px;
         }
       }
@@ -84,12 +93,12 @@
       width: $aisle-size-xs;
       height: $seat-size-xs;
 
-      @media (min-width: $seat-map-breakpoint-sm) {
+      @media only screen and (min-width: $seat-map-breakpoint-sm) {
         width: $aisle-size-sm;
         height: $seat-size-sm;
       }
 
-      @media (min-width: $seat-map-breakpoint-md) {
+      @media only screen and (min-width: $seat-map-breakpoint-md) {
         width: $aisle-size-md;
         height: $seat-size-md;
       }

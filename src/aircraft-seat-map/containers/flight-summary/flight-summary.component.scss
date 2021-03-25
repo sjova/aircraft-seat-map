@@ -1,17 +1,20 @@
 @import "~src/app/styles/variables";
-@import "../../shared/styles/mixins";
-@import "../../shared/styles/extends";
+@import "~src/aircraft-seat-map/shared/styles/mixins";
+@import "~src/aircraft-seat-map/shared/styles/extends";
+
+$spacing-top: 90px;
+$spacing-bottom: 16px;
 
 :host {
   display: block;
   box-sizing: border-box;
-  height: calc(100% - 90px - 16px);
+  height: calc(100% - #{$spacing-top} - #{$spacing-bottom});
   width: 90%;
   max-width: 550px;
   border: 1px solid $color-bg-gray;
   border-radius: 4px;
   background-color: $color-white;
-  margin: 90px auto 16px;
+  margin: $spacing-top auto $spacing-bottom;
   padding: 22px;
 
   .col-wrapper {

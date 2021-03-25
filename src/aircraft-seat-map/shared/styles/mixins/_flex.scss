@@ -1,0 +1,17 @@
+@mixin default-flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+@mixin default-flex-item {
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  align-self: auto;
+  min-width: 0;
+  min-height: auto;
+}

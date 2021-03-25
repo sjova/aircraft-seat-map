@@ -1,13 +1,20 @@
 @import "~src/app/styles/variables";
-@import "../../shared/styles/extends";
-@import "../../shared/styles/mixins";
-@import "../../shared/styles/variables";
+@import "~src/aircraft-seat-map/shared/styles/extends";
+@import "~src/aircraft-seat-map/shared/styles/mixins";
+@import "~src/aircraft-seat-map/shared/styles/variables";
 @import "styles/extends";
+
+$spacing-1: 8px;
+$spacing-2: 10px;
+$spacing-3: 14px;
+
+$info-box-width: 14px;
+$info-box-radius: 5px;
 
 :host {
   display: block;
 
-  @media (min-width: $seat-map-breakpoint-md) {
+  @media only screen and (min-width: $seat-map-breakpoint-md) {
     @include default-flex-container;
     width: 100vw;
     height: 100vh;
@@ -18,142 +25,158 @@
       right: 0;
     }
   }
-
-  .seat-selection-wrapper {
-    .flight {
-      color: $color-text-dark;
-      font-family: $secondary-font;
-      font-weight: 400;
-      font-size: 18px;
-      letter-spacing: 0;
-      line-height: 22px;
-      margin: 0 0 6px;
-    }
-
-    .passenger {
-      color: $color-text-light;
-      font-family: $primary-font;
-      font-size: 14px;
-      letter-spacing: 0;
-      line-height: 40px;
-      padding: 0 14px;
-      @extend %passenger-button;
-
-      &.condensed-item {
-        line-height: 26px;
-      }
-
-      &.last-item {
-        margin-bottom: 14px;
-      }
-    }
-  }
 }
 
 .container {
-  padding: 0 $seat-map-outer-spacing-xs;
-  min-width: $seat-map-width-xs;
-  height: calc(100vh - #{$footer-height-xs});
-  overflow-x: hidden;
-  overflow-y: auto;
-
-  @media (min-width: $seat-map-breakpoint-sm) {
-    padding: 0 $seat-map-outer-spacing-sm;
+  @media only screen and (max-width: $seat-map-breakpoint-md - 1) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    min-width: $seat-map-breakpoint-xs;
   }
 
-  @media (min-width: $seat-map-breakpoint-md) {
+  @media only screen and (min-width: $seat-map-breakpoint-md) {
     @include default-flex-item;
     padding: 0;
-    min-width: auto;
     box-shadow: 0 5px 40px -10px rgba(0, 0, 0, 0.18);
-    height: calc(
-      100vh - #{$seat-map-outer-spacing-md} - #{$seat-map-outer-spacing-md}
-    );
-    overflow: auto;
+    height: calc(100vh - #{$outer-spacing-md} - #{$outer-spacing-md});
     background-color: $color-white;
   }
 }
 
 .content {
-  @media (min-width: $seat-map-breakpoint-md) {
+  @media only screen and (max-width: $seat-map-breakpoint-sm - 1) {
+    bottom: $footer-height-xs;
+  }
+
+  @media only screen and (max-width: $seat-map-breakpoint-md - 1) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: $footer-height-sm;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  @media only screen and (min-width: $seat-map-breakpoint-md) {
     @include default-flex-container;
     align-items: flex-start;
     width: 100%;
     height: calc(100% - #{$footer-height-md});
-    overflow: hidden;
   }
 
   .seat-selection-wrapper,
   .seat-map-wrapper {
-    @media (min-width: $seat-map-breakpoint-md) {
+    @media only screen and (min-width: $seat-map-breakpoint-md) {
       @include default-flex-item;
     }
   }
 
   .seat-selection-wrapper {
-    padding: $seat-map-outer-spacing-xs 0 0;
-    @media (min-width: $seat-map-breakpoint-sm) {
-      padding: $seat-map-outer-spacing-sm 0 0;
+    padding: $outer-spacing-xs
+      (($seat-map-breakpoint-xs - $seat-map-width-xs) / 2) 0;
+
+    @media only screen and (min-width: $seat-map-breakpoint-sm) {
+      padding: $outer-spacing-sm
+        (($seat-map-breakpoint-sm - $seat-map-width-sm) / 2) 0;
     }
-    @media (min-width: $seat-map-breakpoint-md) {
+
+    @media only screen and (min-width: $seat-map-breakpoint-md) {
       width: $sidebar-width;
       height: 100%;
       overflow-x: hidden;
       overflow-y: auto;
-      padding: $seat-map-inner-spacing-md $seat-spacing-md 0
-        $seat-map-inner-spacing-md;
+      padding: $inner-spacing-md $seat-spacing-md 0 $inner-spacing-md;
+    }
+
+    .group {
+      margin-bottom: $spacing-3;
+
+      &:last-child {
+        margin-bottom: $spacing-3 - $legroom-regular-xs;
+      }
+
+      .flight {
+        color: $color-text-dark;
+        font-family: $secondary-font;
+        font-weight: 400;
+        font-size: 18px;
+        letter-spacing: 0;
+        line-height: 22px;
+        margin: 0 0 6px;
+      }
+
+      .passenger {
+        color: $color-text-light;
+        font-family: $primary-font;
+        font-size: 14px;
+        letter-spacing: 0;
+        line-height: 40px;
+        margin: 0;
+        padding: 0 $spacing-3;
+        @extend %passenger-button;
+
+        &.condensed-item {
+          line-height: 26px;
+        }
+      }
     }
   }
 
   .seat-map-wrapper {
-    @media (max-width: $seat-map-breakpoint-md - 1) {
-      display: flex;
-      justify-content: center;
+    @media only screen and (max-width: $seat-map-breakpoint-md - 1) {
+      @include default-flex-container;
     }
-    @media (min-width: $seat-map-breakpoint-md) {
-      margin-top: $seat-map-inner-spacing-md - $legroom-regular-md;
-      padding-right: $seat-map-inner-spacing-md - ($seat-spacing-md / 2);
+
+    @media only screen and (min-width: $seat-map-breakpoint-md) {
+      margin-top: $inner-spacing-md - $legroom-regular-md;
+      padding-right: $inner-spacing-md - ($seat-spacing-md / 2);
       width: $seat-map-width-md;
-      height: calc(
-        100% - (#{$seat-map-inner-spacing-md} - #{$legroom-regular-md})
-      );
+      height: calc(100% - (#{$inner-spacing-md} - #{$legroom-regular-md}));
       overflow-x: hidden;
       overflow-y: auto;
     }
   }
 
   app-seat-map {
-    //margin-bottom: $seat-map-gradient-height-small;
-    margin-bottom: 92px; // TODO: android fix (revisit after demo)
-    @media (min-width: $seat-map-breakpoint-md) {
+    margin-bottom: $seat-map-gradient-height-xs;
+
+    @media only screen and (min-width: $seat-map-breakpoint-sm) {
+      margin-bottom: $seat-map-gradient-height-sm;
+    }
+
+    @media only screen and (min-width: $seat-map-breakpoint-md) {
       margin-bottom: $seat-map-gradient-height-md;
     }
   }
 }
 
 .footer {
-  @extend %bottom-gradient;
+  @extend %above-gradient;
   @include default-flex-container;
 
-  @media (max-width: $seat-map-breakpoint-sm - 1) {
-    padding: 10px 0 $seat-map-outer-spacing-xs;
+  @media only screen and (max-width: $seat-map-breakpoint-sm - 1) {
+    padding: $spacing-2 0 $outer-spacing-xs;
   }
 
-  @media (max-width: $seat-map-breakpoint-md - 1) {
+  @media only screen and (max-width: $seat-map-breakpoint-md - 1) {
     flex-wrap: wrap;
     position: absolute;
     left: 0;
     bottom: 0;
-    padding: 10px 0 $seat-map-outer-spacing-sm;
+    padding: $spacing-2 0 $outer-spacing-sm;
     background: $color-white;
     box-sizing: border-box;
     width: 100%;
     height: $footer-height-xs;
   }
 
-  @media (min-width: $seat-map-breakpoint-md) {
+  @media only screen and (min-width: $seat-map-breakpoint-md) {
     position: relative;
-    padding: 0 $seat-map-inner-spacing-md $seat-map-inner-spacing-md;
+    padding: 0 $inner-spacing-md $inner-spacing-md;
     box-sizing: border-box;
     align-items: flex-end;
     height: $footer-height-md;
@@ -163,15 +186,17 @@
   .cta-outer-wrapper {
     @include default-flex-item;
     flex-basis: 100%;
-    @media (min-width: $seat-map-breakpoint-md) {
+
+    @media only screen and (min-width: $seat-map-breakpoint-md) {
       flex-basis: 50%;
     }
   }
 
   .legend-outer-wrapper {
     @include default-flex-container;
-    margin-bottom: 10px;
-    @media (min-width: $seat-map-breakpoint-md) {
+    margin-bottom: $spacing-2;
+
+    @media only screen and (min-width: $seat-map-breakpoint-md) {
       margin: 0;
       justify-content: flex-start;
     }
@@ -181,7 +206,7 @@
       .legend {
         @include default-flex-container;
         &:not(:first-child) {
-          margin-left: 14px;
+          margin-left: $spacing-3;
         }
         .info-box,
         .label {
@@ -189,9 +214,9 @@
         }
 
         .info-box {
-          @include seat-base(14px, 5px);
-          @include seat-variants(14px);
-          margin-right: 8px;
+          @include seat-base($info-box-width, $info-box-radius);
+          @include seat-variants($info-box-width);
+          margin-right: $spacing-1;
         }
       }
     }
@@ -199,7 +224,7 @@
 
   .cta-outer-wrapper {
     @include default-flex-container;
-    @media (min-width: $seat-map-breakpoint-md) {
+    @media only screen and (min-width: $seat-map-breakpoint-md) {
       justify-content: flex-end;
     }
 
@@ -212,7 +237,7 @@
       }
 
       .confirm {
-        margin-left: 14px;
+        margin-left: $spacing-3;
       }
     }
   }

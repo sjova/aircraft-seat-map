@@ -10,13 +10,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 2. All middle steps including **seat map**, **select flight** and **select traveler** dropdowns, **current selection**, and **seat selection**
 3. **Selected seats** with **Edit seats** section
 
-### MrOrange API Data Structure
+### API Data Structure
 
-[MrOrange API Data Structure](src/aircraft-seat-map/shared/models/flight-seat-map-api-response.ts)
+[API Data Structure](src/aircraft-seat-map/shared/models/flight-seat-map-api-response.ts)
 
 ### Demo Example
 
-![Aircraft Seat Map Demo Example](docs/img/aircraft-seat-map-demo-example.png)
+![Aircraft Seat Map Demo Example](docs/images/aircraft-seat-map-demo-example.png)
 
 #### Different Examples
 
@@ -24,7 +24,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - https://aircraft-seat-map.web.app/demo/summary?demo=2 (3 flights, 3 passengers, 2+3+2 and 3+4+3 seating layout, no priced seat offers)
 - https://aircraft-seat-map.web.app/demo/summary?demo=3 (1 flight, 2 passengers, 2+2 seating layout, no priced seat offers)
 - https://aircraft-seat-map.web.app/demo/summary?demo=4 (4 flights, 2 passengers, 2+2 and 3+3 seating layout, with priced seat offers; note: 1st row in 1st flight have different prices for each seat)
-- https://aircraft-seat-map.web.app/demo/summary?demo=5 (additional examples from MrOrange, with priced seat offers)
+- https://aircraft-seat-map.web.app/demo/summary?demo=5 (additional examples, with priced seat offers)
 
 ## The biggest aircraft
 

@@ -8,10 +8,7 @@
         </p>
 
         <ng-container
-          *ngFor="
-            let passengerId of flights.byId[flightId].passengers.allIds;
-            let last = last
-          "
+          *ngFor="let passengerId of flights.byId[flightId].passengers.allIds"
         >
           <a
             class="passenger"
@@ -26,8 +23,7 @@
               'condensed-item':
                 flights.allIds.length *
                   flights.byId[flightId].passengers.allIds.length >
-                10,
-              'last-item': last
+                10
             }"
           >
             {{ flights.byId[flightId].passengers.byId[passengerId].firstName }}

@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
+    "start:bs": "ng serve --open --disable-host-check",
     "build": "ng build",
     "build:prod": "ng build --prod",
     "test": "ng test",

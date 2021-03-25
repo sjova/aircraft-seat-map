@@ -61,7 +61,7 @@ $line-height-l: 22px;
 $line-height-m: 19px;
 $line-height-s: 16px;
 
-// --- Media Query Screens --- //
+// Media Query Screens
 
 $screen-tn: 359.99px; // 0px-359.99px (legacy deprecated)
 $screen-xs: 599.99px; // 360px-599.99px (mobile default)
@@ -70,7 +70,7 @@ $screen-md: 1279.99px; // 960px-1279.99px
 $screen-lg: 1919.99px; // 1280px-1919.99px (desktop default)
 $screen-xl: 4999.99px; // 1920px-4999.99px
 
-// --- Media Query Breakpoints --- //
+// Media Query Breakpoints
 
 $breakpoints: (
   tn: $screen-tn,
@@ -81,7 +81,7 @@ $breakpoints: (
   xl: $screen-xl,
 );
 
-// --- Spacers --- //
+// Spacers
 
 $spacing-0: 0;
 $spacing-1: 4px;

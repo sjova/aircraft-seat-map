@@ -1,0 +1,22 @@
+@mixin box-cross($size) {
+  position: relative;
+  overflow: hidden;
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: -52.5%;
+    width: 1px;
+    height: $size * 2;
+  }
+
+  &:before {
+    transform: rotate(45deg);
+    right: calc(50% + 1px);
+  }
+
+  &:after {
+    transform: rotate(-45deg);
+    left: calc(50% + 1px);
+  }
+}

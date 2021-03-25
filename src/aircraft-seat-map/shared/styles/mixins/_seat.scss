@@ -1,0 +1,65 @@
+@import "~src/app/styles/variables";
+
+@mixin seat-base($size, $radius) {
+  width: $size;
+  height: $size;
+  border: 1px solid $color-text-lightest;
+  background-color: $color-white;
+  border-radius: $radius;
+  box-sizing: border-box;
+}
+
+@mixin seat-variants($size) {
+  &.selected {
+    border-color: $color-secondary;
+    background-color: $color-secondary;
+    & > div {
+      color: white;
+    }
+  }
+
+  &.available {
+    &:not(.info-box) {
+      cursor: pointer;
+    }
+
+    border-color: $color-secondary;
+    &:hover:not(.selected, .info-box) {
+      background-color: $color-secondary;
+      .seat-number {
+        color: $color-white;
+      }
+    }
+  }
+
+  &.unavailable {
+    border-color: $color-text-lightest;
+    background-color: $light-bg;
+    &:before,
+    &:after {
+      background-color: $color-text-lightest;
+    }
+  }
+
+  &.occupied {
+    border-color: $color-secondary;
+    background-color: $color-bg-blue-light;
+    &:before,
+    &:after {
+      background-color: $color-secondary;
+    }
+  }
+
+  &.unavailable,
+  &.occupied {
+    @include box-cross($size);
+
+    &:not(.info-box) {
+      cursor: not-allowed;
+    }
+
+    .seat-number {
+      display: none;
+    }
+  }
+}
