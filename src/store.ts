@@ -3,14 +3,14 @@ import { distinctUntilChanged, pluck } from 'rxjs/operators';
 
 import { FlightsState } from '@app/aircraft-seat-map/shared/models/flight-state';
 
-export interface UserSelection {
+export interface CurrentSelection {
   flightNumber: string;
   passengerId: string;
 }
 
 export interface State {
   flights: FlightsState;
-  userFlightsSelection: UserSelection;
+  userFlightsSelection: CurrentSelection;
 }
 
 const initialState: State = {

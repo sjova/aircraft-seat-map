@@ -53,8 +53,6 @@ export interface Cabin {
   rows: Row[];
 }
 
-// export type RowTag = 'ExitRow' | 'WingRow';
-// TODO: Revisit `BulkheadRow` if exists in final API response
 export type RowTag = 'ExitRow' | 'WingRow' | 'BulkheadRow';
 
 export interface Row {
@@ -81,7 +79,7 @@ export type ItemAvailability =
 export enum ItemAvailabilityEnum {
   Available = 'Available',
   Unavailable = 'Unavailable',
-  NotAvailable = 'NotAvailable', // TODO: Remove in final version
+  NotAvailable = 'NotAvailable',
   Occupied = 'Occupied',
   Unknown = 'Unknown',
 }

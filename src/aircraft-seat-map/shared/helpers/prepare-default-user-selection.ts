@@ -1,5 +1,5 @@
 import { FlightsState } from '@app/aircraft-seat-map/shared/models/flight-state';
-import { UserSelection } from '@app/store';
+import { CurrentSelection } from '@app/store';
 
 /**
  * Prepare Default User Selection From Base Flights State
@@ -8,7 +8,7 @@ import { UserSelection } from '@app/store';
  */
 export const prepareDefaultUserSelection = (
   flightsState: FlightsState
-): UserSelection => {
+): CurrentSelection => {
   const [flightNumber] = flightsState.allIds;
   const [passengerId] = flightsState.byId[flightNumber].passengers.allIds;
 

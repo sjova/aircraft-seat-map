@@ -7,7 +7,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ### Steps
 
 1. **Seat Selection** with **Select seat** button section
-2. All middle steps including **seat map**, **select flight** and **select traveler** dropdowns, **current selection**, and **seat selection**
+2. All middle userSelectionSteps including **seat map**, **select flight** and **select traveler** dropdowns, **current selection**, and **seat selection**
 3. **Selected seats** with **Edit seats** section
 
 ### API Data Structure

@@ -108,7 +108,8 @@ export class SeatMapComponent {
     ) {
       this.seatSelection.next({
         flightNumber: this.flightNumber,
-        passengerId: `${this.passengerId}`,
+        passengerId: this.passengerId,
+        // TODO: Revisit conversion `number` to `string` after migration to DIB API
         seatRowNumber: `${seat.rowNumber}`,
         seatCode: seat.code,
         seatOffer: seat.offers ? seat.offers[this.passengerId] : undefined,
