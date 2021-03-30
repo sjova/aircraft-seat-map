@@ -1,4 +1,4 @@
-# Aircraft Seat Map
+# Aircraft Seat Map (Prototyping App)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.2.
 
@@ -6,34 +6,49 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ### Steps
 
-1. **Seat Selection** with **Select seat** button section
-2. All middle userSelectionSteps including **seat map**, **select flight** and **select traveler** dropdowns, **current selection**, and **seat selection**
-3. **Selected seats** with **Edit seats** section
+1. Seat Selection box with Select Seats button
+2. Middle steps including:
+   - Aircraft Seat Map
+   - Pre-selected first passenger in first flight
+   - Select passenger seat for each flight
+   - Auto-select next passenger
+   - Tooltip with seat details
+   - Dynamic passengers list height (depends on number of passengers)
+   - Update seat selection before confirmation
+   - Seat selection validation (all seats must be selected in the initial version)
+   - Total price will be calculated with valid data
+3. Seat Selection box with summary details and Edit Seats button
 
 ### API Data Structure
 
 [API Data Structure](src/aircraft-seat-map/shared/models/flight-seat-map-api-response.ts)
 
-### Demo Example
+### Demo Example Screens
 
-Medium+ Screen
+First Step Screen
+![Aircraft Seat Map Demo Example - First Step](docs/images/aircraft-seat-map-demo-example-first-step.jpg)
+
+Middle Step, Medium+ Screen (924px+)
 ![Aircraft Seat Map Demo Example - Medium](docs/images/aircraft-seat-map-demo-example-md.jpg)
 
-Small Screen
+Middle Step, Small Screen (612px-923px)
 ![Aircraft Seat Map Demo Example - Small](docs/images/aircraft-seat-map-demo-example-sm.jpg)
 
-Extra Small Screen
+Middle Step, Extra Small Screen (360px-611px)
 ![Aircraft Seat Map Demo Example - Extra SMall](docs/images/aircraft-seat-map-demo-example-xs.jpg)
 
-#### Different Examples
+Last Step Screen
+![Aircraft Seat Map Demo Example - Last Step](docs/images/aircraft-seat-map-demo-example-last-step.jpg)
+
+#### Different Example URLs
 
 - https://aircraft-seat-map.web.app/demo/summary?demo=1 (2 flights, 2 passengers, 2+2 and 3+3 seating layout, no priced seat offers)
-- https://aircraft-seat-map.web.app/demo/summary?demo=2 (3 flights, 3 passengers, 2+3+2 and 3+4+3 seating layout, no priced seat offers)
+- https://aircraft-seat-map.web.app/demo/summary?demo=2 (3 flights, 5 passengers, 2+3+2 and 3+4+3 max seating layout, no priced seat offers)
 - https://aircraft-seat-map.web.app/demo/summary?demo=3 (1 flight, 2 passengers, 2+2 seating layout, no priced seat offers)
 - https://aircraft-seat-map.web.app/demo/summary?demo=4 (4 flights, 2 passengers, 2+2 and 3+3 seating layout, with priced seat offers; note: 1st row in 1st flight have different prices for each seat)
 - https://aircraft-seat-map.web.app/demo/summary?demo=5 (additional examples, with priced seat offers)
 
-## The biggest aircraft
+## The biggest aircraft's (additional note for discussion)
 
 - **Airbus A380-800** (853 passengers; 3+4+3 seating layout)
 - **Boeing 777-300** (550/368 passengers; 2+3+2 seating layout)
