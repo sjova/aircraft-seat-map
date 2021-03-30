@@ -1,24 +1,22 @@
 import {
-  FlightsState,
+  Flights,
   FlightsTotalPrice,
-} from '@app/aircraft-seat-map/shared/models/flight-state';
+} from '@app/aircraft-seat-map/shared/models/flight';
 
 /**
- * Total Price From Base Flights State
+ * Total Price From Base Flights
  *
- * @param flightsState
+ * @param flights
  */
-export const getTotalPrice = (
-  flightsState: FlightsState
-): FlightsTotalPrice => {
+export const getTotalPrice = (flights: Flights): FlightsTotalPrice => {
   let totalPrice: FlightsTotalPrice = {
     total: 0,
     currencyCode: undefined,
   };
 
-  for (let i = 0; i < flightsState.allIds.length; i++) {
-    const flightNumber = flightsState.allIds[i];
-    const flight = flightsState.byId[flightNumber];
+  for (let i = 0; i < flights.allIds.length; i++) {
+    const flightNumber = flights.allIds[i];
+    const flight = flights.byId[flightNumber];
 
     for (let j = 0; j < flight.passengers.allIds.length; j++) {
       const passengerId = flight.passengers.allIds[j];

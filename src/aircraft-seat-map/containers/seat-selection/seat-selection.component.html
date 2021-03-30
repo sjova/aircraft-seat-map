@@ -20,7 +20,7 @@
               active:
                 currentSelection.flightNumber ===
                   flights.byId[flightNumber].flightInfo.flightNumber &&
-                userSelectionPassengerIdAsNumber ===
+                currentSelectionPassengerId ===
                   flights.byId[flightNumber].passengers.byId[passengerId].id,
               'condensed-item':
                 flights.allIds.length *
@@ -62,8 +62,8 @@
         [flightNumber]="currentSelection.flightNumber"
         [passengerId]="currentSelection.passengerId"
         [passengers]="flights.byId[currentSelection.flightNumber]?.passengers"
-        [seatMapState]="flights.byId[currentSelection.flightNumber]?.seatMap"
-        (seatSelection)="onSelection($event)"
+        [seatMap]="flights.byId[currentSelection.flightNumber]?.seatMap"
+        (seatSelect)="onSeatSelection($event)"
       ></app-seat-map>
     </div>
   </div>

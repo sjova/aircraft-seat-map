@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { Store } from '@app/store';
 import { Observable } from 'rxjs';
-import {
-  FlightsState,
-  FlightsTotalPrice,
-} from '@app/aircraft-seat-map/shared/models/flight-state';
+import { Flights } from '@app/aircraft-seat-map/shared/models/flight';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { setDemoQueryParam } from '@app/aircraft-seat-map/shared/helpers';
+import {
+  flightsStoreName,
+  setDemoQueryParam,
+} from '@app/aircraft-seat-map/shared/helpers';
 
 @Component({
   selector: 'app-flight-summary',
@@ -16,8 +16,7 @@ import { setDemoQueryParam } from '@app/aircraft-seat-map/shared/helpers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlightSummaryComponent implements OnInit {
-  flights$: Observable<FlightsState>;
-  totalPrice$: Observable<FlightsTotalPrice>;
+  flights$: Observable<Flights>;
 
   queryParams: Params;
 
@@ -34,6 +33,6 @@ export class FlightSummaryComponent implements OnInit {
       this.queryParams
     );
 
-    this.flights$ = this.store.select<FlightsState>('flights');
+    this.flights$ = this.store.select(flightsStoreName);
   }
 }

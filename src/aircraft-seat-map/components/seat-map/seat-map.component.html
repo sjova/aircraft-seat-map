@@ -1,45 +1,46 @@
 <div class="aircraft" *ngIf="flightNumber && passengerId">
   <div class="cabins-wrapper">
     <div class="cabin">
-      <div *ngFor="let row of seatMap" class="row">
-        <ng-container *ngFor="let item of row">
+      <div *ngFor="let row of seatMapMatrix" class="row">
+        <ng-container *ngFor="let rowItem of row">
           <div
             class="aisle"
-            *ngIf="item.type === itemItemType.Aisle; else seatTemplate"
+            *ngIf="rowItem.type === rowItemType.Aisle; else seatTemplate"
           ></div>
           <ng-template #seatTemplate>
             <div
               class="seat-wrapper"
               [ngClass]="{
-                'extra-legroom': item.characteristics.includes(
-                  itemCharacteristic.LegSpaceSeat
+                'extra-legroom': rowItem.characteristics.includes(
+                  seatCharacteristic.LegSpaceSeat
                 ),
-                'emergency-exit-row': item.characteristics.includes(
-                  itemCharacteristic.ExitRowSeat
+                'emergency-exit-row': rowItem.characteristics.includes(
+                  seatCharacteristic.ExitRowSeat
                 )
               }"
             >
               <div
                 class="seat"
                 [ngClass]="{
-                  selected: item.selected,
-                  available: item.availability === seatAvailability.Available,
+                  selected: rowItem.selected,
+                  available:
+                    rowItem.availability === seatAvailability.Available,
                   unavailable:
-                    item.availability === seatAvailability.Unavailable ||
-                    item.availability === seatAvailability.Unknown ||
-                    item.availability === seatAvailability.NotAvailable ||
-                    !item.availability,
-                  occupied: item.availability === seatAvailability.Occupied
+                    rowItem.availability === seatAvailability.Unavailable ||
+                    rowItem.availability === seatAvailability.Unknown ||
+                    rowItem.availability === seatAvailability.NotAvailable ||
+                    !rowItem.availability,
+                  occupied: rowItem.availability === seatAvailability.Occupied
                 }"
-                [matTooltip]="getTooltip(item)"
+                [matTooltip]="getTooltip(rowItem)"
                 [matTooltipDisabled]="
-                  item.availability !== seatAvailability.Available
+                  rowItem.availability !== seatAvailability.Available
                 "
                 matTooltipTouchGestures="off"
-                (click)="selectSeat(item)"
+                (click)="selectSeat(rowItem)"
               >
                 <div class="seat-number">
-                  <div>{{ item.rowNumber }}{{ item.code }}</div>
+                  <div>{{ rowItem.rowNumber }}{{ rowItem.code }}</div>
                 </div>
               </div>
             </div>

@@ -1,19 +1,16 @@
-import { SeatMapState } from '@app/aircraft-seat-map/shared/models/flight-state';
+import { SeatMap } from '@app/aircraft-seat-map/shared/models/flight';
 import {
   Cabin,
   Row,
 } from '@app/aircraft-seat-map/shared/models/flight-seat-map-api-response';
-import { reduceItemsState } from '@app/aircraft-seat-map/shared/helpers/normalize/reduce-items';
+import { reduceItems } from '@app/aircraft-seat-map/shared/helpers/normalize/reduce-items';
 
-const reduceCabinRowsState = (state: SeatMapState, row: Row): SeatMapState => ({
-  ...state,
-  [row.number]: row.items.reduce(reduceItemsState, {}),
+const reduceCabinRows = (seatMap: SeatMap, row: Row): SeatMap => ({
+  ...seatMap,
+  [row.number]: row.items.reduce(reduceItems, {}),
 });
 
-export const reduceCabinsState = (
-  state: SeatMapState,
-  cabin: Cabin
-): SeatMapState => ({
-  ...state,
-  ...cabin.rows.reduce(reduceCabinRowsState, {}),
+export const reduceCabins = (seatMap: SeatMap, cabin: Cabin): SeatMap => ({
+  ...seatMap,
+  ...cabin.rows.reduce(reduceCabinRows, {}),
 });

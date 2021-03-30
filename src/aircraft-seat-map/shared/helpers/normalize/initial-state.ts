@@ -1,6 +1,7 @@
 export const initialState = {
-  byId: undefined,
   allIds: [],
-  totalPrice: undefined,
+  byId: undefined,
+  currentSelection: undefined,
   isSeatSelectionValid: false,
+  totalPrice: undefined,
 };

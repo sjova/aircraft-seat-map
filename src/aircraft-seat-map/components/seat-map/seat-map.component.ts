@@ -6,20 +6,19 @@ import {
   Output,
 } from '@angular/core';
 import {
-  ItemState,
-  PassengersState,
-  SeatMapCodeState,
-  SeatMapState,
-} from '@app/aircraft-seat-map/shared/models/flight-state';
+  SeatMapRowItem,
+  Passengers,
+  SeatMapRow,
+  SeatMap,
+} from '@app/aircraft-seat-map/shared/models/flight';
 import {
-  ItemAvailabilityEnum,
-  ItemCharacteristic,
-  ItemCharacteristicEnum,
-  ItemTypeEnum,
+  RowSeatAvailabilityEnum,
+  RowSeatCharacteristicEnum,
+  RowItemTypeEnum,
   Offer,
 } from '@app/aircraft-seat-map/shared/models/flight-seat-map-api-response';
 
-export interface SeatSelection {
+export interface SeatMapSeatSelection {
   flightNumber: string;
   passengerId: string;
   seatRowNumber: string;
@@ -37,63 +36,59 @@ export interface SeatSelection {
 export class SeatMapComponent {
   @Input() flightNumber: string;
   @Input() passengerId: string;
-  @Input() passengers: PassengersState;
 
+  @Input() passengers: Passengers;
   @Input()
-  set seatMapState(seatMap: SeatMapState) {
+  set seatMap(seatMap: SeatMap) {
     if (seatMap) {
-      this.seatMap = Object.values(seatMap).map((row: SeatMapCodeState) =>
+      this.seatMapMatrix = Object.values(seatMap).map((row: SeatMapRow) =>
         Object.values(row)
       );
     }
   }
-  seatMap: ItemState[][];
 
-  @Output() seatSelection = new EventEmitter<SeatSelection>();
+  @Output() seatSelect = new EventEmitter<SeatMapSeatSelection>();
 
-  itemItemType = ItemTypeEnum;
-  seatAvailability = ItemAvailabilityEnum;
-  itemCharacteristic = ItemCharacteristicEnum;
+  seatMapMatrix: SeatMapRowItem[][];
 
-  getTooltip(item: ItemState): string {
-    const tooltipText = `Seat ${item.rowNumber}${item.code}`;
+  rowItemType = RowItemTypeEnum;
 
-    if (item.selected) {
-      return `${tooltipText} - This seat belong to ${
-        this.passengers.byId[item.passengerId].firstName
-      } ${this.passengers.byId[item.passengerId].lastName}`;
+  seatAvailability = RowSeatAvailabilityEnum;
+  seatCharacteristic = RowSeatCharacteristicEnum;
+
+  getTooltip(seat: SeatMapRowItem): string {
+    const tooltipBaseText = `Seat ${seat.rowNumber}${seat.code}`;
+
+    if (seat.selected) {
+      return `${tooltipBaseText} - ${this.getPassengerPartialTooltip(seat)}`;
     } else {
-      const seatType = this.getSeatType(item.characteristics);
-
-      if (
-        item.offers &&
-        item.offers[this.passengerId] &&
-        item.offers[this.passengerId].price
-      ) {
-        return `${tooltipText} - ${seatType} - ${item.offers[
-          this.passengerId
-        ].price.total.toFixed(2)} ${
-          item.offers[this.passengerId].price.currencyCode
-        }`;
-      } else {
-        return `${tooltipText} - ${seatType}`;
-      }
+      return `${tooltipBaseText} - ${this.getOfferPartialTooltip(seat)}`;
     }
   }
 
-  // TODO: Revisit this in final implementation
-  private getSeatType(seatCharacteristics: ItemCharacteristic[]): string {
+  private getPassengerPartialTooltip(seat: SeatMapRowItem): string {
+    return `This seat belong to ${
+      this.passengers.byId[seat.passengerId].firstName
+    } ${this.passengers.byId[seat.passengerId].lastName}`;
+  }
+
+  private getSeatType(seat: SeatMapRowItem): string {
+    const seatCharacteristics = seat.characteristics;
+
     let type = '';
 
-    if (seatCharacteristics.includes(this.itemCharacteristic.LegSpaceSeat)) {
+    // `Extra Legroom`
+    if (seatCharacteristics.includes(this.seatCharacteristic.LegSpaceSeat)) {
       type += 'Extra Legroom';
     }
 
-    if (seatCharacteristics.includes(this.itemCharacteristic.ExitRowSeat)) {
+    // `Extra Legroom` and/or `Emergency Exit Row`
+    if (seatCharacteristics.includes(this.seatCharacteristic.ExitRowSeat)) {
       type += type.length ? ', ' : '';
       type += 'Emergency Exit Row';
     }
 
+    // `Standard Seat` - Default Seat Type
     if (type.length === 0) {
       type = 'Standard Seat';
     }
@@ -101,12 +96,27 @@ export class SeatMapComponent {
     return type;
   }
 
-  selectSeat(seat: ItemState) {
+  private getOfferPartialTooltip(seat: SeatMapRowItem): string {
+    if (
+      seat.offers &&
+      seat.offers[this.passengerId] &&
+      seat.offers[this.passengerId].price
+    ) {
+      const totalPrice = seat.offers[this.passengerId].price.total.toFixed(2);
+      const currencyCode = seat.offers[this.passengerId].price.currencyCode;
+
+      return `${this.getSeatType(seat)} - ${totalPrice} ${currencyCode}`;
+    } else {
+      return `${this.getSeatType(seat)}`;
+    }
+  }
+
+  selectSeat(seat: SeatMapRowItem) {
     if (
       seat.availability === this.seatAvailability.Available &&
       (!seat.passengerId || seat.passengerId === this.passengerId)
     ) {
-      this.seatSelection.next({
+      this.seatSelect.next({
         flightNumber: this.flightNumber,
         passengerId: this.passengerId,
         // TODO: Revisit conversion `number` to `string` after migration to DIB API

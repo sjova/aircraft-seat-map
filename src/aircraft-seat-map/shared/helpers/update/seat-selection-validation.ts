@@ -1,7 +1,7 @@
-import { FlightsState } from '@app/aircraft-seat-map/shared/models/flight-state';
+import { Flights } from '@app/aircraft-seat-map/shared/models/flight';
 
 const passengerSeatSelectionValidation = (
-  flights: FlightsState,
+  flights: Flights,
   flightNumber: string,
   passengerId: string
 ): boolean =>
@@ -11,7 +11,7 @@ const passengerSeatSelectionValidation = (
   );
 
 const passengersSeatSelectionValidation = (
-  flights: FlightsState,
+  flights: Flights,
   flightNumber: string
 ): boolean =>
   flights.byId[flightNumber].passengers.allIds.every((passengerId) =>
@@ -19,11 +19,11 @@ const passengersSeatSelectionValidation = (
   );
 
 /**
- * Seat Selection Validation From Base Flights State
+ * Seat Selection Validation From Base Flights
  *
  * @param flights
  */
-export const seatSelectionValidation = (flights: FlightsState): boolean =>
+export const seatSelectionValidation = (flights: Flights): boolean =>
   flights.allIds.every((flightNumber) =>
     passengersSeatSelectionValidation(flights, flightNumber)
   );

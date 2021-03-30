@@ -1,16 +1,17 @@
-import { PassengersState } from '@app/aircraft-seat-map/shared/models/flight-state';
-import { Passenger } from '@app/aircraft-seat-map/shared/models/flight-seat-map-api-response';
+import { Passengers } from '@app/aircraft-seat-map/shared/models/flight';
+import { FlightPassenger } from '@app/aircraft-seat-map/shared/models/flight-seat-map-api-response';
 import { titleCase } from '@app/aircraft-seat-map/shared/helpers/utilities';
 
 export const reducePassengers = (
-  state: PassengersState,
-  passenger: Passenger
-): PassengersState => ({
-  ...state,
+  passengers: Passengers,
+  passenger: FlightPassenger
+): Passengers => ({
+  ...passengers,
   byId: {
-    ...state.byId,
+    ...passengers.byId,
     [passenger.id]: {
       ...passenger,
+      // TODO: Revisit usage of `titleCase` after migration to DIB API
       firstName: titleCase(passenger.firstName),
       lastName: titleCase(passenger.lastName),
       seatRowNumber: undefined,
@@ -18,6 +19,6 @@ export const reducePassengers = (
       seatOffer: undefined,
     },
   },
-  // TODO: Revisit Passenger ID conversion `number` to `string` after migration to our DIB API
-  allIds: [...state.allIds, `${passenger.id}`],
+  // TODO: Revisit Passenger ID conversion `number` to `string` after migration to DIB API
+  allIds: [...passengers.allIds, `${passenger.id}`],
 });

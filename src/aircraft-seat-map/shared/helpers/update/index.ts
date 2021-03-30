@@ -1,1 +1,2 @@
-export * from './update-flights-state';
+export * from './seat-selection-validation';
+export * from './update-flights-seat-selection';

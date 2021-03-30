@@ -233,7 +233,12 @@ $info-box-radius: 5px;
 
       .label-total-price {
         @extend %label-price;
-        text-align: center;
+        // TODO: Revisit this later
+        //text-align: center;
+        //@media only screen and (min-width: $seat-map-breakpoint-md) {
+        //  text-align: right;
+        //}
+        text-align: right;
       }
 
       .confirm {

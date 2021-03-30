@@ -47,7 +47,7 @@ export class FlightSeatMapService {
 
     return this.http.get<FlightSeatMapApiResponse>(url, this.httpOptions).pipe(
       tap((_) =>
-        console.log('[FLIGHT SEAT MAP][API] get flight seat map success')
+        console.log('[API][FLIGHT SEAT MAP] Get flight seat map success')
       ),
       catchError(
         this.handleError<Partial<FlightSeatMapApiResponse>>(
@@ -75,7 +75,7 @@ export class FlightSeatMapService {
     return of(dataExample[dataExampleIndex] as FlightSeatMapApiResponse).pipe(
       delay(fakeDelay),
       tap((_) =>
-        console.log('[FLIGHT SEAT MAP][API] get flight seat map success')
+        console.log('[API][FLIGHT SEAT MAP] Get flight seat map success')
       )
     );
   }
