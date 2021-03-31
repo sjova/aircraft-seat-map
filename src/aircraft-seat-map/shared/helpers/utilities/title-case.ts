@@ -1,8 +1,18 @@
 /**
- * Title Case
+ * Title Case single word
  *
- * @param input
+ * Included case with dash
+ *
+ * Examples: `example -> Example`, `EXAMPLE-EXAMPLE -> Example-Example`
+ *
+ * @param word
  */
-export const titleCase = (input: string): string => {
-  return `${input[0].toUpperCase()}${input.substr(1).toLowerCase()}`;
+export const titleCase = (word: string): string => {
+  return word
+    .split('-')
+    .map(
+      (wordPart: string) =>
+        wordPart[0].toUpperCase() + wordPart.substr(1).toLowerCase()
+    )
+    .join('-');
 };

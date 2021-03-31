@@ -230,19 +230,21 @@ $info-box-radius: 5px;
 
     .cta-inner-wrapper {
       @include default-flex-item;
+      @include default-flex-container;
+      flex-direction: column;
+      align-items: flex-end;
+      min-width: 260px;
 
-      .label-total-price {
-        @extend %label-price;
-        // TODO: Revisit this later
-        //text-align: center;
-        //@media only screen and (min-width: $seat-map-breakpoint-md) {
-        //  text-align: right;
-        //}
-        text-align: right;
-      }
+      .item {
+        @include default-flex-item;
 
-      .confirm {
-        margin-left: $spacing-3;
+        .label-total-price {
+          @extend %label-price;
+        }
+
+        .confirm {
+          margin-left: $spacing-3;
+        }
       }
     }
   }

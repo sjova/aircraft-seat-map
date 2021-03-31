@@ -87,7 +87,7 @@
     </div>
     <div class="cta-outer-wrapper">
       <div class="cta-inner-wrapper">
-        <div>
+        <div class="item">
           <p class="label-total-price">
             Total price:
             <ng-container *ngIf="flights.totalPrice; else defaultZero">
@@ -97,7 +97,7 @@
             <ng-template #defaultZero>0.00</ng-template>
           </p>
         </div>
-        <div>
+        <div class="item">
           <button
             class="cancel"
             mat-stroked-button
