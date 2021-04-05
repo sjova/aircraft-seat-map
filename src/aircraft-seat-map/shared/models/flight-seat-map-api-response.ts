@@ -42,7 +42,7 @@ export interface SeatMap {
 
 export interface Cabin {
   type: CabinType;
-  deck: string;
+  deck: CabinDeck;
   rows: Row[];
 }
 
@@ -52,6 +52,8 @@ export type CabinType =
   | 'Business'
   | 'First'
   | 'Unknown';
+
+export type CabinDeck = 'Main' | 'Upper' | 'Lower';
 
 export interface Row {
   number: number;

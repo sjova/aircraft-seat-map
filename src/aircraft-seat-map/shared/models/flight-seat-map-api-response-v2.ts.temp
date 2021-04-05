@@ -1,0 +1,118 @@
+/**
+ * This will be used after integration with our project and custom API
+ */
+
+export interface FlightSeatMapApiResponse {
+  items: FlightItem[];
+}
+
+export interface FlightItem {
+  flightInfo: FlightInfo;
+  passengers: FlightPassenger[];
+  seatMap: SeatMap;
+}
+
+export interface FlightInfo {
+  departure: Departure;
+  arrival: Arrival;
+  marketingCarrier: string;
+  flightNumber: string;
+}
+
+export interface Departure {
+  code: string;
+  terminalInformation?: any;
+  time: string;
+}
+
+export interface Arrival {
+  code: string;
+  terminalInformation?: any;
+  time: string;
+}
+
+export interface FlightPassenger {
+  id: string;
+  firstName: string;
+  lastName: string;
+  type: string;
+  gender?: any;
+  title?: any;
+  dateOfBirth?: any;
+}
+
+export interface SeatMap {
+  cabins: Cabin[];
+}
+
+export interface Cabin {
+  type: CabinType;
+  deck: CabinDeck;
+  rows: Row[];
+}
+
+export type CabinType =
+  | 'ECONOMY'
+  | 'PREMIUM_ECONOMY'
+  | 'BUSINESS'
+  | 'FIRST'
+  | 'UNKNOWN';
+
+export type CabinDeck = 'MAIN' | 'UPPER' | 'LOWER';
+
+export interface Row {
+  number: string;
+  items: RowItem[];
+  tags?: RowTag[];
+}
+
+export interface RowItem {
+  type: RowItemType;
+  code?: string;
+  rowNumber: string;
+  availability?: RowSeatAvailability;
+  characteristics?: RowSeatCharacteristic[];
+  offers?: Offer[];
+}
+
+export type RowItemType = 'SEAT' | 'AISLE' | 'LAVATORY' | 'UNKNOWN';
+
+export enum RowItemTypeEnum {
+  Seat = 'SEAT',
+  Aisle = 'AISLE',
+}
+
+export type RowSeatAvailability =
+  | 'AVAILABLE'
+  | 'UNAVAILABLE'
+  | 'OCCUPIED'
+  | 'UNKNOWN';
+
+export enum RowSeatAvailabilityEnum {
+  Available = 'AVAILABLE',
+  Unavailable = 'UNAVAILABLE',
+  Occupied = 'OCCUPIED',
+  Unknown = 'UNKNOWN',
+}
+
+export type RowSeatCharacteristic = 'EXTRA_LEG_ROOM' | 'EXIT_ROW';
+
+export enum RowSeatCharacteristicEnum {
+  ExitRowSeat = 'EXIT_ROW',
+  LegSpaceSeat = 'EXIT_ROW',
+}
+
+export interface Offer {
+  rateKey: string;
+  passengerId: string;
+  price: Price;
+}
+
+export interface Price {
+  baseFare: string;
+  tax: string;
+  total: string;
+  currencyCode: string;
+}
+
+export type RowTag = 'EXIT' | 'WING' | 'BULK_HEAD';
