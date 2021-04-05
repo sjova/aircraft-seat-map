@@ -176,7 +176,7 @@ $info-box-radius: 5px;
 
   @media only screen and (min-width: $seat-map-breakpoint-md) {
     position: relative;
-    padding: 0 $inner-spacing-md $inner-spacing-md;
+    padding: $spacing-2 $inner-spacing-md $inner-spacing-md;
     box-sizing: border-box;
     align-items: flex-end;
     height: $footer-height-md;
