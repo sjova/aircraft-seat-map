@@ -4,7 +4,7 @@ import {
   Offer,
   FlightPassenger,
   Price,
-} from '@app/aircraft-seat-map/shared/models/flight-seat-map-api-response';
+} from '@app/aircraft-seat-map/models/flights-seat-map-api-response';
 
 export interface Flights {
   allIds: string[];

@@ -24,7 +24,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ### API Data Structure
 
-[API Data Structure](src/aircraft-seat-map/shared/models/flight-seat-map-api-response.ts)
+[API Data Structure](src/aircraft-seat-map/models/flights-seat-map-api-response.ts)
 
 ### Demo Example Screens
 

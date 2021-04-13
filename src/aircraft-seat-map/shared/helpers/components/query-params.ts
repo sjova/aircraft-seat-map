@@ -22,7 +22,7 @@ export const setDemoQueryParam = (
   activatedRoute: ActivatedRoute,
   router: Router,
   queryParams: Params
-) => {
+): Params => {
   const demoQueryParam = activatedRoute.snapshot.queryParams['demo'];
 
   if (demoQueryParam) {

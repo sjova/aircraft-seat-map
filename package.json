@@ -1,10 +1,18 @@
 {
   "name": "aircraft-seat-map",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "Aircraft Seat Map",
+  "homepage": "https://github.com/sjova/aircraft-seat-map#readme",
+  "license": "MIT",
+  "author": "Saša Jovanović",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sjova/aircraft-seat-map.git"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
-    "start:bs": "ng serve --open --disable-host-check",
+    "start:browserstack": "ng serve --open --disable-host-check",
     "build": "ng build",
     "build:prod": "ng build --prod",
     "test": "ng test",

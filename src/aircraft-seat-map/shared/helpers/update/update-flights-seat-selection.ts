@@ -1,5 +1,5 @@
-import { Flights } from '@app/aircraft-seat-map/shared/models/flight';
-import { SeatMapSeatSelection } from '@app/aircraft-seat-map/components/seat-map/seat-map.component';
+import { Flights } from '@app/aircraft-seat-map/models/flights';
+import { SeatMapSelection } from '@app/aircraft-seat-map/components/seat-map/seat-map.component';
 import { getPartialSeat } from '@app/aircraft-seat-map/shared/helpers/update/partial-seat';
 import { getPartialPassenger } from '@app/aircraft-seat-map/shared/helpers/update/partial-passenger';
 import { getTotalPrice } from '@app/aircraft-seat-map/shared/helpers/update/total-price';
@@ -7,7 +7,7 @@ import { seatSelectionValidation } from '@app/aircraft-seat-map/shared/helpers/u
 
 export const updateFlightsSeatSelection = (
   flights: Flights,
-  seatSelection: SeatMapSeatSelection
+  seatSelection: SeatMapSelection
 ): Flights => {
   const flight = flights.byId[seatSelection.flightNumber];
 

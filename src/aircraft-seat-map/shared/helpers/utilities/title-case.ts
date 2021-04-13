@@ -12,7 +12,7 @@ export const titleCase = (word: string): string => {
     .split('-')
     .map(
       (wordPart: string) =>
-        wordPart[0].toUpperCase() + wordPart.substr(1).toLowerCase()
+        wordPart[0].toUpperCase() + wordPart.slice(1).toLowerCase()
     )
     .join('-');
 };

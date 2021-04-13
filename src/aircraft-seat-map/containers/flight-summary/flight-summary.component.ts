@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { Store } from '@app/store';
 import { Observable } from 'rxjs';
-import { Flights } from '@app/aircraft-seat-map/shared/models/flight';
+import { Flights } from '@app/aircraft-seat-map/models/flights';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
   flightsStoreName,
@@ -16,7 +16,9 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlightSummaryComponent implements OnInit {
-  flights$: Observable<Flights>;
+  flights$: Observable<Flights> = this.store.select(flightsStoreName);
+
+  seatsSelectionPage = '/demo/seat-map-selection';
 
   queryParams: Params;
 
@@ -32,7 +34,5 @@ export class FlightSummaryComponent implements OnInit {
       this.router,
       this.queryParams
     );
-
-    this.flights$ = this.store.select(flightsStoreName);
   }
 }

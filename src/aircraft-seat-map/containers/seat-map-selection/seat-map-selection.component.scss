@@ -1,7 +1,9 @@
 @import "~src/app/styles/variables";
+
 @import "~src/aircraft-seat-map/shared/styles/extends";
 @import "~src/aircraft-seat-map/shared/styles/mixins";
 @import "~src/aircraft-seat-map/shared/styles/variables";
+
 @import "styles/extends";
 
 $spacing-1: 8px;
@@ -16,8 +18,10 @@ $info-box-radius: 5px;
 
   @media only screen and (min-width: $seat-map-breakpoint-md) {
     @include default-flex-container;
+
     width: 100vw;
     height: 100vh;
+
     .progress-bar-wrapper {
       position: absolute;
       top: 0;
@@ -39,6 +43,7 @@ $info-box-radius: 5px;
 
   @media only screen and (min-width: $seat-map-breakpoint-md) {
     @include default-flex-item;
+
     padding: 0;
     box-shadow: 0 5px 40px -10px rgba(0, 0, 0, 0.18);
     height: calc(100vh - #{$outer-spacing-md} - #{$outer-spacing-md});
@@ -63,6 +68,7 @@ $info-box-radius: 5px;
 
   @media only screen and (min-width: $seat-map-breakpoint-md) {
     @include default-flex-container;
+
     align-items: flex-start;
     width: 100%;
     height: calc(100% - #{$footer-height-md});
@@ -110,6 +116,8 @@ $info-box-radius: 5px;
       }
 
       .passenger {
+        @extend %passenger-button;
+
         color: $color-text-light;
         font-family: $primary-font;
         font-size: 14px;
@@ -117,7 +125,7 @@ $info-box-radius: 5px;
         line-height: 40px;
         margin: 0;
         padding: 0 $spacing-3;
-        @extend %passenger-button;
+        text-decoration: none;
 
         &.condensed-item {
           line-height: 26px;
@@ -185,6 +193,7 @@ $info-box-radius: 5px;
   .legend-outer-wrapper,
   .cta-outer-wrapper {
     @include default-flex-item;
+
     flex-basis: 100%;
 
     @media only screen and (min-width: $seat-map-breakpoint-md) {
@@ -194,6 +203,7 @@ $info-box-radius: 5px;
 
   .legend-outer-wrapper {
     @include default-flex-container;
+
     margin-bottom: $spacing-2;
 
     @media only screen and (min-width: $seat-map-breakpoint-md) {
@@ -203,11 +213,14 @@ $info-box-radius: 5px;
 
     .legend-inner-wrapper {
       @include default-flex-container;
+
       .legend {
         @include default-flex-container;
+
         &:not(:first-child) {
           margin-left: $spacing-3;
         }
+
         .info-box,
         .label {
           @include default-flex-item;
@@ -216,6 +229,7 @@ $info-box-radius: 5px;
         .info-box {
           @include seat-base($info-box-width, $info-box-radius);
           @include seat-variants($info-box-width);
+
           margin-right: $spacing-1;
         }
       }
@@ -231,6 +245,7 @@ $info-box-radius: 5px;
     .cta-inner-wrapper {
       @include default-flex-item;
       @include default-flex-container;
+
       flex-direction: column;
       align-items: flex-end;
       min-width: 260px;
@@ -242,7 +257,7 @@ $info-box-radius: 5px;
           @extend %label-price;
         }
 
-        .confirm {
+        .btn-confirm {
           margin-left: $spacing-3;
         }
       }

@@ -1,4 +1,4 @@
-import { Flights } from '@app/aircraft-seat-map/shared/models/flight';
+import { Flights } from '@app/aircraft-seat-map/models/flights';
 
 const passengerSeatSelectionValidation = (
   flights: Flights,

@@ -1,5 +1,5 @@
-import { Passengers } from '@app/aircraft-seat-map/shared/models/flight';
-import { FlightPassenger } from '@app/aircraft-seat-map/shared/models/flight-seat-map-api-response';
+import { Passengers } from '@app/aircraft-seat-map/models/flights';
+import { FlightPassenger } from '@app/aircraft-seat-map/models/flights-seat-map-api-response';
 import { titleCase } from '@app/aircraft-seat-map/shared/helpers/utilities';
 
 export const reducePassengers = (

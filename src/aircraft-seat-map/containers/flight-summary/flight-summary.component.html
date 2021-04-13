@@ -16,16 +16,15 @@
           >
             <ng-container
               *ngIf="
-                flights.byId[flightId].passengers.byId[passengerId]
-                  .seatRowNumber &&
-                flights.byId[flightId].passengers.byId[passengerId].seatCode
+                flights.byId[flightId].passengers.byId[passengerId] as passenger
               "
             >
-              {{
-                flights.byId[flightId].passengers.byId[passengerId]
-                  .seatRowNumber
-              }}{{ flights.byId[flightId].passengers.byId[passengerId].seatCode
-              }}<ng-container *ngIf="!last">,</ng-container>
+              <ng-container
+                *ngIf="passenger.seatRowNumber && passenger.seatCode"
+              >
+                {{ passenger.seatRowNumber }}{{ passenger.seatCode
+                }}<ng-container *ngIf="!last">,</ng-container>
+              </ng-container>
             </ng-container>
           </ng-container>
         </p>
@@ -41,7 +40,7 @@
     <button
       mat-flat-button
       color="primary"
-      routerLink="/demo/seat-selection"
+      [routerLink]="seatsSelectionPage"
       title="Seats Selection"
       [queryParams]="queryParams"
     >

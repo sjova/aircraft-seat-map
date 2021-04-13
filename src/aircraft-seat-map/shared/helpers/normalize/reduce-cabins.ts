@@ -1,16 +1,24 @@
-import { SeatMap } from '@app/aircraft-seat-map/shared/models/flight';
+import { SeatMap, SeatMapRow } from '@app/aircraft-seat-map/models/flights';
 import {
   Cabin,
   Row,
-} from '@app/aircraft-seat-map/shared/models/flight-seat-map-api-response';
+  RowItem,
+} from '@app/aircraft-seat-map/models/flights-seat-map-api-response';
 import { reduceItems } from '@app/aircraft-seat-map/shared/helpers/normalize/reduce-items';
 
 const reduceCabinRows = (seatMap: SeatMap, row: Row): SeatMap => ({
   ...seatMap,
-  [row.number]: row.items.reduce(reduceItems, {}),
+  [row.number]: row.items.reduce(
+    (seatMapRow: SeatMapRow, item: RowItem, index: number) =>
+      reduceItems(seatMapRow, item, index),
+    {}
+  ),
 });
 
 export const reduceCabins = (seatMap: SeatMap, cabin: Cabin): SeatMap => ({
   ...seatMap,
-  ...cabin.rows.reduce(reduceCabinRows, {}),
+  ...cabin.rows.reduce(
+    (seatMap: SeatMap, row: Row) => reduceCabinRows(seatMap, row),
+    {}
+  ),
 });

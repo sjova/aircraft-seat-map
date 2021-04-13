@@ -20,21 +20,21 @@ import {
 import {
   CurrentSelection,
   Flights,
-} from '@app/aircraft-seat-map/shared/models/flight';
+} from '@app/aircraft-seat-map/models/flights';
 import { Observable, of } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { exhaustMap, map, tap } from 'rxjs/operators';
-import { SeatMapSeatSelection } from '@app/aircraft-seat-map/components/seat-map/seat-map.component';
+import { SeatMapSelection } from '@app/aircraft-seat-map/components/seat-map/seat-map.component';
 
-const PAGE_SEAT_SELECTION = 'page-seat-selection';
+const PAGE_SEAT_SELECTION = 'page-seat-map-selection';
 
 @Component({
-  selector: 'app-seat-selection',
-  templateUrl: './seat-selection.component.html',
-  styleUrls: ['./seat-selection.component.scss'],
+  selector: 'app-seat-map-selection',
+  templateUrl: './seat-map-selection.component.html',
+  styleUrls: ['./seat-map-selection.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SeatSelectionComponent implements OnInit, OnDestroy {
+export class SeatMapSelectionComponent implements OnInit, OnDestroy {
   parentPage = '/demo/summary';
   queryParams: Params;
 
@@ -132,7 +132,7 @@ export class SeatSelectionComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSeatSelection(seatSelection: SeatMapSeatSelection): void {
+  onSeatSelection(seatSelection: SeatMapSelection): void {
     const flights = this.store.selectValue(flightsStoreName);
 
     const updatedFlightsSeatSelection = updateFlightsSeatSelection(
@@ -151,30 +151,25 @@ export class SeatSelectionComponent implements OnInit, OnDestroy {
       updatedFlightsSeatSelection.isSeatSelectionValid;
   }
 
-  // TODO: Revisit usage of this later
-  /*private selectionPrevStep(): void {
-    if (--this.selectionStepIndex >= 0) {
-      this.updateCurrentSelection(
-        this.getCurrentSelectionByStep(this.selectionStepIndex)
-      );
-    }
-  }*/
-
-  private selectionNextStep(): void {
-    if (++this.selectionStepIndex < this.selectionSteps.length) {
-      this.updateCurrentSelection(
-        this.getCurrentSelectionByStep(this.selectionStepIndex)
-      );
+  private selectionPrevStep(): void {
+    if (this.selectionStepIndex > 0) {
+      this.selectionStepIndex -= 1;
+      this.updateCurrentSelection(this.getCurrentSelectionByStep());
     }
   }
 
-  private getCurrentSelectionByStep(
-    selectionStepIndex: number
-  ): CurrentSelection {
+  private selectionNextStep(): void {
+    if (this.selectionStepIndex < this.selectionSteps.length - 1) {
+      this.selectionStepIndex += 1;
+      this.updateCurrentSelection(this.getCurrentSelectionByStep());
+    }
+  }
+
+  private getCurrentSelectionByStep(): CurrentSelection {
     return {
       ...this.currentSelection,
-      flightNumber: this.selectionSteps[selectionStepIndex].flightNumber,
-      passengerId: this.selectionSteps[selectionStepIndex].passengerId,
+      flightNumber: this.selectionSteps[this.selectionStepIndex].flightNumber,
+      passengerId: this.selectionSteps[this.selectionStepIndex].passengerId,
     };
   }
 
@@ -197,7 +192,7 @@ export class SeatSelectionComponent implements OnInit, OnDestroy {
     );
   }
 
-  cancelSeatSelection(): void {
+  cancelSeatsSelection(): void {
     this.store.set(flightsStoreName, { ...this.initialFlights });
     this.router.navigate([this.parentPage], { queryParams: this.queryParams });
   }

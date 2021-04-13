@@ -8,13 +8,13 @@ import { SharedModule } from '@app/aircraft-seat-map/shared/shared.module';
 import { SeatMapComponent } from './components/seat-map/seat-map.component';
 
 import { FlightSummaryComponent } from './containers/flight-summary/flight-summary.component';
-import { SeatSelectionComponent } from './containers/seat-selection/seat-selection.component';
+import { SeatMapSelectionComponent } from './containers/seat-map-selection/seat-map-selection.component';
 
 @NgModule({
   declarations: [
     SeatMapComponent,
     FlightSummaryComponent,
-    SeatSelectionComponent,
+    SeatMapSelectionComponent,
   ],
   imports: [
     CommonModule,

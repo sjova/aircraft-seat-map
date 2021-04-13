@@ -1,9 +1,9 @@
-import { Passenger } from '@app/aircraft-seat-map/shared/models/flight';
-import { SeatMapSeatSelection } from '@app/aircraft-seat-map/components/seat-map/seat-map.component';
+import { Passenger } from '@app/aircraft-seat-map/models/flights';
+import { SeatMapSelection } from '@app/aircraft-seat-map/components/seat-map/seat-map.component';
 
 export const getPartialPassenger = (
   passenger: Passenger,
-  seatSelection: SeatMapSeatSelection
+  seatSelection: SeatMapSelection
 ): Pick<Passenger, 'seatRowNumber' | 'seatCode' | 'seatOffer'> => {
   if (
     passenger.seatRowNumber === seatSelection.seatRowNumber &&
@@ -14,11 +14,10 @@ export const getPartialPassenger = (
       seatCode: undefined,
       seatOffer: undefined,
     };
-  } else {
-    return {
-      seatRowNumber: seatSelection.seatRowNumber,
-      seatCode: seatSelection.seatCode,
-      seatOffer: seatSelection.seatOffer,
-    };
   }
+  return {
+    seatRowNumber: seatSelection.seatRowNumber,
+    seatCode: seatSelection.seatCode,
+    seatOffer: seatSelection.seatOffer,
+  };
 };

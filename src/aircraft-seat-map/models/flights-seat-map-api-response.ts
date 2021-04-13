@@ -1,4 +1,4 @@
-export interface FlightSeatMapApiResponse {
+export interface FlightsSeatMapApiResponse {
   header: Header;
   items: FlightItem[];
 }

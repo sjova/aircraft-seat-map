@@ -3,14 +3,14 @@
 
 // above gradient on element
 %above-gradient {
-  &:after {
+  &::after {
     content: "";
     position: absolute;
     top: -($seat-map-gradient-height-xs);
     left: $outer-spacing-xs;
     width: calc(100% - #{$outer-spacing-xs} - #{$outer-spacing-xs});
     height: $seat-map-gradient-height-xs;
-    background: linear-gradient(180deg, rgba(#fff, 0) 0%, #fff 100%);
+    background: linear-gradient(180deg, rgba(#ffffff, 0) 0%, #ffffff 100%);
     pointer-events: none;
 
     @media only screen and (min-width: $seat-map-breakpoint-sm) {

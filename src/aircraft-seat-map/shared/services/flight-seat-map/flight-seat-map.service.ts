@@ -6,7 +6,7 @@ import { catchError, delay, tap } from 'rxjs/operators';
 
 import { Store } from '@app/store';
 
-import { FlightSeatMapApiResponse } from '@app/aircraft-seat-map/shared/models/flight-seat-map-api-response';
+import { FlightsSeatMapApiResponse } from '@app/aircraft-seat-map/models/flights-seat-map-api-response';
 import { SharedModule } from '@app/aircraft-seat-map/shared/shared.module';
 import { environment } from '@app/environments/environment';
 import {
@@ -34,7 +34,7 @@ export class FlightSeatMapService {
 
   constructor(private http: HttpClient, private store: Store) {}
 
-  getFlightSeatMap(): Observable<Partial<FlightSeatMapApiResponse>> {
+  getFlightSeatMap(): Observable<Partial<FlightsSeatMapApiResponse>> {
     const partnerId = 1;
     // const conversationId = 'd9a7e02b-8b2e-4b35-8199-df7f697c9dd3';
     const conversationId = 'seating-test';
@@ -45,12 +45,12 @@ export class FlightSeatMapService {
     const urlParams = `partnerid=${partnerId}&conversationId=${conversationId}&source=${source}&identifier=${identifier}`;
     const url = `${this.apiUrl}/flightretrieveseatmap?${urlParams}`;
 
-    return this.http.get<FlightSeatMapApiResponse>(url, this.httpOptions).pipe(
+    return this.http.get<FlightsSeatMapApiResponse>(url, this.httpOptions).pipe(
       tap((_) =>
         console.log('[API][FLIGHT SEAT MAP] Get flight seat map success')
       ),
       catchError(
-        this.handleError<Partial<FlightSeatMapApiResponse>>(
+        this.handleError<Partial<FlightsSeatMapApiResponse>>(
           'getFlightSeatMap',
           {}
         )
@@ -60,7 +60,7 @@ export class FlightSeatMapService {
 
   getFlightSeatMapMock(
     dataExampleIndex: number
-  ): Observable<FlightSeatMapApiResponse> {
+  ): Observable<FlightsSeatMapApiResponse> {
     const dataExample = [
       undefined,
       FlightSeatMapDataExample1,
@@ -72,7 +72,7 @@ export class FlightSeatMapService {
 
     const fakeDelay = getRandomIntegerFromRange(800, 1200);
 
-    return of(dataExample[dataExampleIndex] as FlightSeatMapApiResponse).pipe(
+    return of(dataExample[dataExampleIndex] as FlightsSeatMapApiResponse).pipe(
       delay(fakeDelay),
       tap((_) =>
         console.log('[API][FLIGHT SEAT MAP] Get flight seat map success')

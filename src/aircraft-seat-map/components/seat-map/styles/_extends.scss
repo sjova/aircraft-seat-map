@@ -8,13 +8,13 @@ $exit-line-height: 16px;
   position: relative;
 
   // exit label
-  &:before {
+  &::before {
     position: absolute;
     top: -($exit-label-height + (($legroom-regular-xs - $exit-label-height) / 2));
     color: $color-tertiary;
     font-family: $primary-font-alt;
     font-size: 10px;
-    font-weight: bold;
+    font-weight: 700;
     letter-spacing: 1px;
     line-height: $exit-label-height;
     @media only screen and (min-width: $seat-map-breakpoint-sm) {
@@ -28,7 +28,7 @@ $exit-line-height: 16px;
   }
 
   // exit line
-  &:after {
+  &::after {
     position: absolute;
     top: -($exit-line-height + (($legroom-regular-xs - $exit-line-height) / 2));
     width: 2px;
@@ -42,37 +42,39 @@ $exit-line-height: 16px;
     }
   }
 
-  &:first-child:before,
-  &:last-child:before {
+  &:first-child::before,
+  &:last-child::before {
     content: "EXIT";
   }
 
-  &:first-child:after,
-  &:last-child:after {
+  &:first-child::after,
+  &:last-child::after {
     content: "";
   }
 
   &:first-child {
-    &:before {
+    &::before {
       left: 5px;
     }
-    &:after {
+
+    &::after {
       left: 0;
     }
   }
 
   &:last-child {
-    &:before {
+    &::before {
       right: 5px;
     }
-    &:after {
+
+    &::after {
       right: 0;
     }
   }
 
   // extra legroom (special case)
   &.extra-legroom {
-    &:before {
+    &::before {
       top: -($exit-label-height + (($legroom-extra-xs - $exit-label-height) / 2));
       @media only screen and (min-width: $seat-map-breakpoint-sm) {
         top: -($exit-label-height +
@@ -83,7 +85,8 @@ $exit-line-height: 16px;
               (($legroom-extra-md - $exit-label-height) / 2));
       }
     }
-    &:after {
+
+    &::after {
       top: -($exit-line-height + (($legroom-extra-xs - $exit-line-height) / 2));
       @media only screen and (min-width: $seat-map-breakpoint-sm) {
         top: -($exit-line-height + (($legroom-extra-sm - $exit-line-height) / 2));

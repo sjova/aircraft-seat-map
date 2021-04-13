@@ -1,5 +1,7 @@
 @import "~src/app/styles/variables";
 
+@import "box-cross";
+
 @mixin seat-base($size, $radius) {
   width: $size;
   height: $size;
@@ -13,19 +15,22 @@
   &.selected {
     border-color: $color-secondary;
     background-color: $color-secondary;
-    & > div {
-      color: white;
+
+    > div {
+      color: $color-white;
     }
   }
 
   &.available {
+    border-color: $color-secondary;
+
     &:not(.info-box) {
       cursor: pointer;
     }
 
-    border-color: $color-secondary;
     &:hover:not(.selected, .info-box) {
       background-color: $color-secondary;
+
       .seat-number {
         color: $color-white;
       }
@@ -35,8 +40,9 @@
   &.unavailable {
     border-color: $color-text-lightest;
     background-color: $light-bg;
-    &:before,
-    &:after {
+
+    &::before,
+    &::after {
       background-color: $color-text-lightest;
     }
   }
@@ -44,8 +50,9 @@
   &.occupied {
     border-color: $color-secondary;
     background-color: $color-bg-blue-light;
-    &:before,
-    &:after {
+
+    &::before,
+    &::after {
       background-color: $color-secondary;
     }
   }

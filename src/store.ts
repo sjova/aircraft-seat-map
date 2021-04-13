@@ -1,7 +1,7 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, pluck } from 'rxjs/operators';
 
-import { Flights } from '@app/aircraft-seat-map/shared/models/flight';
+import { Flights } from '@app/aircraft-seat-map/models/flights';
 
 export interface State {
   flights: Flights;

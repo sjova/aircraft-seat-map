@@ -1,12 +1,9 @@
-import {
-  Offers,
-  SeatMapRow,
-} from '@app/aircraft-seat-map/shared/models/flight';
+import { Offers, SeatMapRow } from '@app/aircraft-seat-map/models/flights';
 import {
   RowItem,
   RowItemTypeEnum,
   Offer,
-} from '@app/aircraft-seat-map/shared/models/flight-seat-map-api-response';
+} from '@app/aircraft-seat-map/models/flights-seat-map-api-response';
 
 const reduceItemOffers = (offers: Offers, offer: Offer): Offers => {
   return {
@@ -31,7 +28,10 @@ export const reduceItems = (
       passengerId: undefined,
       selected: false,
       offers: item.offers
-        ? item.offers.reduce(reduceItemOffers, {})
+        ? item.offers.reduce(
+            (offers: Offers, offer: Offer) => reduceItemOffers(offers, offer),
+            {}
+          )
         : undefined,
     },
   };

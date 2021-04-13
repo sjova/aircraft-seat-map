@@ -5,17 +5,17 @@
         <ng-container *ngFor="let rowItem of row">
           <div
             class="aisle"
-            *ngIf="rowItem.type === rowItemType.Aisle; else seatTemplate"
+            *ngIf="rowItem.type === RowItemType.Aisle; else seatTemplate"
           ></div>
           <ng-template #seatTemplate>
             <div
               class="seat-wrapper"
               [ngClass]="{
                 'extra-legroom': rowItem.characteristics.includes(
-                  seatCharacteristic.LegSpaceSeat
+                  SeatCharacteristic.LegSpaceSeat
                 ),
                 'emergency-exit-row': rowItem.characteristics.includes(
-                  seatCharacteristic.ExitRowSeat
+                  SeatCharacteristic.ExitRowSeat
                 )
               }"
             >
@@ -24,17 +24,17 @@
                 [ngClass]="{
                   selected: rowItem.selected,
                   available:
-                    rowItem.availability === seatAvailability.Available,
+                    rowItem.availability === SeatAvailability.Available,
                   unavailable:
-                    rowItem.availability === seatAvailability.Unavailable ||
-                    rowItem.availability === seatAvailability.Unknown ||
-                    rowItem.availability === seatAvailability.NotAvailable ||
+                    rowItem.availability === SeatAvailability.Unavailable ||
+                    rowItem.availability === SeatAvailability.Unknown ||
+                    rowItem.availability === SeatAvailability.NotAvailable ||
                     !rowItem.availability,
-                  occupied: rowItem.availability === seatAvailability.Occupied
+                  occupied: rowItem.availability === SeatAvailability.Occupied
                 }"
                 [matTooltip]="getTooltip(rowItem)"
                 [matTooltipDisabled]="
-                  rowItem.availability !== seatAvailability.Available
+                  rowItem.availability !== SeatAvailability.Available
                 "
                 matTooltipTouchGestures="off"
                 (click)="selectSeat(rowItem)"

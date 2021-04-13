@@ -1,8 +1,8 @@
 /**
- * This will be used after integration with our project and custom API
+ * TODO: This will be used after integration with DIB API
  */
 
-export interface FlightSeatMapApiResponse {
+export interface FlightsSeatMapApiResponse {
   items: FlightItem[];
 }
 

@@ -10,15 +10,15 @@ import {
   Passengers,
   SeatMapRow,
   SeatMap,
-} from '@app/aircraft-seat-map/shared/models/flight';
+} from '@app/aircraft-seat-map/models/flights';
 import {
   RowSeatAvailabilityEnum,
   RowSeatCharacteristicEnum,
   RowItemTypeEnum,
   Offer,
-} from '@app/aircraft-seat-map/shared/models/flight-seat-map-api-response';
+} from '@app/aircraft-seat-map/models/flights-seat-map-api-response';
 
-export interface SeatMapSeatSelection {
+export interface SeatMapSelection {
   flightNumber: string;
   passengerId: string;
   seatRowNumber: string;
@@ -47,14 +47,14 @@ export class SeatMapComponent {
     }
   }
 
-  @Output() seatSelect = new EventEmitter<SeatMapSeatSelection>();
+  @Output() seatSelect = new EventEmitter<SeatMapSelection>();
 
   seatMapMatrix: SeatMapRowItem[][];
 
-  rowItemType = RowItemTypeEnum;
+  RowItemType = RowItemTypeEnum;
 
-  seatAvailability = RowSeatAvailabilityEnum;
-  seatCharacteristic = RowSeatCharacteristicEnum;
+  SeatAvailability = RowSeatAvailabilityEnum;
+  SeatCharacteristic = RowSeatCharacteristicEnum;
 
   getTooltip(seat: SeatMapRowItem): string {
     const tooltipBaseText = `Seat ${seat.rowNumber}${seat.code}`;
@@ -78,12 +78,12 @@ export class SeatMapComponent {
     let type = '';
 
     // `Extra Legroom`
-    if (seatCharacteristics.includes(this.seatCharacteristic.LegSpaceSeat)) {
+    if (seatCharacteristics.includes(this.SeatCharacteristic.LegSpaceSeat)) {
       type += 'Extra Legroom';
     }
 
     // `Extra Legroom` and/or `Emergency Exit Row`
-    if (seatCharacteristics.includes(this.seatCharacteristic.ExitRowSeat)) {
+    if (seatCharacteristics.includes(this.SeatCharacteristic.ExitRowSeat)) {
       type += type.length ? ', ' : '';
       type += 'Emergency Exit Row';
     }
@@ -111,9 +111,9 @@ export class SeatMapComponent {
     }
   }
 
-  selectSeat(seat: SeatMapRowItem) {
+  selectSeat(seat: SeatMapRowItem): void {
     if (
-      seat.availability === this.seatAvailability.Available &&
+      seat.availability === this.SeatAvailability.Available &&
       (!seat.passengerId || seat.passengerId === this.passengerId)
     ) {
       this.seatSelect.next({

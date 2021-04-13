@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { FlightSummaryComponent } from '@app/aircraft-seat-map/containers/flight-summary/flight-summary.component';
-import { SeatSelectionComponent } from '@app/aircraft-seat-map/containers/seat-selection/seat-selection.component';
+import { SeatMapSelectionComponent } from '@app/aircraft-seat-map/containers/seat-map-selection/seat-map-selection.component';
 
 const routes: Routes = [
   {
@@ -15,8 +15,8 @@ const routes: Routes = [
     component: FlightSummaryComponent,
   },
   {
-    path: 'seat-selection',
-    component: SeatSelectionComponent,
+    path: 'seat-map-selection',
+    component: SeatMapSelectionComponent,
   },
 ];
 

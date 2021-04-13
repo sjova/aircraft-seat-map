@@ -28,31 +28,21 @@
                 10
             }"
           >
-            {{
-              flights.byId[flightNumber].passengers.byId[passengerId].firstName
-            }}
-            {{
-              flights.byId[flightNumber].passengers.byId[passengerId].lastName
-            }}:
             <ng-container
               *ngIf="
-                flights.byId[flightNumber].passengers.byId[passengerId]
-                  .seatRowNumber &&
-                  flights.byId[flightNumber].passengers.byId[passengerId]
-                    .seatCode;
-                else notSelectedSeat
+                flights.byId[flightNumber].passengers.byId[
+                  passengerId
+                ] as passenger
               "
             >
-              {{
-                flights.byId[flightNumber].passengers.byId[passengerId]
-                  .seatRowNumber
-              }}{{
-                flights.byId[flightNumber].passengers.byId[passengerId].seatCode
-              }}
+              {{ passenger.firstName }}
+              {{ passenger.lastName }}:
+              <ng-container
+                *ngIf="passenger.seatRowNumber && passenger.seatCode"
+              >
+                {{ passenger.seatRowNumber }}{{ passenger.seatCode }}
+              </ng-container>
             </ng-container>
-            <ng-template #notSelectedSeat>
-              <span matTooltip="Not selected seat">&nbsp;&nbsp;</span>
-            </ng-template>
           </a>
         </ng-container>
       </div>
@@ -99,15 +89,15 @@
         </div>
         <div class="item">
           <button
-            class="cancel"
+            class="btn-cancel"
             mat-stroked-button
             title="Cancel Seats Selection"
-            (click)="cancelSeatSelection()"
+            (click)="cancelSeatsSelection()"
           >
             Cancel
           </button>
           <button
-            class="confirm"
+            class="btn-confirm"
             mat-flat-button
             color="accent"
             [routerLink]="parentPage"
