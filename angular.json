@@ -23,6 +23,9 @@
         },
         "@schematics/angular:class": {
           "skipTests": true
+        },
+        "@schematics/angular:application": {
+          "strict": true
         }
       },
       "root": "",

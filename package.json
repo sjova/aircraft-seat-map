@@ -1,6 +1,6 @@
 {
   "name": "aircraft-seat-map",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Aircraft Seat Map",
   "homepage": "https://github.com/sjova/aircraft-seat-map#readme",
   "license": "MIT",
@@ -46,16 +46,15 @@
   "devDependencies": {
     "@angular-devkit/architect": ">= 0.900 < 0.1200",
     "@angular-devkit/build-angular": "~0.1102.9",
-    "@angular-eslint/builder": "1.2.0",
-    "@angular-eslint/eslint-plugin": "1.2.0",
-    "@angular-eslint/eslint-plugin-template": "1.2.0",
-    "@angular-eslint/schematics": "1.2.0",
-    "@angular-eslint/template-parser": "1.2.0",
+    "@angular-eslint/builder": "2.1.0",
+    "@angular-eslint/eslint-plugin": "2.1.0",
+    "@angular-eslint/eslint-plugin-template": "2.1.0",
+    "@angular-eslint/schematics": "2.1.0",
+    "@angular-eslint/template-parser": "2.1.0",
     "@angular/cli": "~11.2.9",
     "@angular/compiler-cli": "~11.2.10",
     "@types/crypto-js": "^4.0.1",
     "@types/jasmine": "~3.6.0",
-    "@types/jasminewd2": "~2.0.3",
     "@types/node": "^14.14.41",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
@@ -71,7 +70,7 @@
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.3.2",
     "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage-istanbul-reporter": "~3.0.2",
+    "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "open": "^7.0.3",
@@ -82,6 +81,6 @@
     "stylelint-config-sass-guidelines": "^8.0.0",
     "stylelint-config-standard": "^21.0.0",
     "ts-node": "~8.3.0",
-    "typescript": "~4.0.2"
+    "typescript": "~4.1.5"
   }
 }
