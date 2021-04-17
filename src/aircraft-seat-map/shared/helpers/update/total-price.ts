@@ -1,7 +1,4 @@
-import {
-  Flights,
-  FlightsTotalPrice,
-} from '@app/aircraft-seat-map/models/flights';
+import { Flights, FlightsTotalPrice } from '@app/aircraft-seat-map/models/flights';
 
 /**
  * Total Price From Base Flights

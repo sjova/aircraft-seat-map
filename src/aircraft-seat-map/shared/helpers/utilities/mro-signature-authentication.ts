@@ -9,8 +9,7 @@ export const getMROSignatureAuthentication = (): string => {
   const timestamp = Math.round(new Date().getTime() / 1000);
   const hash = SHA512(apiKey + secret + timestamp).toString(enc.Hex);
 
-  const authHeaderValue =
-    'MRO APIKey=' + apiKey + ',Signature=' + hash + ',timestamp=' + timestamp;
+  const authHeaderValue = 'MRO APIKey=' + apiKey + ',Signature=' + hash + ',timestamp=' + timestamp;
 
   return authHeaderValue;
 };

@@ -2,10 +2,7 @@ import { Passengers } from '@app/aircraft-seat-map/models/flights';
 import { FlightPassenger } from '@app/aircraft-seat-map/models/flights-seat-map-api-response';
 import { titleCase } from '@app/aircraft-seat-map/shared/helpers/utilities';
 
-export const reducePassengers = (
-  passengers: Passengers,
-  passenger: FlightPassenger
-): Passengers => ({
+export const reducePassengers = (passengers: Passengers, passenger: FlightPassenger): Passengers => ({
   ...passengers,
   byId: {
     ...passengers.byId,

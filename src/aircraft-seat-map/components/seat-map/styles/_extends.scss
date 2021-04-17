@@ -1,5 +1,5 @@
-@import "~src/app/styles/variables";
-@import "~src/aircraft-seat-map/shared/styles/variables";
+@import '~src/app/styles/variables';
+@import '~src/aircraft-seat-map/shared/styles/variables';
 
 $exit-label-height: 13px;
 $exit-line-height: 16px;
@@ -18,12 +18,10 @@ $exit-line-height: 16px;
     letter-spacing: 1px;
     line-height: $exit-label-height;
     @media only screen and (min-width: $seat-map-breakpoint-sm) {
-      top: -($exit-label-height +
-            (($legroom-regular-sm - $exit-label-height) / 2));
+      top: -($exit-label-height + (($legroom-regular-sm - $exit-label-height) / 2));
     }
     @media only screen and (min-width: $seat-map-breakpoint-md) {
-      top: -($exit-label-height +
-            (($legroom-regular-md - $exit-label-height) / 2));
+      top: -($exit-label-height + (($legroom-regular-md - $exit-label-height) / 2));
     }
   }
 
@@ -44,12 +42,12 @@ $exit-line-height: 16px;
 
   &:first-child::before,
   &:last-child::before {
-    content: "EXIT";
+    content: 'EXIT';
   }
 
   &:first-child::after,
   &:last-child::after {
-    content: "";
+    content: '';
   }
 
   &:first-child {
@@ -77,12 +75,10 @@ $exit-line-height: 16px;
     &::before {
       top: -($exit-label-height + (($legroom-extra-xs - $exit-label-height) / 2));
       @media only screen and (min-width: $seat-map-breakpoint-sm) {
-        top: -($exit-label-height +
-              (($legroom-extra-sm - $exit-label-height) / 2));
+        top: -($exit-label-height + (($legroom-extra-sm - $exit-label-height) / 2));
       }
       @media only screen and (min-width: $seat-map-breakpoint-md) {
-        top: -($exit-label-height +
-              (($legroom-extra-md - $exit-label-height) / 2));
+        top: -($exit-label-height + (($legroom-extra-md - $exit-label-height) / 2));
       }
     }
 

@@ -1,16 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
-import {
-  SeatMapRowItem,
-  Passengers,
-  SeatMapRow,
-  SeatMap,
-} from '@app/aircraft-seat-map/models/flights';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { SeatMapRowItem, Passengers, SeatMapRow, SeatMap } from '@app/aircraft-seat-map/models/flights';
 import {
   RowSeatAvailabilityEnum,
   RowSeatCharacteristicEnum,
@@ -41,9 +30,7 @@ export class SeatMapComponent {
   @Input()
   set seatMap(seatMap: SeatMap) {
     if (seatMap) {
-      this.seatMapMatrix = Object.values(seatMap).map((row: SeatMapRow) =>
-        Object.values(row)
-      );
+      this.seatMapMatrix = Object.values(seatMap).map((row: SeatMapRow) => Object.values(row));
     }
   }
 
@@ -67,9 +54,9 @@ export class SeatMapComponent {
   }
 
   private getPassengerPartialTooltip(seat: SeatMapRowItem): string {
-    return `This seat belong to ${
-      this.passengers.byId[seat.passengerId].firstName
-    } ${this.passengers.byId[seat.passengerId].lastName}`;
+    return `This seat belong to ${this.passengers.byId[seat.passengerId].firstName} ${
+      this.passengers.byId[seat.passengerId].lastName
+    }`;
   }
 
   private getSeatType(seat: SeatMapRowItem): string {
@@ -97,11 +84,7 @@ export class SeatMapComponent {
   }
 
   private getOfferPartialTooltip(seat: SeatMapRowItem): string {
-    if (
-      seat.offers &&
-      seat.offers[this.passengerId] &&
-      seat.offers[this.passengerId].price
-    ) {
+    if (seat.offers && seat.offers[this.passengerId] && seat.offers[this.passengerId].price) {
       const totalPrice = seat.offers[this.passengerId].price.total.toFixed(2);
       const currencyCode = seat.offers[this.passengerId].price.currencyCode;
 

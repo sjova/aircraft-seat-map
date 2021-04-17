@@ -6,45 +6,26 @@
     <div class="item" *ngIf="flights$ | async as flights">
       <ng-container *ngIf="flights.isSeatSelectionValid">
         <p class="label-default" *ngFor="let flightId of flights.allIds">
-          {{ flights.byId[flightId].flightInfo.departure.code }} -
-          {{ flights.byId[flightId].flightInfo.arrival.code }}:
-          <ng-container
-            *ngFor="
-              let passengerId of flights.byId[flightId].passengers.allIds;
-              let last = last
-            "
-          >
-            <ng-container
-              *ngIf="
-                flights.byId[flightId].passengers.byId[passengerId] as passenger
-              "
-            >
-              <ng-container
-                *ngIf="passenger.seatRowNumber && passenger.seatCode"
-              >
-                {{ passenger.seatRowNumber }}{{ passenger.seatCode
-                }}<ng-container *ngIf="!last">,</ng-container>
+          {{ flights.byId[flightId].flightInfo.departure.code }} - {{ flights.byId[flightId].flightInfo.arrival.code }}:
+          <ng-container *ngFor="let passengerId of flights.byId[flightId].passengers.allIds; let last = last">
+            <ng-container *ngIf="flights.byId[flightId].passengers.byId[passengerId] as passenger">
+              <ng-container *ngIf="passenger.seatRowNumber && passenger.seatCode">
+                {{ passenger.seatRowNumber }}{{ passenger.seatCode }}<ng-container *ngIf="!last">,</ng-container>
               </ng-container>
             </ng-container>
           </ng-container>
         </p>
         <p class="label-total-price">
           Total price:
-          {{ flights.totalPrice.total | number: "1.2-2" }}
+          {{ flights.totalPrice.total | number: '1.2-2' }}
           {{ flights.totalPrice.currencyCode }}
         </p>
       </ng-container>
     </div>
   </div>
   <div class="col">
-    <button
-      mat-flat-button
-      color="primary"
-      [routerLink]="seatsSelectionPage"
-      title="Seats Selection"
-      [queryParams]="queryParams"
-    >
-      {{ (flights$ | async)?.isSeatSelectionValid ? "Edit" : "Select" }} Seats
+    <button mat-flat-button color="primary" [routerLink]="seatsSelectionPage" title="Seats Selection" [queryParams]="queryParams">
+      {{ (flights$ | async)?.isSeatSelectionValid ? 'Edit' : 'Select' }} Seats
     </button>
   </div>
 </div>

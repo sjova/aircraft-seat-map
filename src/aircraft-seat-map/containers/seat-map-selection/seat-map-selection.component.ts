@@ -1,13 +1,6 @@
 import { FlightSeatMapService } from '@app/aircraft-seat-map/shared/services/flight-seat-map/flight-seat-map.service';
 import { Store } from '@app/store';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnDestroy,
-  OnInit,
-  Renderer2,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
   flightsStoreName,
@@ -17,10 +10,7 @@ import {
   setDemoQueryParam,
   updateFlightsSeatSelection,
 } from '@app/aircraft-seat-map/shared/helpers';
-import {
-  CurrentSelection,
-  Flights,
-} from '@app/aircraft-seat-map/models/flights';
+import { CurrentSelection, Flights } from '@app/aircraft-seat-map/models/flights';
 import { Observable, of } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { exhaustMap, map, tap } from 'rxjs/operators';
@@ -63,11 +53,7 @@ export class SeatMapSelectionComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.renderer.addClass(this.document.body, PAGE_SEAT_SELECTION);
 
-    this.queryParams = setDemoQueryParam(
-      this.activatedRoute,
-      this.router,
-      this.queryParams
-    );
+    this.queryParams = setDemoQueryParam(this.activatedRoute, this.router, this.queryParams);
 
     this.flights$ = this.store.select(flightsStoreName).pipe(
       exhaustMap((flights: Flights) => {
@@ -76,14 +62,12 @@ export class SeatMapSelectionComponent implements OnInit, OnDestroy {
           return of(flights);
         } else {
           // Set and Get Flights
-          return this.flightSeatMapService
-            .getFlightSeatMapMock(this.queryParams.demo)
-            .pipe(
-              map(normalizeResponse),
-              tap((flights: Flights) => {
-                this.store.set(flightsStoreName, flights);
-              })
-            );
+          return this.flightSeatMapService.getFlightSeatMapMock(this.queryParams.demo).pipe(
+            map(normalizeResponse),
+            tap((flights: Flights) => {
+              this.store.set(flightsStoreName, flights);
+            })
+          );
         }
       }),
       tap((flights: Flights) => {
@@ -135,10 +119,7 @@ export class SeatMapSelectionComponent implements OnInit, OnDestroy {
   onSeatSelection(seatSelection: SeatMapSelection): void {
     const flights = this.store.selectValue(flightsStoreName);
 
-    const updatedFlightsSeatSelection = updateFlightsSeatSelection(
-      flights,
-      seatSelection
-    );
+    const updatedFlightsSeatSelection = updateFlightsSeatSelection(flights, seatSelection);
 
     this.store.set(flightsStoreName, updatedFlightsSeatSelection);
 
@@ -147,8 +128,7 @@ export class SeatMapSelectionComponent implements OnInit, OnDestroy {
       this.selectionNextStep();
     }
 
-    this.isSeatSelectionValid =
-      updatedFlightsSeatSelection.isSeatSelectionValid;
+    this.isSeatSelectionValid = updatedFlightsSeatSelection.isSeatSelectionValid;
   }
 
   private selectionPrevStep(): void {
@@ -186,9 +166,7 @@ export class SeatMapSelectionComponent implements OnInit, OnDestroy {
 
   private setSelectionStepIndex(currentSelection: CurrentSelection): void {
     this.selectionStepIndex = this.selectionSteps.findIndex(
-      (step) =>
-        step.flightNumber === currentSelection.flightNumber &&
-        step.passengerId === currentSelection.passengerId
+      (step) => step.flightNumber === currentSelection.flightNumber && step.passengerId === currentSelection.passengerId
     );
   }
 

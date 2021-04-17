@@ -46,21 +46,12 @@ export class FlightSeatMapService {
     const url = `${this.apiUrl}/flightretrieveseatmap?${urlParams}`;
 
     return this.http.get<FlightsSeatMapApiResponse>(url, this.httpOptions).pipe(
-      tap((_) =>
-        console.log('[API][FLIGHT SEAT MAP] Get flight seat map success')
-      ),
-      catchError(
-        this.handleError<Partial<FlightsSeatMapApiResponse>>(
-          'getFlightSeatMap',
-          {}
-        )
-      )
+      tap((_) => console.log('[API][FLIGHT SEAT MAP] Get flight seat map success')),
+      catchError(this.handleError<Partial<FlightsSeatMapApiResponse>>('getFlightSeatMap', {}))
     );
   }
 
-  getFlightSeatMapMock(
-    dataExampleIndex: number
-  ): Observable<FlightsSeatMapApiResponse> {
+  getFlightSeatMapMock(dataExampleIndex: number): Observable<FlightsSeatMapApiResponse> {
     const dataExample = [
       undefined,
       FlightSeatMapDataExample1,
@@ -74,9 +65,7 @@ export class FlightSeatMapService {
 
     return of(dataExample[dataExampleIndex] as FlightsSeatMapApiResponse).pipe(
       delay(fakeDelay),
-      tap((_) =>
-        console.log('[API][FLIGHT SEAT MAP] Get flight seat map success')
-      )
+      tap((_) => console.log('[API][FLIGHT SEAT MAP] Get flight seat map success'))
     );
   }
 

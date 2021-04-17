@@ -7,39 +7,22 @@
           {{ flights.byId[flightNumber].flightInfo.arrival.code }}
         </p>
 
-        <ng-container
-          *ngFor="
-            let passengerId of flights.byId[flightNumber].passengers.allIds
-          "
-        >
+        <ng-container *ngFor="let passengerId of flights.byId[flightNumber].passengers.allIds">
           <a
             class="passenger"
             title="Select Passenger"
             (click)="selectPassenger(flightNumber, passengerId)"
             [ngClass]="{
               active:
-                currentSelection.flightNumber ===
-                  flights.byId[flightNumber].flightInfo.flightNumber &&
-                currentSelectionPassengerId ===
-                  flights.byId[flightNumber].passengers.byId[passengerId].id,
-              'condensed-item':
-                flights.allIds.length *
-                  flights.byId[flightNumber].passengers.allIds.length >
-                10
+                currentSelection.flightNumber === flights.byId[flightNumber].flightInfo.flightNumber &&
+                currentSelectionPassengerId === flights.byId[flightNumber].passengers.byId[passengerId].id,
+              'condensed-item': flights.allIds.length * flights.byId[flightNumber].passengers.allIds.length > 10
             }"
           >
-            <ng-container
-              *ngIf="
-                flights.byId[flightNumber].passengers.byId[
-                  passengerId
-                ] as passenger
-              "
-            >
+            <ng-container *ngIf="flights.byId[flightNumber].passengers.byId[passengerId] as passenger">
               {{ passenger.firstName }}
               {{ passenger.lastName }}:
-              <ng-container
-                *ngIf="passenger.seatRowNumber && passenger.seatCode"
-              >
+              <ng-container *ngIf="passenger.seatRowNumber && passenger.seatCode">
                 {{ passenger.seatRowNumber }}{{ passenger.seatCode }}
               </ng-container>
             </ng-container>
@@ -81,21 +64,14 @@
           <p class="label-total-price">
             Total price:
             <ng-container *ngIf="flights.totalPrice; else defaultZero">
-              {{ flights.totalPrice.total | number: "1.2-2" }}
+              {{ flights.totalPrice.total | number: '1.2-2' }}
               {{ flights.totalPrice.currencyCode }}
             </ng-container>
             <ng-template #defaultZero>0.00</ng-template>
           </p>
         </div>
         <div class="item">
-          <button
-            class="btn-cancel"
-            mat-stroked-button
-            title="Cancel Seats Selection"
-            (click)="cancelSeatsSelection()"
-          >
-            Cancel
-          </button>
+          <button class="btn-cancel" mat-stroked-button title="Cancel Seats Selection" (click)="cancelSeatsSelection()">Cancel</button>
           <button
             class="btn-confirm"
             mat-flat-button

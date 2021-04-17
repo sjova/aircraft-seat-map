@@ -1,10 +1,4 @@
-import {
-  Flights,
-  Flight,
-  CurrentSelection,
-  SeatMap,
-  Passengers,
-} from '@app/aircraft-seat-map/models/flights';
+import { Flights, Flight, CurrentSelection, SeatMap, Passengers } from '@app/aircraft-seat-map/models/flights';
 import { initialState } from '@app/aircraft-seat-map/shared/helpers/normalize/initial-state';
 import { reduceCabins } from '@app/aircraft-seat-map/shared/helpers/normalize/reduce-cabins';
 import {
@@ -19,15 +13,11 @@ import { prepareDefaultCurrentSelection } from '@app/aircraft-seat-map/shared/he
 const reduceFlightItem = (item: FlightItem): Flight => {
   const flightInfo = { ...item.flightInfo };
   const passengers = item.passengers.reduce(
-    (passengers: Passengers, passenger: FlightPassenger) =>
-      reducePassengers(passengers, passenger),
+    (passengers: Passengers, passenger: FlightPassenger) => reducePassengers(passengers, passenger),
     initialState
   );
 
-  const seatMap = item.seatMap.cabins.reduce(
-    (seatMap: SeatMap, cabin: Cabin) => reduceCabins(seatMap, cabin),
-    {}
-  );
+  const seatMap = item.seatMap.cabins.reduce((seatMap: SeatMap, cabin: Cabin) => reduceCabins(seatMap, cabin), {});
 
   return { flightInfo, passengers, seatMap };
 };
@@ -41,17 +31,13 @@ const flightsReducer = (flights: Flights, item: FlightItem): Flights => ({
   allIds: [...flights.allIds, item.flightInfo.flightNumber],
 });
 
-export const normalizeResponse = (
-  response: FlightsSeatMapApiResponse
-): Flights => {
+export const normalizeResponse = (response: FlightsSeatMapApiResponse): Flights => {
   const flights: Flights = response.items.reduce(
     (flights: Flights, item: FlightItem) => flightsReducer(flights, item),
     initialState
   );
 
-  const currentSelection: CurrentSelection = prepareDefaultCurrentSelection(
-    flights
-  );
+  const currentSelection: CurrentSelection = prepareDefaultCurrentSelection(flights);
 
   return {
     ...flights,

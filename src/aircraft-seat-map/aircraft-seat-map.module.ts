@@ -11,16 +11,7 @@ import { FlightSummaryComponent } from './containers/flight-summary/flight-summa
 import { SeatMapSelectionComponent } from './containers/seat-map-selection/seat-map-selection.component';
 
 @NgModule({
-  declarations: [
-    SeatMapComponent,
-    FlightSummaryComponent,
-    SeatMapSelectionComponent,
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    AircraftSeatMapRoutingModule,
-    SharedModule,
-  ],
+  declarations: [SeatMapComponent, FlightSummaryComponent, SeatMapSelectionComponent],
+  imports: [CommonModule, FormsModule, AircraftSeatMapRoutingModule, SharedModule],
 })
 export class AircraftSeatMapModule {}

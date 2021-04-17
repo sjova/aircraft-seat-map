@@ -1,10 +1,10 @@
-@import "~src/app/styles/variables";
+@import '~src/app/styles/variables';
 
-@import "~src/aircraft-seat-map/shared/styles/extends";
-@import "~src/aircraft-seat-map/shared/styles/mixins";
-@import "~src/aircraft-seat-map/shared/styles/variables";
+@import '~src/aircraft-seat-map/shared/styles/extends';
+@import '~src/aircraft-seat-map/shared/styles/mixins';
+@import '~src/aircraft-seat-map/shared/styles/variables';
 
-@import "styles/extends";
+@import 'styles/extends';
 
 :host {
   display: block;

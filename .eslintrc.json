@@ -5,18 +5,10 @@
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "tsconfig.json",
-          "tsconfig.app.json",
-          "tsconfig.spec.json",
-          "e2e/tsconfig.json"
-        ],
+        "project": ["tsconfig.json", "tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.json"],
         "createDefaultProgram": true
       },
-      "extends": [
-        "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
-      ],
+      "extends": ["plugin:@angular-eslint/recommended", "plugin:@angular-eslint/template/process-inline-templates"],
       "rules": {
         "@angular-eslint/component-selector": [
           "error",

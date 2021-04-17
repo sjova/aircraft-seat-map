@@ -46,12 +46,7 @@ export interface Cabin {
   rows: Row[];
 }
 
-export type CabinType =
-  | 'Economy'
-  | 'PremiumEconomy'
-  | 'Business'
-  | 'First'
-  | 'Unknown';
+export type CabinType = 'Economy' | 'PremiumEconomy' | 'Business' | 'First' | 'Unknown';
 
 export type CabinDeck = 'Main' | 'Upper' | 'Lower';
 
@@ -79,11 +74,7 @@ export enum RowItemTypeEnum {
   // Unknown = 'Unknown', // TODO: Revisit this later
 }
 
-export type RowSeatAvailability =
-  | 'Available'
-  | 'Unavailable'
-  | 'Occupied'
-  | 'Unknown';
+export type RowSeatAvailability = 'Available' | 'Unavailable' | 'Occupied' | 'Unknown';
 
 export enum RowSeatAvailabilityEnum {
   Available = 'Available',

@@ -47,9 +47,7 @@ export class Store {
    * @param sliceState
    */
   setSlice(name: keyof State, sliceName: string, sliceState: any): void {
-    console.groupCollapsed(
-      `[STORE][${name.toUpperCase()}][${sliceName.toUpperCase()}]`
-    );
+    console.groupCollapsed(`[STORE][${name.toUpperCase()}][${sliceName.toUpperCase()}]`);
 
     // eslint-disable-next-line no-restricted-syntax
     console.info('Prev State', this.value);

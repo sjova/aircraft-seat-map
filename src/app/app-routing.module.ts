@@ -11,10 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'demo',
-    loadChildren: () =>
-      import('../aircraft-seat-map/aircraft-seat-map.module').then(
-        (m) => m.AircraftSeatMapModule
-      ),
+    loadChildren: () => import('../aircraft-seat-map/aircraft-seat-map.module').then((m) => m.AircraftSeatMapModule),
   },
   {
     path: 'page-not-found',

@@ -1,9 +1,5 @@
 import { Offers, SeatMapRow } from '@app/aircraft-seat-map/models/flights';
-import {
-  RowItem,
-  RowItemTypeEnum,
-  Offer,
-} from '@app/aircraft-seat-map/models/flights-seat-map-api-response';
+import { RowItem, RowItemTypeEnum, Offer } from '@app/aircraft-seat-map/models/flights-seat-map-api-response';
 
 const reduceItemOffers = (offers: Offers, offer: Offer): Offers => {
   return {
@@ -12,11 +8,7 @@ const reduceItemOffers = (offers: Offers, offer: Offer): Offers => {
   };
 };
 
-export const reduceItems = (
-  seatMapRow: SeatMapRow,
-  item: RowItem,
-  index: number
-): SeatMapRow => {
+export const reduceItems = (seatMapRow: SeatMapRow, item: RowItem, index: number): SeatMapRow => {
   const rowColumnNumber = index + 1;
   const aisleCode = `@${rowColumnNumber}`;
 
@@ -28,10 +20,7 @@ export const reduceItems = (
       passengerId: undefined,
       selected: false,
       offers: item.offers
-        ? item.offers.reduce(
-            (offers: Offers, offer: Offer) => reduceItemOffers(offers, offer),
-            {}
-          )
+        ? item.offers.reduce((offers: Offers, offer: Offer) => reduceItemOffers(offers, offer), {})
         : undefined,
     },
   };

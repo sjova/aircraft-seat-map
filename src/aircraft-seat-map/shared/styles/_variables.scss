@@ -40,12 +40,9 @@ $aisle-size-md: 16px;
 $sidebar-width: 300px;
 
 // Seat Map Width (max layout: 3+4+3)
-$seat-map-width-xs: $seat-spacing-xs + 2 * ($aisle-size-xs + $seat-spacing-xs) +
-  10 * ($seat-size-xs + $seat-spacing-xs);
-$seat-map-width-sm: $seat-spacing-sm + 2 * ($aisle-size-sm + $seat-spacing-sm) +
-  10 * ($seat-size-sm + $seat-spacing-sm);
-$seat-map-width-md: $seat-spacing-md + 2 * ($aisle-size-md + $seat-spacing-md) +
-  10 * ($seat-size-md + $seat-spacing-md);
+$seat-map-width-xs: $seat-spacing-xs + 2 * ($aisle-size-xs + $seat-spacing-xs) + 10 * ($seat-size-xs + $seat-spacing-xs);
+$seat-map-width-sm: $seat-spacing-sm + 2 * ($aisle-size-sm + $seat-spacing-sm) + 10 * ($seat-size-sm + $seat-spacing-sm);
+$seat-map-width-md: $seat-spacing-md + 2 * ($aisle-size-md + $seat-spacing-md) + 10 * ($seat-size-md + $seat-spacing-md);
 
 // Seat Map Gradient Height
 $seat-map-gradient-height-xs: $seat-size-xs + ($legroom-regular-xs / 2);
@@ -54,8 +51,7 @@ $seat-map-gradient-height-md: $seat-size-md + ($legroom-regular-md / 2);
 
 // Seat Map Breakpoint
 $seat-map-breakpoint-xs: 360px;
-$seat-map-breakpoint-sm: $outer-spacing-sm + $seat-map-width-sm +
-  $outer-spacing-sm; // 612px
+$seat-map-breakpoint-sm: $outer-spacing-sm + $seat-map-width-sm + $outer-spacing-sm; // 612px
 $seat-map-breakpoint-md: ($seat-spacing-md + $sidebar-width + $inner-spacing-md) +
   ($seat-map-width-md + $outer-spacing-md); // 924px
 
