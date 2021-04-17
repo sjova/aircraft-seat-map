@@ -21,7 +21,8 @@
     "deploy": "ng deploy",
     "prettier": "prettier --write .",
     "stylelint": "stylelint --syntax scss \"src/**/*.scss\" --fix",
-    "eslint": "eslint src --ext ts --fix"
+    "eslint": "eslint src --ext ts --fix",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
@@ -64,6 +65,7 @@
     "eslint-plugin-unused-imports": "~1.1.1",
     "firebase-tools": "^9.10.0",
     "fuzzy": "^0.1.3",
+    "husky": ">=6",
     "inquirer": "^6.2.2",
     "inquirer-autocomplete-prompt": "^1.0.1",
     "jasmine-core": "~3.6.0",
@@ -73,6 +75,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "lint-staged": ">=10",
     "open": "^7.0.3",
     "prettier": "2.2.1",
     "protractor": "~7.0.0",
