@@ -1,6 +1,7 @@
 /*! HTML5 Boilerplate v8.0.0 | MIT License | https://html5boilerplate.com/ */
 
 /* main.css 2.1.0 | MIT License | https://github.com/h5bp/main.css#readme */
+
 /*
  * What follows is the result of much research on cross-browser styling.
  * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
@@ -12,7 +13,7 @@
    ========================================================================== */
 
 html {
-  color: #222;
+  color: #222222;
   font-size: 1em;
   line-height: 1.4;
 }
@@ -27,11 +28,6 @@ html {
    * Customize the background color to match your design.
    */
 
-::-moz-selection {
-  background: #b3d4fc;
-  text-shadow: none;
-}
-
 ::selection {
   background: #b3d4fc;
   text-shadow: none;
@@ -45,7 +41,7 @@ hr {
   display: block;
   height: 1px;
   border: 0;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #cccccc;
   margin: 1em 0;
   padding: 0;
 }
@@ -119,6 +115,7 @@ textarea {
   position: absolute;
   white-space: nowrap;
   width: 1px;
+
   /* 1 */
 }
 

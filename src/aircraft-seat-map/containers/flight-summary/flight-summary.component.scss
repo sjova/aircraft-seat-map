@@ -19,6 +19,7 @@ $spacing-bottom: 16px;
 
   .col-wrapper {
     @include default-flex-container;
+
     align-items: flex-start;
 
     .col,
@@ -27,8 +28,9 @@ $spacing-bottom: 16px;
     }
 
     .col {
-      flex-basis: 50%;
       @include default-flex-container;
+
+      flex-basis: 50%;
       flex-wrap: wrap;
 
       &:first-child {
@@ -56,11 +58,13 @@ $spacing-bottom: 16px;
 
   .label-default {
     @extend %label-default;
+
     margin: 0;
   }
 
   .label-total-price {
     @extend %label-price;
+
     margin-top: 12px;
     margin-bottom: 0;
   }

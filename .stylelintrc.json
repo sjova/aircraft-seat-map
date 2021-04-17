@@ -1,0 +1,14 @@
+{
+  "extends": ["stylelint-config-standard", "stylelint-config-sass-guidelines", "stylelint-config-prettier"],
+  "rules": {
+    "color-hex-length": "long",
+    "comment-empty-line-before": ["always", { "except": ["first-nested"] }],
+    "max-nesting-depth": null,
+    "no-descending-specificity": null,
+    "order/properties-alphabetical-order": null,
+    "scss/dollar-variable-pattern": null,
+    "selector-max-compound-selectors": null,
+    "selector-no-qualifying-type": null,
+    "selector-type-no-unknown": null
+  }
+}
