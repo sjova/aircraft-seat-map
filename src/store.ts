@@ -24,8 +24,8 @@ export class Store {
    * @param name
    * @param state
    */
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  set(name: keyof State, state: never): void {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+  set(name: keyof State, state: any): void {
     console.groupCollapsed(`[STORE][${name.toUpperCase()}]`);
 
     // eslint-disable-next-line no-restricted-syntax
