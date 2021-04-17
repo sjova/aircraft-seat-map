@@ -2,7 +2,7 @@
 @import '~src/aircraft-seat-map/shared/styles/variables';
 
 $exit-label-height: 13px;
-$exit-line-height: 16px;
+$exit-line-height: $line-height-s;
 
 %emergency-exit {
   position: relative;
@@ -13,7 +13,7 @@ $exit-line-height: 16px;
     top: -($exit-label-height + (($legroom-regular-xs - $exit-label-height) / 2));
     color: $color-tertiary;
     font-family: $primary-font-alt;
-    font-size: 10px;
+    font-size: $font-size-xs;
     font-weight: 700;
     letter-spacing: 1px;
     line-height: $exit-label-height;

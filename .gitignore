@@ -51,8 +51,4 @@ firebase-debug.log
 
 # MrOrange
 src/environments/environment.mrorange.ts
-flightretrieveseatmap-example-1.json
-flightretrieveseatmap-example-2.json
-flightretrieveseatmap-example-3.json
-flightretrieveseatmap-example-4.json
-flightretrieveseatmap-example-5.json
+data

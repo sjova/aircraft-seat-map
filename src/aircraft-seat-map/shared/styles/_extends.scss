@@ -4,9 +4,9 @@
 %label-default {
   color: $color-text-light;
   font-family: $primary-font;
-  font-size: 14px;
+  font-size: $font-size-m;
   letter-spacing: 0;
-  line-height: 22px;
+  line-height: $line-height-l;
 }
 
 // total price (both places)
@@ -14,8 +14,8 @@
   color: $color-text-dark;
   font-family: $secondary-font;
   font-weight: 700;
-  font-size: 22px;
+  font-size: $font-size-xl;
   letter-spacing: 0;
-  line-height: 26px;
+  line-height: $line-height-xl;
   margin: 0 0 16px;
 }

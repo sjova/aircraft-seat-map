@@ -8,7 +8,6 @@ export const reducePassengers = (passengers: Passengers, passenger: FlightPassen
     ...passengers.byId,
     [passenger.id]: {
       ...passenger,
-      // TODO: Revisit usage of `titleCase` after migration to DIB API
       firstName: titleCase(passenger.firstName),
       lastName: titleCase(passenger.lastName),
       seatRowNumber: undefined,

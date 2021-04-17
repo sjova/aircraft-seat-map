@@ -48,9 +48,8 @@ export class SeatMapComponent {
 
     if (seat.selected) {
       return `${tooltipBaseText} - ${this.getPassengerPartialTooltip(seat)}`;
-    } else {
-      return `${tooltipBaseText} - ${this.getOfferPartialTooltip(seat)}`;
     }
+    return `${tooltipBaseText} - ${this.getOfferPartialTooltip(seat)}`;
   }
 
   private getPassengerPartialTooltip(seat: SeatMapRowItem): string {
@@ -89,9 +88,8 @@ export class SeatMapComponent {
       const currencyCode = seat.offers[this.passengerId].price.currencyCode;
 
       return `${this.getSeatType(seat)} - ${totalPrice} ${currencyCode}`;
-    } else {
-      return `${this.getSeatType(seat)}`;
     }
+    return `${this.getSeatType(seat)}`;
   }
 
   selectSeat(seat: SeatMapRowItem): void {

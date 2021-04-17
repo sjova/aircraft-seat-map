@@ -107,9 +107,9 @@ $info-box-radius: 5px;
         color: $color-text-dark;
         font-family: $secondary-font;
         font-weight: 400;
-        font-size: 18px;
+        font-size: $font-size-l;
         letter-spacing: 0;
-        line-height: 22px;
+        line-height: $line-height-l;
         margin: 0 0 6px;
       }
 
@@ -118,15 +118,15 @@ $info-box-radius: 5px;
 
         color: $color-text-light;
         font-family: $primary-font;
-        font-size: 14px;
+        font-size: $font-size-m;
         letter-spacing: 0;
-        line-height: 40px;
+        line-height: $line-height-xxl;
         margin: 0;
         padding: 0 $spacing-3;
         text-decoration: none;
 
         &.condensed-item {
-          line-height: 26px;
+          line-height: $line-height-xl;
         }
       }
     }

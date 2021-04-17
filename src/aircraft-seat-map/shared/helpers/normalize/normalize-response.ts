@@ -16,7 +16,6 @@ const reduceFlightItem = (item: FlightItem): Flight => {
     (passengers: Passengers, passenger: FlightPassenger) => reducePassengers(passengers, passenger),
     initialState
   );
-
   const seatMap = item.seatMap.cabins.reduce((seatMap: SeatMap, cabin: Cabin) => reduceCabins(seatMap, cabin), {});
 
   return { flightInfo, passengers, seatMap };
@@ -36,7 +35,6 @@ export const normalizeResponse = (response: FlightsSeatMapApiResponse): Flights 
     (flights: Flights, item: FlightItem) => flightsReducer(flights, item),
     initialState
   );
-
   const currentSelection: CurrentSelection = prepareDefaultCurrentSelection(flights);
 
   return {

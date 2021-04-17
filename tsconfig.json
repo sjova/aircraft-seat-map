@@ -7,6 +7,7 @@
       "@app/aircraft-seat-map/*": ["src/aircraft-seat-map/*"],
       "@app/app/*": ["src/app/*"],
       "@app/assets/*": ["src/assets/*"],
+      "@app/data": ["data/index.ts"],
       "@app/environments/*": ["src/environments/*"],
       "@app/store": ["src/store.ts"],
       "crypto": ["node_modules/crypto-js"]

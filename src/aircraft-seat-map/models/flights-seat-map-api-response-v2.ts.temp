@@ -3,7 +3,12 @@
  */
 
 export interface FlightsSeatMapApiResponse {
+  header: Header;
   items: FlightItem[];
+}
+
+export interface Header {
+  conversationId: string; // mandatory (for booking itself)
 }
 
 export interface FlightItem {
@@ -21,24 +26,25 @@ export interface FlightInfo {
 
 export interface Departure {
   code: string;
-  terminalInformation?: any;
+  terminalInformation?: string;
   time: string;
 }
 
 export interface Arrival {
   code: string;
-  terminalInformation?: any;
+  terminalInformation?: string;
   time: string;
 }
 
 export interface FlightPassenger {
+  email: string; // email is a unique field (mandatory)
   id: string;
   firstName: string;
   lastName: string;
+  gender: string;
+  title: string;
   type: string;
-  gender?: any;
-  title?: any;
-  dateOfBirth?: any;
+  dateOfBirth?: string; // YYYY-MM-DD
 }
 
 export interface SeatMap {
@@ -51,12 +57,7 @@ export interface Cabin {
   rows: Row[];
 }
 
-export type CabinType =
-  | 'ECONOMY'
-  | 'PREMIUM_ECONOMY'
-  | 'BUSINESS'
-  | 'FIRST'
-  | 'UNKNOWN';
+export type CabinType = 'ECONOMY' | 'PREMIUM_ECONOMY' | 'BUSINESS' | 'FIRST' | 'UNKNOWN';
 
 export type CabinDeck = 'MAIN' | 'UPPER' | 'LOWER';
 
@@ -68,11 +69,11 @@ export interface Row {
 
 export interface RowItem {
   type: RowItemType;
-  code?: string;
+  code: string; // mandatory
   rowNumber: string;
-  availability?: RowSeatAvailability;
-  characteristics?: RowSeatCharacteristic[];
-  offers?: Offer[];
+  availability: RowSeatAvailability; // mandatory
+  characteristics: RowSeatCharacteristic[];
+  offers: Offer[]; // mandatory
 }
 
 export type RowItemType = 'SEAT' | 'AISLE' | 'LAVATORY' | 'UNKNOWN';
@@ -80,13 +81,11 @@ export type RowItemType = 'SEAT' | 'AISLE' | 'LAVATORY' | 'UNKNOWN';
 export enum RowItemTypeEnum {
   Seat = 'SEAT',
   Aisle = 'AISLE',
+  Lavatory = 'LAVATORY',
+  Unknown = 'UNKNOWN',
 }
 
-export type RowSeatAvailability =
-  | 'AVAILABLE'
-  | 'UNAVAILABLE'
-  | 'OCCUPIED'
-  | 'UNKNOWN';
+export type RowSeatAvailability = 'AVAILABLE' | 'UNAVAILABLE' | 'OCCUPIED' | 'UNKNOWN';
 
 export enum RowSeatAvailabilityEnum {
   Available = 'AVAILABLE',
@@ -95,11 +94,13 @@ export enum RowSeatAvailabilityEnum {
   Unknown = 'UNKNOWN',
 }
 
-export type RowSeatCharacteristic = 'EXTRA_LEG_ROOM' | 'EXIT_ROW';
+export type RowSeatCharacteristic = 'BULKHEAD' | 'EXTRA_LEG_ROOM' | 'EXIT_ROW' | 'OVERWING';
 
 export enum RowSeatCharacteristicEnum {
+  BulkheadSeat = 'BULKHEAD',
   ExitRowSeat = 'EXIT_ROW',
-  LegSpaceSeat = 'EXIT_ROW',
+  LegSpaceSeat = 'EXTRA_LEG_ROOM',
+  OverwingSeat = 'OVERWING',
 }
 
 export interface Offer {
@@ -109,10 +110,10 @@ export interface Offer {
 }
 
 export interface Price {
-  baseFare: string;
-  tax: string;
-  total: string;
+  baseFare: number;
+  tax: number;
+  total: number;
   currencyCode: string;
 }
 
-export type RowTag = 'EXIT' | 'WING' | 'BULK_HEAD';
+export type RowTag = 'EXIT' | 'WING' | 'BULKHEAD';

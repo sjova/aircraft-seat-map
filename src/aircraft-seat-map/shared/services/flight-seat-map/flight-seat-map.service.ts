@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, delay, tap } from 'rxjs/operators';
 
 import { FlightsSeatMapApiResponse } from '@app/aircraft-seat-map/models/flights-seat-map-api-response';
@@ -11,66 +11,54 @@ import {
   getRandomIntegerFromRange,
   getMROSignatureAuthentication,
 } from '@app/aircraft-seat-map/shared/helpers/utilities';
-
-import FlightSeatMapDataExample1 from 'flightretrieveseatmap-example-1.json';
-import FlightSeatMapDataExample2 from 'flightretrieveseatmap-example-2.json';
-import FlightSeatMapDataExample3 from 'flightretrieveseatmap-example-3.json';
-import FlightSeatMapDataExample4 from 'flightretrieveseatmap-example-4.json';
-import FlightSeatMapDataExample5 from 'flightretrieveseatmap-example-5.json';
+import { flightsSeatMapMockData } from '@app/data';
 
 @Injectable({
   providedIn: SharedModule,
 })
 export class FlightSeatMapService {
-  apiUrl = environment.mrOrange.apiUrl;
-
-  httpOptions = {
-    headers: new HttpHeaders({
-      Authorization: getMROSignatureAuthentication(),
-    }),
-  };
+  seatMapUrl = environment.mrOrange.apiUrl;
 
   constructor(private http: HttpClient) {}
 
-  getFlightSeatMap(): Observable<Partial<FlightsSeatMapApiResponse>> {
-    const partnerId = 1;
-    // const conversationId = 'd9a7e02b-8b2e-4b35-8199-df7f697c9dd3';
-    const conversationId = 'seating-test';
-    const source = 'Amadeus';
-    // const identifier = 'S7CZV8';
-    const identifier = 'VEDQLI';
+  getFlightSeatMap(): Observable<FlightsSeatMapApiResponse> {
+    const headers = new HttpHeaders({
+      Authorization: getMROSignatureAuthentication(),
+    });
+    const params = new HttpParams()
+      .set('partnerid', '1')
+      .set('conversationId', 'seating-test')
+      .set('source', 'Amadeus')
+      .set('identifier', 'VEDQLI');
 
-    const urlParams = `partnerid=${partnerId}&conversationId=${conversationId}&source=${source}&identifier=${identifier}`;
-    const url = `${this.apiUrl}/flightretrieveseatmap?${urlParams}`;
-
-    return this.http.get<FlightsSeatMapApiResponse>(url, this.httpOptions).pipe(
-      tap((_) => console.log('[API][FLIGHT SEAT MAP] Get flight seat map success')),
-      catchError(this.handleError<Partial<FlightsSeatMapApiResponse>>('getFlightSeatMap', {}))
-    );
+    return this.http
+      .get<FlightsSeatMapApiResponse>(this.seatMapUrl, {
+        headers,
+        params,
+      })
+      .pipe(
+        tap((_) => console.log('[API][FLIGHT SEAT MAP] Get flight seat map success')),
+        catchError(this.handleError)
+      );
   }
 
-  getFlightSeatMapMock(dataExampleIndex: number): Observable<FlightsSeatMapApiResponse> {
-    const dataExample = [
-      undefined,
-      FlightSeatMapDataExample1,
-      FlightSeatMapDataExample2,
-      FlightSeatMapDataExample3,
-      FlightSeatMapDataExample4,
-      FlightSeatMapDataExample5,
-    ];
-
+  getFlightSeatMapMock(exampleIndex: number): Observable<FlightsSeatMapApiResponse> {
     const fakeDelay = getRandomIntegerFromRange(800, 1200);
 
-    return of(dataExample[dataExampleIndex] as FlightsSeatMapApiResponse).pipe(
+    return of(flightsSeatMapMockData[exampleIndex] as FlightsSeatMapApiResponse).pipe(
       delay(fakeDelay),
       tap((_) => console.log('[API][FLIGHT SEAT MAP] Get flight seat map success'))
     );
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: unknown): Observable<T> => {
-      console.error(operation, error);
-      return of(result as T);
-    };
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    const errorMessage =
+      error.error instanceof ErrorEvent
+        ? `An error occurred: ${error.error.message}`
+        : `Server returned code: ${error.status}, error message is: ${error.message}`;
+
+    console.error(errorMessage);
+
+    return throwError(errorMessage);
   }
 }

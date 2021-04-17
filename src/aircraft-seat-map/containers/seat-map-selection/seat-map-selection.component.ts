@@ -81,7 +81,7 @@ export class SeatMapSelectionComponent implements OnInit, OnDestroy {
   }
 
   private setInitialFlights(flights: Flights): void {
-    if (this.initialFlights === undefined) {
+    if (!this.initialFlights) {
       this.initialFlights = flights;
     }
   }

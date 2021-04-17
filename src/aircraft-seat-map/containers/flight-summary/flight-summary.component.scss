@@ -1,4 +1,5 @@
 @import '~src/app/styles/variables';
+
 @import '~src/aircraft-seat-map/shared/styles/mixins';
 @import '~src/aircraft-seat-map/shared/styles/extends';
 
@@ -49,10 +50,10 @@ $spacing-bottom: 16px;
   .label-seat-selection {
     color: $color-text-light;
     font-family: $primary-font-alt;
-    font-size: 12px;
+    font-size: $font-size-s;
     font-weight: 700;
     letter-spacing: 1.2px;
-    line-height: 16px;
+    line-height: $line-height-s;
     text-transform: uppercase;
   }
 
