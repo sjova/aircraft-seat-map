@@ -9,7 +9,7 @@ export const updateFlightsSeatSelection = (flights: Flights, seatSelection: Seat
   const flight = flights.byId[seatSelection.flightNumber];
 
   let passengers = flight.passengers;
-  let passenger = flight.passengers.byId[seatSelection.passengerId];
+  const passenger = flight.passengers.byId[seatSelection.passengerId];
   let seatMap = flight.seatMap;
 
   // Remove previous seat selection from Seat Map

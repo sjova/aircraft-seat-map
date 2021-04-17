@@ -20,7 +20,8 @@
     "e2e": "ng e2e",
     "deploy": "ng deploy",
     "prettier": "prettier --write .",
-    "stylelint": "stylelint --syntax scss \"src/**/*.scss\" --fix"
+    "stylelint": "stylelint --syntax scss \"src/**/*.scss\" --fix",
+    "eslint": "eslint src --ext ts --fix"
   },
   "private": true,
   "dependencies": {
@@ -56,12 +57,11 @@
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
-    "@typescript-eslint/eslint-plugin": "4.3.0",
-    "@typescript-eslint/parser": "4.3.0",
-    "eslint": "~7.6.0",
-    "eslint-plugin-import": "2.22.1",
-    "eslint-plugin-jsdoc": "30.7.6",
-    "eslint-plugin-prefer-arrow": "1.2.2",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.2.0",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-unused-imports": "~1.0.3",
     "firebase-tools": "^8.0.0",
     "fuzzy": "^0.1.3",

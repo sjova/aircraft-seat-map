@@ -37,7 +37,7 @@ export class SeatMapSelectionComponent implements OnInit, OnDestroy {
   private selectionStepIndex = 0;
 
   constructor(
-    @Inject(DOCUMENT) private document,
+    @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
     private flightSeatMapService: FlightSeatMapService,
     private store: Store,
@@ -57,7 +57,7 @@ export class SeatMapSelectionComponent implements OnInit, OnDestroy {
 
     this.flights$ = this.store.select(flightsStoreName).pipe(
       exhaustMap((flights: Flights) => {
-        if (Boolean(flights)) {
+        if (flights) {
           // Get Stored Flights
           return of(flights);
         } else {

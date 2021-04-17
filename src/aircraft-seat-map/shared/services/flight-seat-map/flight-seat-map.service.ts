@@ -4,8 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, delay, tap } from 'rxjs/operators';
 
-import { Store } from '@app/store';
-
 import { FlightsSeatMapApiResponse } from '@app/aircraft-seat-map/models/flights-seat-map-api-response';
 import { SharedModule } from '@app/aircraft-seat-map/shared/shared.module';
 import { environment } from '@app/environments/environment';
@@ -32,7 +30,7 @@ export class FlightSeatMapService {
     }),
   };
 
-  constructor(private http: HttpClient, private store: Store) {}
+  constructor(private http: HttpClient) {}
 
   getFlightSeatMap(): Observable<Partial<FlightsSeatMapApiResponse>> {
     const partnerId = 1;
@@ -70,7 +68,7 @@ export class FlightSeatMapService {
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
+    return (error: unknown): Observable<T> => {
       console.error(operation, error);
       return of(result as T);
     };

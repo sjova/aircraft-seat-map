@@ -24,7 +24,8 @@ export class Store {
    * @param name
    * @param state
    */
-  set(name: keyof State, state: any): void {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  set(name: keyof State, state: never): void {
     console.groupCollapsed(`[STORE][${name.toUpperCase()}]`);
 
     // eslint-disable-next-line no-restricted-syntax
@@ -46,6 +47,7 @@ export class Store {
    * @param sliceName
    * @param sliceState
    */
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   setSlice(name: keyof State, sliceName: string, sliceState: any): void {
     console.groupCollapsed(`[STORE][${name.toUpperCase()}][${sliceName.toUpperCase()}]`);
 
@@ -72,6 +74,7 @@ export class Store {
    * Select store value by name
    * @param name
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectValue(name: keyof State): any {
     return this.state$.getValue()[name];
   }
@@ -80,6 +83,7 @@ export class Store {
    * Select store by name
    * @param name
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   select(name: keyof State): Observable<any> {
     return this.store$.pipe(pluck(name));
   }
