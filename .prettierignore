@@ -38,7 +38,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
-package.json
+.eslintcache
 
 # System Files
 .DS_Store
@@ -47,7 +47,3 @@ Thumbs.db
 # Firebase
 .firebase
 firebase-debug.log
-firebase.json
-
-# Angular
-angular.json
