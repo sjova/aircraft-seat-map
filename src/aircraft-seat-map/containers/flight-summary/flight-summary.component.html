@@ -6,7 +6,9 @@
     <div class="item" *ngIf="flights$ | async as flights">
       <ng-container *ngIf="flights.isSeatSelectionValid">
         <p class="label-default" *ngFor="let flightId of flights.allIds">
-          {{ flights.byId[flightId].flightInfo.departure.code }} - {{ flights.byId[flightId].flightInfo.arrival.code }}:
+          <ng-container *ngIf="flights.byId[flightId].flightInfo as flightInfo"
+            >{{ flightInfo.departure.code }} - {{ flightInfo.arrival.code }}:
+          </ng-container>
           <ng-container *ngFor="let passengerId of flights.byId[flightId].passengers.allIds; let last = last">
             <ng-container *ngIf="flights.byId[flightId].passengers.byId[passengerId] as passenger">
               <ng-container *ngIf="passenger.seatRowNumber && passenger.seatCode">

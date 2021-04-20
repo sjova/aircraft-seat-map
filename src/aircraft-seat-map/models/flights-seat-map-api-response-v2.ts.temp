@@ -3,12 +3,8 @@
  */
 
 export interface FlightsSeatMapApiResponse {
-  header: Header;
-  items: FlightItem[];
-}
-
-export interface Header {
   conversationId: string; // mandatory (for booking itself)
+  items: FlightItem[];
 }
 
 export interface FlightItem {

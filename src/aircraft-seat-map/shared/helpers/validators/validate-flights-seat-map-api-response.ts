@@ -3,7 +3,6 @@ import { validatePassenger } from '@app/aircraft-seat-map/shared/helpers/validat
 import { validateObject } from '@app/aircraft-seat-map/shared/helpers/validators/validate-object';
 import { validateCabin } from '@app/aircraft-seat-map/shared/helpers/validators/validate-cabin';
 import { validateCabinRow } from '@app/aircraft-seat-map/shared/helpers/validators/validate-cabin-row';
-import { validateHeader } from '@app/aircraft-seat-map/shared/helpers/validators/validate-header';
 import { validateFlightInfo } from '@app/aircraft-seat-map/shared/helpers/validators/validate-flight-info';
 import { validateRowItem } from '@app/aircraft-seat-map/shared/helpers/validators/validate-row-item';
 
@@ -11,9 +10,7 @@ import { validateRowItem } from '@app/aircraft-seat-map/shared/helpers/validator
  * TODO: This will be used after integration with DIB API
  */
 export const validateFlightsSeatMapApiResponse = (response: FlightsSeatMapApiResponse): void => {
-  validateObject(response, 'header', 'object', true);
-
-  validateHeader(response.header);
+  validateObject(response, 'conversationId', 'string', true);
 
   // eslint-disable-next-line no-restricted-syntax
   for (const item of response.items) {

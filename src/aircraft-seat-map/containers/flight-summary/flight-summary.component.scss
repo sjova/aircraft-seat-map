@@ -8,15 +8,15 @@ $spacing-bottom: 16px;
 
 :host {
   display: block;
+  background-color: $color-white;
   box-sizing: border-box;
+  border: 1px solid $color-bg-gray;
+  border-radius: 4px;
+  padding: 22px;
+  margin: $spacing-top auto $spacing-bottom;
   height: calc(100% - #{$spacing-top} - #{$spacing-bottom});
   width: 90%;
   max-width: 550px;
-  border: 1px solid $color-bg-gray;
-  border-radius: 4px;
-  background-color: $color-white;
-  margin: $spacing-top auto $spacing-bottom;
-  padding: 22px;
 
   .col-wrapper {
     @include default-flex-container;
